@@ -1,12 +1,15 @@
 import Router from '@/routes'
 import { ThemeProvider } from '@mui/material/styles'
+import { WalletProvider } from '@/context/walletContext'
 import { theme } from './styles/theme'
 
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Router />
+      <WalletProvider>
+        <Router />
+      </WalletProvider>
     </ThemeProvider>
   )
 }
