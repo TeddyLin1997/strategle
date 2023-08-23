@@ -1,19 +1,19 @@
 import Header from './header'
 import Footer from './footer'
 import { Outlet } from 'react-router-dom'
+import { LayoutContainer, Main } from './index.style'
 
 const Layout = () => {
   return (
-    <div>
-      <div>layout</div>
+    <LayoutContainer>
       <Header />
 
-      <div>
+      <Main>
         <Outlet />
-      </div>
+      </Main>
 
       <Footer />
-    </div>
+    </LayoutContainer>
   )
 }
 

@@ -1,6 +1,8 @@
+import { FooterContainer } from './footer.style'
+
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <FooterContainer>Footer</FooterContainer>
   )
 }
 
