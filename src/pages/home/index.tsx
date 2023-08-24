@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <div style={{ backgroundColor: '#14BDBD' }}>
-      home
+      新聞/指數/幣價列表/美股
     </div>
   )
 }

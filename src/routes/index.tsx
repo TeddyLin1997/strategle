@@ -3,7 +3,8 @@ import Layout from '@/pages/layout'
 import Error from '@/pages/error'
 import Home from '@/pages/home'
 import Market from '@/pages/market'
-
+import Protocol from '@/pages/protocol'
+import Portfolio from '@/pages/portfolio'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: 'market',
         element: <Market />,
+      },
+      {
+        path: 'portfolio',
+        element: <Portfolio />,
+      },
+      {
+        path: 'protocol',
+        element: <Protocol />,
       },
     ],
   },
