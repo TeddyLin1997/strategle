@@ -1,15 +1,19 @@
 import { createContext, useEffect, useState } from 'react'
+import { JsonRpcProvider } from 'ethers'
+import { CHAIN_INFO } from '@/global/chain'
 
 export interface WalletContextProps {
   account: string;
   chainId: number;
+  provider: JsonRpcProvider;
   connect: () => Promise<void>;
   switchChain: (newChainId: number) => Promise<void>;
 }
 
 const initWalletContext = {
   account: '',
-  chainId: 1, // eth chain id
+  chainId: 1,
+  provider: new JsonRpcProvider(),
   connect: () => Promise.resolve(),
   switchChain: () => Promise.resolve(),
 }
@@ -17,9 +21,9 @@ const initWalletContext = {
 export const WalletContext = createContext<WalletContextProps>(initWalletContext)
 
 export const WalletProvider = ({ children }) => {
-  const [account, setAccount] = useState<string>('')
-  const [chainId, setChainId] = useState(1)
 
+  // connect account
+  const [account, setAccount] = useState(initWalletContext.account)
   const connect = async () => {
     if (!window.ethereum) return
 
@@ -34,6 +38,8 @@ export const WalletProvider = ({ children }) => {
     }
   }
 
+  // switch chain
+  const [chainId, setChainId] = useState(initWalletContext.chainId)
   const switchChain = async (newChainId: number) => {
     if (!window.ethereum) return
 
@@ -50,14 +56,22 @@ export const WalletProvider = ({ children }) => {
 
   useEffect(() => {
     if (!window.ethereum) return
+    connect()
     window.ethereum.on('chainChanged', (chainId: string) => setChainId(parseInt(chainId)))
+    window.ethereum.on('accountsChanged', (accounts: string[]) => setAccount(accounts[0]))
   }, [])
 
+  // provider
+  const [provider, setProvider] = useState(initWalletContext.provider)
 
-  useEffect(() => { connect() }, [])
+  useEffect(() => {
+    if (!CHAIN_INFO[chainId]) return
+    const rpcProvider = new JsonRpcProvider(CHAIN_INFO[chainId]?.rpc)
+    setProvider(rpcProvider)
+  }, [chainId])
 
   return (
-    <WalletContext.Provider value={{ account, chainId, connect, switchChain }}>
+    <WalletContext.Provider value={{ account, chainId, provider, connect, switchChain }}>
       {children}
     </WalletContext.Provider>
   )

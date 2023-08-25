@@ -21,7 +21,7 @@ type ChainInfo = {
   icon: string
   id: Chain
   name: string
-  href: string
+  rpc: string
   explorer: string
 }
 
@@ -30,50 +30,49 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     icon: ethereum,
     id: Chain.ETH,
     name: 'Ethereum',
-    // href: 'https://mainnet.infura.io/v3/021832fd97e24479889d13082356357f',
-    href: 'https://eth.llamarpc.com',
+    rpc: 'https://mainnet.infura.io/v3/021832fd97e24479889d13082356357f',
     explorer: 'https://etherscan.io',
   },
   [Chain.BSC]: {
     icon: bsc,
     id: Chain.BSC,
     name: 'BSC',
-    href: 'https://bsc-dataseed.binance.org',
+    rpc: 'https://bsc-dataseed.binance.org',
     explorer: 'https://bscscan.com',
   },
   [Chain.AVAX]: {
     icon: avalanche,
     id: Chain.AVAX,
     name: 'Avalanche',
-    href: 'https://api.avax.network/ext/bc/C/rpc',
+    rpc: 'https://api.avax.network/ext/bc/C/rpc',
     explorer: 'https://avascan.info',
   },
   [Chain.Polygon]: {
     icon: polygon,
     id: Chain.Polygon,
     name: 'Polygon',
-    href: 'https://rpc-mainnet.matic.network',
+    rpc: 'https://rpc-mainnet.matic.network',
     explorer: 'https://polygonscan.com',
   },
   [Chain.ARB]: {
     icon: arbitrum,
     id: Chain.ARB,
     name: 'Arbitrum',
-    href: 'https://arb1.arbitrum.io/rpc',
+    rpc: 'https://arb1.arbitrum.io/rpc',
     explorer: 'https://arbiscan.io',
   },
   [Chain.OP]: {
     icon: optimism,
     id: Chain.OP,
     name: 'Optimism',
-    href: 'https://mainnet.optimism.io',
+    rpc: 'https://mainnet.optimism.io',
     explorer: 'https://optimistic.etherscan.io',
   },
   [Chain.ZK]: {
     icon: zksync,
     id: Chain.ZK,
     name: 'ZkSync era',
-    href: 'https://mainnet.era.zksync.io',
+    rpc: 'https://mainnet.era.zksync.io',
     explorer: 'https://explorer.zksync.io',
   },
 }
