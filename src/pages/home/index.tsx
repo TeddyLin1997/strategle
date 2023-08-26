@@ -1,8 +1,13 @@
+import { WorldStockIndex } from './world'
+import * as S from './index.style'
+
 const Home = () => {
+
   return (
-    <div style={{ backgroundColor: '#14BDBD' }}>
-      新聞/指數/幣價列表/美股
-    </div>
+    <S.Wrapper>
+      <WorldStockIndex />
+
+    </S.Wrapper>
   )
 }
 

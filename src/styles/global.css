@@ -1,4 +1,6 @@
 :root {
+  width: 100%;
+  min-width: 500px;
   overflow: hidden;
 
   font-family: robot, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

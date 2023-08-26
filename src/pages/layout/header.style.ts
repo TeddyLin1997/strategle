@@ -8,9 +8,9 @@ export const HeaderContainer = styled.header`
   padding: 14px 24px;
   width: 100%;
   height: 56px;
-  box-shadow: 0 2px 8px #f2f3f5;
   background-color: #1d2129;
   user-select: none;
+  z-index: 100;
 
   display: flex;
   align-items: center;
