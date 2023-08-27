@@ -2,34 +2,34 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   margin: auto;
-  padding: 0 20px;
+  padding: 0 1.6rem 1rem;
   width: 100%;
   max-width: 1240px;
 `
 
 export const Title = styled.div`
-  padding: 20px 16px 32px;
+  padding: 1.4rem 1rem 1.6rem;
   font-size: 2rem;
   font-weight: 900;
   text-align: center;
 `
 
 export const CommoditySection = styled.section`
-  padding: 0 0 36px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 `
 
 export const CommodityItem = styled.article`
-  padding: 12px 16px;
-  width: 30%;
+  margin-bottom: 1.6rem;
+  padding: 16px 16px 16px 8px;
+  width: 31%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #121214;
   border-radius: 12px;
-  background-color: #fafafa;
+  background-color: #F2F2F2;
   transition: all .2s;
   cursor: pointer;
 
@@ -46,23 +46,22 @@ export const CommodityItem = styled.article`
   }
 
   & .commodity-icon {
-    margin: 0 8px;
-    max-width: 64px;
-    width: 50%;
+    margin: 0 0.5rem;
+    width: 3rem;
     vertical-align: middle;
     text-align: center;
   }
 
   & .commodity-name {
-    margin: 4px 8px 0;
+    margin: 0.25rem 0.5rem 0;
+    width: 60px;
     display: inline-block;
-    font-size: 1.2rem;
     text-align: center;
     font-weight: bold;
   }
 
   & .price {
-    flex: 1;
+    width: 50%;
   }
 
   & .commodity-price {

@@ -2,13 +2,21 @@ import { Container, Title, CommoditySection, CommodityItem } from './commodity.s
 import Divider from '@mui/material/Divider'
 import GoldIcon from '@/assets/images/gold.png'
 import PetrolIcon from '@/assets/images/petrol.png'
-import Corn from '@/assets/images/corn.png'
+import CornIcon from '@/assets/images/corn.png'
+import SoyIcon from '@/assets/images/soy.png'
+import GasIcon from '@/assets/images/gas.png'
+import BronzeIcon from '@/assets/images/bronze.png'
 
 const commodityList = [
-  { key: 'gold', name: '黃金', price: '1945.51', icon: GoldIcon, description: '美元/公克' },
-  { key: 'petrol', name: '石油', price: '72.8', icon: PetrolIcon, description: '美元/桶' },
-  { key: 'corn', name: '玉米', price: '723', icon: Corn, description: '美分/蒲式耳' },
+  { key: 'gold', name: '黃金', symbol: 'GC=F', price: '1945.51', icon: GoldIcon, description: '美元/公克' },
+  { key: 'petrol', name: '石油', symbol: 'CL=F', price: '72.8', icon: PetrolIcon, description: '美元/桶' },
+  { key: 'corn', name: '玉米', symbol: 'ZC=F', price: '723', icon: CornIcon, description: '美分/蒲式耳' },
+  { key: 'brozen', name: '銅礦', symbol: 'HG=F', price: '72.8', icon: BronzeIcon, description: '美元/桶' },
+  { key: 'gas', name: '天然氣', symbol: 'NG=F', price: '1945.51', icon: GasIcon, description: '美元/公克' },
+  { key: 'soy', name: '黃豆', symbol: 'ZS=F', price: '723', icon: SoyIcon, description: '美分/蒲式耳' },
 ]
+
+// 白銀 銅 黃豆
 
 const Commodity = () => {
   return (

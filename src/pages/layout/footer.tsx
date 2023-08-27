@@ -2,7 +2,7 @@ import { FooterContainer } from './footer.style'
 
 const Footer = () => {
   return (
-    <FooterContainer>Footer</FooterContainer>
+    <FooterContainer>© 2023  Strategle.com</FooterContainer>
   )
 }
 

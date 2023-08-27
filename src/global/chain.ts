@@ -1,10 +1,10 @@
-import arbitrum from '@/assets/images/arbitrum.png'
-import avalanche from '@/assets/images/avalanche.png'
-import bsc from '@/assets/images/bsc.png'
-import ethereum from '@/assets/images/ethereum.png'
-import optimism from '@/assets/images/optimism.png'
-import polygon from '@/assets/images/polygon.png'
-import zksync from '@/assets/images/zksync.png'
+import arbitrum from '@/assets/images/crypto/arbitrum.png'
+import avalanche from '@/assets/images/crypto/avalanche.png'
+import bsc from '@/assets/images/crypto/bsc.png'
+import ethereum from '@/assets/images/crypto/ethereum.png'
+import optimism from '@/assets/images/crypto/optimism.png'
+import polygon from '@/assets/images/crypto/polygon.png'
+import zksync from '@/assets/images/crypto/zksync.png'
 
 export enum Chain {
   ETH = 1,

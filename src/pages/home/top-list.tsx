@@ -1,5 +1,26 @@
 import { getChangeColor } from '@/utils'
 import * as S from './top-list.style'
+import btcIcon from '@/assets/images/crypto/bitcoin.png'
+import ethIcon from '@/assets/images/crypto/ethereum.png'
+import bnbIcon from '@/assets/images/crypto/bnb.png'
+import xrpIcon from '@/assets/images/crypto/xrp.png'
+import adaIcon from '@/assets/images/crypto/ada.png'
+import dogeIcon from '@/assets/images/crypto/doge.png'
+import solIcon from '@/assets/images/crypto/sol.png'
+import trxIcon from '@/assets/images/crypto/trx.png'
+import dotIcon from '@/assets/images/crypto/dot.png'
+import maticIcon from '@/assets/images/crypto/polygon.png'
+
+import aaplIcon from '@/assets/images/usstock/aapl.png'
+import msftIcon from '@/assets/images/usstock/msft.png'
+import googicon from '@/assets/images/usstock/goog.png'
+import amznIcon from '@/assets/images/usstock/amzn.png'
+import nvdaIcon from '@/assets/images/usstock/nvda.png'
+import tslaIcon from '@/assets/images/usstock/tsla.png'
+import metaIcon from '@/assets/images/usstock/meta.png'
+import nflxIcon from '@/assets/images/usstock/nflx.png'
+import snowIcon from '@/assets/images/usstock/snow.png'
+import spotIcon from '@/assets/images/usstock/spot.png'
 import { HTMLAttributes } from 'react'
 
 type TopItem = {
@@ -10,29 +31,29 @@ type TopItem = {
 }
 
 const stockList = [
-  { name: 'Apple', price: 240, open: 172, icon: '' },
-  { name: 'Microsoft', price: 178, open: 172, icon: '' },
-  { name: 'Google', price: 162, open: 172, icon: '' },
-  { name: 'Amazon', price: 178, open: 172, icon: '' },
-  { name: 'Nvidia', price: 178, open: 172, icon: '' },
-  { name: 'Tesla', price: 133, open: 172, icon: '' },
-  { name: 'Meta', price: 178, open: 172, icon: '' },
-  { name: 'Netflix', price: 180, open: 172, icon: '' },
-  { name: 'Snowflake', price: 178, open: 172, icon: '' },
-  { name: 'Spotify', price: 178, open: 172, icon: '' },
+  { name: 'Apple', price: 240, open: 172, icon: aaplIcon },
+  { name: 'Microsoft', price: 178, open: 172, icon: msftIcon },
+  { name: 'Google', price: 162, open: 172, icon: googicon },
+  { name: 'Amazon', price: 178, open: 172, icon: amznIcon },
+  { name: 'Nvidia', price: 178, open: 172, icon: nvdaIcon },
+  { name: 'Tesla', price: 133, open: 172, icon: tslaIcon },
+  { name: 'Meta', price: 178, open: 172, icon: metaIcon },
+  { name: 'Netflix', price: 180, open: 172, icon: nflxIcon },
+  { name: 'Snowflake', price: 178, open: 172, icon: snowIcon },
+  { name: 'Spotify', price: 178, open: 172, icon: spotIcon },
 ]
 
 const cryptoList = [
-  { name: 'BTC', price: 26009.16, open: 15992.1, icon: '' },
-  { name: 'ETH', price: 1646.3, open: 1652.5, icon: '' },
-  { name: 'BNB', price: 216.58, open: 220, icon: '' },
-  { name: 'XRP', price: 0.5242, open: 0.52, icon: '' },
-  { name: 'ADA', price: 0.2605, open: 0.2597, icon: '' },
-  { name: 'DOGE', price: 0.06274, open: 0.6274, icon: '' },
-  { name: 'SOL', price: 20.1, open: 20.20, icon: '' },
-  { name: 'TRX', price: 0.0774, open: 0.072, icon: '' },
-  { name: 'DOT', price: 4, open: 5.2, icon: '' },
-  { name: 'MATIC', price: 0.8, open: 0.54, icon: '' },
+  { name: 'BTC', price: 26009.16, open: 15992.1, icon: btcIcon },
+  { name: 'ETH', price: 1646.3, open: 1652.5, icon: ethIcon },
+  { name: 'BNB', price: 216.58, open: 220, icon: bnbIcon },
+  { name: 'XRP', price: 0.5242, open: 0.52, icon: xrpIcon },
+  { name: 'ADA', price: 0.2605, open: 0.2597, icon: adaIcon },
+  { name: 'DOGE', price: 0.06274, open: 0.6274, icon: dogeIcon },
+  { name: 'SOL', price: 20.1, open: 20.20, icon: solIcon },
+  { name: 'TRX', price: 0.0774, open: 0.072, icon: trxIcon },
+  { name: 'DOT', price: 4, open: 5.2, icon: dotIcon },
+  { name: 'MATIC', price: 0.8, open: 0.54, icon: maticIcon },
 ]
 
 interface TopListProps extends HTMLAttributes<HTMLDivElement> {
@@ -72,7 +93,7 @@ const TopList = () => {
   return (
     <S.Container>
       <S.TopContainer>
-        <TopSection title="美股 TOP10" list={stockList} style={{ marginRight: '64px' }} />
+        <TopSection title="美股 TOP10" list={stockList} style={{ marginRight: '6%' }} />
         <TopSection title="加密貨幣 TOP10" list={cryptoList} />
       </S.TopContainer>
     </S.Container>

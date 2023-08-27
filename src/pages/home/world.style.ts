@@ -22,9 +22,7 @@ export const Container = styled.div`
   & > .world-map {
     max-width: 1240px;
     position: relative;
-    /* flex: 1; */
-    margin: 0 auto;
-    width: 75%;
+    flex: 1;
     overflow: hidden;
     height: 35vw;
     max-height: 480px;
@@ -45,6 +43,15 @@ export const Container = styled.div`
           filter: contrast(300%);
         }
       }
+    }
+  }
+
+  & > .index-list {
+    width: 25%;
+    max-width: 320px;
+
+    & > .index-item {
+      display: flex;
     }
   }
 `

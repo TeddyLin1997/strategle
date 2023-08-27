@@ -17,6 +17,9 @@ export const theme = createTheme({
       contrastText: '#000',
     },
   },
+  typography: {
+    fontFamily: '"Kanit", "Noto Sans TC", robot, Inter, system-ui, sans-serif',
+  },
 })
 
 //主題色

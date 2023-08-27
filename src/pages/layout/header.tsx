@@ -84,7 +84,7 @@ const Header = () => {
               {CHAIN_INFO_LIST.map((item) => (
                 <ChainItem className={item.id === wallet.chainId ? 'active' : ''} key={item.id} onClick={() => wallet.switchChain(item.id)}>
                   <img className="chain-icon" src={item.icon}  />
-                  <Typography className="chain-text" sx={{ py: 1, px: 2,  fontWeight: 'bold', fontSize: 14, }}>{item.name}</Typography>
+                  <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.name}</Typography>
                 </ChainItem>
               ))}
             </div>

@@ -1,18 +1,18 @@
 import { HTMLAttributes, useEffect } from 'react'
 
-type Country = { country: string, value: number }
+type Country = { country: string, value: number, change: number, symbol: string }
 
 interface WorldMapProps extends HTMLAttributes<SVGAElement> {
   countriesData: Array<Country>
 }
 
 const stylingFunction = (country: Country) => {
-  const value = Number(country.value) || 0
-  const opacityLevel = 0.3 + (0.07 * Math.abs(value))
-  const fillColor = value > 0 ? '#0ecb81' : '#FF6E6E'
+  const change = Number(country.change) || 0
+  const opacityLevel = 0.3 + (0.07 * Math.abs(change))
+  const fillColor = change > 0 ? '#0ecb81' : '#FF6E6E'
   return {
-    fill: country.value ? fillColor : '#93bed4',
-    fillOpacity: country.value ? opacityLevel : 0,
+    fill: country.change ? fillColor : '#93bed4',
+    fillOpacity: country.change ? opacityLevel : 0,
   }
 }
 
