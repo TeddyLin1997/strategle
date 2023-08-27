@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 //text color #121214
+//#fff6d8 淡黃
+// fafafa hover灰
 export const theme = createTheme({
   palette: {
     primary: {
@@ -17,9 +19,12 @@ export const theme = createTheme({
   },
 })
 
-
+//主題色
 // #FFFBEF
 // #FDE58B
 // #FCCE28
 // #BA9203
 // #362C0A
+
+// 漲 #0ecb81
+// 跌 #FF6E6E

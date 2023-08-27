@@ -8,6 +8,7 @@ export const HeaderContainer = styled.header`
   padding: 14px 24px;
   width: 100%;
   height: 56px;
+  border-bottom: 1px solid #4c4c4c;
   background-color: #1d2129;
   user-select: none;
   z-index: 100;

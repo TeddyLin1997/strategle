@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import WorldMap from '@/components/svgs/world-map'
 import * as S from './world.style'
 
-export const WorldStockIndex = () => {
+const WorldStockIndex = () => {
 
   const countriesStockData = useMemo(() => [
     { country: 'US', value: -4.6 },
@@ -11,7 +11,7 @@ export const WorldStockIndex = () => {
     { country: 'GB', value: 0.3 },
     { country: 'CA', value: -3 },
     { country: 'CN', value: -2 },
-    { country: 'IN', value: 3.1 },
+    { country: 'IN', value: 30.1 },
     { country: 'TW', value: 7.2 },
     { country: 'FR', value: 5.6 },
     { country: 'DE', value: -1.1 },
@@ -39,4 +39,6 @@ export const WorldStockIndex = () => {
     </div>
   )
 }
+
+export default WorldStockIndex
 
