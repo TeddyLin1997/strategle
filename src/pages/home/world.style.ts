@@ -18,40 +18,64 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1240px;
   display: flex;
+  align-items: center;
+`
 
-  & > .world-map {
-    max-width: 1240px;
+export const WorldMap = styled.div`
+  max-width: 1240px;
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  height: 35vw;
+  max-height: 600px;
+  display: flex;
+  align-items: center;
+
+  & > svg {
+    position: absolute;
+    width: 100%;
     position: relative;
-    flex: 1;
-    overflow: hidden;
-    height: 35vw;
-    max-height: 480px;
 
-    & > svg {
-      position: absolute;
-      top: -15%;
-      width: 100%;
-      position: relative;
+    & > .country-border {
+      stroke: #1d1e25;
+      stroke-width: 1;
+      cursor: pointer;
+      transition: all .2s;
 
-      & > .country-border {
-        stroke: #1d1e25;
-        stroke-width: 1;
-        cursor: pointer;
-        transition: all .2s;
-
-        &:hover {
-          filter: contrast(300%);
-        }
+      &:hover {
+        filter: contrast(300%);
       }
     }
   }
+`
 
-  & > .index-list {
-    width: 25%;
-    max-width: 320px;
+export const IndexList = styled.section`
+  padding: 10px 0;
+  width: 25%;
+  max-width: 320px;
+  height: 35vw;
+  max-height: 600px;
+  color: #FFF;
+  overflow: auto;
 
-    & > .index-item {
-      display: flex;
+
+  & > .index-item {
+    padding: 0.6rem 1rem;
+    display: flex;
+    border-radius: 4px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all .4s;
+    &:hover {
+      background-color: #b289055a;
+    }
+
+    & > .index-item-name {
+
+    }
+    & > .index-item-price {
+
     }
   }
 `

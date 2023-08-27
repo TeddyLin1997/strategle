@@ -29,6 +29,10 @@
   outline: none;
 }
 
+img {
+  user-select: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
