@@ -36,21 +36,22 @@ const WorldStockIndex = () => {
   const initPoint = { x: 0, y: 0 }
   const [point, setPoints] = useState(initPoint)
   const worldContainer = useRef<HTMLDivElement>(null)
+
+  const reset = () => {
+    setPoints(initPoint)
+    setActiveCountry('')
+  }
+
   useEffect(() => {
-    const handleResize = () => setPoints(initPoint)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener('resize', reset)
+    return () => window.removeEventListener('resize', reset)
   }, [])
 
   const handleClick = event => {
     if (
       !worldContainer.current ||
       !countriesStockData.some(item => item.country === event.target.id)
-    ) {
-      setPoints(initPoint)
-      setActiveCountry('')
-      return
-    }
+    ) return reset()
 
     const containerRect = worldContainer.current.getBoundingClientRect()
     const x = event.clientX - containerRect.left

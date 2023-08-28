@@ -27,7 +27,7 @@ export const WorldMap = styled.div`
   position: relative;
   flex: 1;
   overflow: visible;
-  height: 35vw;
+  height: 30vw;
   max-height: 600px;
   display: flex;
   align-items: center;
@@ -55,7 +55,7 @@ export const IndexList = styled.section`
   margin: 10px 0 2rem;
   width: 25%;
   max-width: 320px;
-  height: 35vw;
+  height: 30vw;
   max-height: 600px;
   color: #FFF;
   overflow: auto;
