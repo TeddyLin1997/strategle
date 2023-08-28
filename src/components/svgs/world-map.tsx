@@ -4,11 +4,12 @@ type Country = { country: string, price: number, change: number, symbol: string 
 
 interface WorldMapProps extends HTMLAttributes<SVGAElement> {
   countriesData: Array<Country>
+  activeCountry: string
 }
 
 const stylingFunction = (country: Country) => {
   const change = Number(country.change) || 0
-  const opacityLevel = 0.3 + (0.07 * Math.abs(change))
+  const opacityLevel = Math.min(0.3 + (0.07 * Math.abs(change)), 0.9)
   const fillColor = change > 0 ? '#0ecb81' : '#FF6E6E'
   return {
     fill: country.change ? fillColor : '#93bed4',
@@ -16,16 +17,17 @@ const stylingFunction = (country: Country) => {
   }
 }
 
-const WorldMap = ({ countriesData, ...props }: WorldMapProps) => {
+const WorldMap = ({ countriesData, activeCountry, ...props }: WorldMapProps) => {
   useEffect(() => {
     countriesData.forEach(item => {
       const pathDom = document.getElementById(item.country)
       const style = stylingFunction(item)
+      const isActive = item.country === activeCountry
       pathDom?.classList.add('country-border')
-      pathDom?.setAttribute('fill', style.fill)
-      pathDom?.setAttribute('fill-opacity', String(style.fillOpacity))
+      pathDom?.setAttribute('fill', isActive ? '#FFC408' : style.fill)
+      pathDom?.setAttribute('fill-opacity', isActive ? '1' : String(style.fillOpacity))
     })
-  }, [countriesData])
+  }, [countriesData, activeCountry])
 
   return (
     <svg {...props} viewBox="0, 0 ,1010, 666" fill="#81858c">
