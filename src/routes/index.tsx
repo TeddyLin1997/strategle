@@ -1,36 +1,34 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
+import { createRoutesFromElements, createBrowserRouter, RouterProvider, Route, Outlet } from 'react-router-dom'
 import Layout from '@/pages/layout'
-import Error from '@/pages/error'
-import Home from '@/pages/home'
-import Market from '@/pages/market'
-import Protocol from '@/pages/protocol'
-import Portfolio from '@/pages/portfolio'
+import ErrorBoundary from '@/pages/error'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: '/',
-        element: <Home />,
-      },
-      {
-        path: 'market',
-        element: <Market />,
-      },
-      {
-        path: 'portfolio',
-        element: <Portfolio />,
-      },
-      {
-        path: 'protocol',
-        element: <Protocol />,
-      },
-    ],
-  },
-])
+const SuspenseLayout = () => (
+  <Suspense fallback={<>Loading...</>}>
+    <Outlet />
+  </Suspense>
+)
+
+const Home = lazy(() => import('@/pages/home'))
+const Market = lazy(() => import('@/pages/market'))
+const Portfolio = lazy(() => import('@/pages/portfolio'))
+const Protocol = lazy(() => import('@/pages/protocol'))
+
+const root = (
+  <Route path="/"
+    element={<Layout />}
+    errorElement={<ErrorBoundary />}
+  >
+    <Route element={<SuspenseLayout />}>
+      <Route index element={<Home/>} />
+      <Route path="/market" element={<Market/>} />
+      <Route path="/portfolio" element={<Portfolio/>} />
+      <Route path="/protocol" element={<Protocol/>} />
+    </Route>
+  </Route>
+)
+
+const router = createBrowserRouter(createRoutesFromElements(root))
 
 const Router = () => (
   <RouterProvider router={router} />
