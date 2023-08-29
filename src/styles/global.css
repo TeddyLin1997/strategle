@@ -3,7 +3,8 @@
 :root {
   width: 100%;
   min-width: 600px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: 'Kanit', 'Noto Sans TC', robot, Inter, system-ui, sans-serif;
 
   line-height: 1.5;
