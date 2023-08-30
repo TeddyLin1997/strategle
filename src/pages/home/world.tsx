@@ -50,7 +50,7 @@ const WorldStockIndex = ({ indexList }) => {
 
         <S.WorldMap ref={worldContainer} className="world-container" onClick={handleClick}>
           <CoordinatePoint x={point.x} y={point.y} list={activeCountries} />
-          <WorldMap countriesData={indexList} activeCountry={activeCountry} ticker={ticker} />
+          <WorldMap countriesData={indexList} activeCountry={activeCountry} />
         </S.WorldMap>
 
         <S.IndexList>

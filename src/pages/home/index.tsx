@@ -9,9 +9,9 @@ import tradeBusinessImg from '@/assets/images/trade-business.png'
 import * as S from './index.style'
 
 const Home = () => {
-  const { data: indexList, isLoading: isLoadingIndexList } = useSWR('/api/home/index_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
-  const { data: topList, isLoading: isLoadingTopList } = useSWR('/api/home/top_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
-  // const { data: commodityList, isLoading: isLoadingTopList } = useSWR('/api/home/commodity_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
+  const { data: indexList } = useSWR('/api/home/index_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
+  const { data: topList } = useSWR('/api/home/top_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
+  // const { data: commodityList } = useSWR('/api/home/commodity_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
 
   const homeLists = useMemo(() => ({
     index: indexList || [] as WorldIndex[],
