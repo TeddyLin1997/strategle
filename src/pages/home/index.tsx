@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import useSWR from 'swr'
 import WorldStockIndex from './world'
 import TopList from './top-list'
 import Commodity from './commodity'
@@ -7,11 +9,20 @@ import tradeBusinessImg from '@/assets/images/trade-business.png'
 import * as S from './index.style'
 
 const Home = () => {
+  const { data: indexList, isLoading: isLoadingIndexList } = useSWR('/api/home/index_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
+  const { data: topList, isLoading: isLoadingTopList } = useSWR('/api/home/top_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
+  // const { data: commodityList, isLoading: isLoadingTopList } = useSWR('/api/home/commodity_list', (url) => fetch(url).then(res => res.json()).then(res => res.data))
+
+  const homeLists = useMemo(() => ({
+    index: indexList || [] as WorldIndex[],
+    crypto: topList?.crypto || [] as TopItem[],
+    usStock: topList?.usStock || [] as TopItem[],
+  }), [topList, indexList])
 
   return (
     <S.Wrapper>
-      <WorldStockIndex />
-      <TopList />
+      <WorldStockIndex indexList={homeLists.index} />
+      <TopList cryptoList={homeLists.crypto} usStockList={homeLists.usStock} />
       <Commodity />
       {/* <LatestNews /> */}
 

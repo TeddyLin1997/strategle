@@ -1,27 +1,30 @@
 import { HTMLAttributes, useEffect } from 'react'
+import { useMarket } from '@/hooks/useMarket'
 
-type Country = { country: string, price: number, change: number, symbol: string }
+type Country = { country: string, symbol: string }
 
 interface WorldMapProps extends HTMLAttributes<SVGSVGElement> {
   countriesData: Array<Country>
   activeCountry: string
 }
 
-const stylingFunction = (country: Country) => {
-  const change = Number(country.change) || 0
+const stylingFunction = (tick: Tick) => {
+  const change = Number(tick?.price || '0') - Number(tick?.open || '0')
   const opacityLevel = Math.min(0.3 + (0.07 * Math.abs(change)), 0.9)
   const fillColor = change > 0 ? '#0ecb81' : '#FF6E6E'
+
   return {
-    fill: country.change ? fillColor : '#93bed4',
-    fillOpacity: country.change ? opacityLevel : 0,
+    fill: change ? fillColor : '#93bed4',
+    fillOpacity: change ? opacityLevel : 0.3,
   }
 }
 
 const WorldMap = ({ countriesData, activeCountry, ...props }: WorldMapProps) => {
+  const { ticker } = useMarket()
   useEffect(() => {
     countriesData.forEach(item => {
       const pathDom = document.getElementById(item.country)
-      const style = stylingFunction(item)
+      const style = stylingFunction(ticker[item.symbol])
       const isActive = item.country === activeCountry
       pathDom?.classList.add('country-border')
       pathDom?.setAttribute('fill', isActive ? '#FFC408' : style.fill)
