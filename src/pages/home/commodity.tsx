@@ -1,11 +1,11 @@
 import { Container, Title, CommoditySection, CommodityItem } from './commodity.style'
 import Divider from '@mui/material/Divider'
-import GoldIcon from '@/assets/images/gold.png'
-import PetrolIcon from '@/assets/images/petrol.png'
-import CornIcon from '@/assets/images/corn.png'
-import SoyIcon from '@/assets/images/soy.png'
-import GasIcon from '@/assets/images/gas.png'
-import BronzeIcon from '@/assets/images/bronze.png'
+import GoldIcon from '@/assets/images/commodity/gold.png'
+import PetrolIcon from '@/assets/images/commodity/petrol.png'
+import CornIcon from '@/assets/images/commodity/corn.png'
+import SoyIcon from '@/assets/images/commodity/soy.png'
+import GasIcon from '@/assets/images/commodity/gas.png'
+import BronzeIcon from '@/assets/images/commodity/bronze.png'
 
 const commodityList = [
   { key: 'gold', name: '黃金', symbol: 'GC=F', price: '1945.51', icon: GoldIcon, description: '美元/公克' },

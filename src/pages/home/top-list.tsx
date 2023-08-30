@@ -44,16 +44,16 @@ const stockList = [
 ]
 
 const cryptoList = [
-  { name: 'BTC', price: 26009.16, open: 15992.1, icon: btcIcon },
-  { name: 'ETH', price: 1646.3, open: 1652.5, icon: ethIcon },
-  { name: 'BNB', price: 216.58, open: 220, icon: bnbIcon },
-  { name: 'XRP', price: 0.5242, open: 0.52, icon: xrpIcon },
-  { name: 'ADA', price: 0.2605, open: 0.2597, icon: adaIcon },
-  { name: 'DOGE', price: 0.06274, open: 0.6274, icon: dogeIcon },
-  { name: 'SOL', price: 20.1, open: 20.20, icon: solIcon },
-  { name: 'TRX', price: 0.0774, open: 0.072, icon: trxIcon },
-  { name: 'DOT', price: 4, open: 5.2, icon: dotIcon },
-  { name: 'MATIC', price: 0.8, open: 0.54, icon: maticIcon },
+  { name: 'BTC/USDT', price: 26009.16, open: 15992.1, icon: btcIcon },
+  { name: 'ETH/USDT', price: 1646.3, open: 1652.5, icon: ethIcon },
+  { name: 'BNB/USDT', price: 216.58, open: 220, icon: bnbIcon },
+  { name: 'XRP/USDT', price: 0.5242, open: 0.52, icon: xrpIcon },
+  { name: 'ADA/USDT', price: 0.2605, open: 0.2597, icon: adaIcon },
+  { name: 'DOGE/USDT', price: 0.06274, open: 0.6274, icon: dogeIcon },
+  { name: 'SOL/USDT', price: 20.1, open: 20.20, icon: solIcon },
+  { name: 'TRX/USDT', price: 0.0774, open: 0.072, icon: trxIcon },
+  { name: 'DOT/USDT', price: 4, open: 5.2, icon: dotIcon },
+  { name: 'MATIC/USDT', price: 0.8, open: 0.54, icon: maticIcon },
 ]
 
 interface TopListProps extends HTMLAttributes<HTMLDivElement> {

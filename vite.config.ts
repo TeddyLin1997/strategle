@@ -15,6 +15,6 @@ export default defineConfig({
     port: 8000,
   },
   build: {
-    outDir: '../backend/public',
+    outDir: '../strategle-backend/public',
   }
 })
