@@ -1,5 +1,7 @@
-import { getChangeColor } from '@/utils'
+import { useMarket } from '@/hooks/useMarket'
+import { formatNumber, getChangeColor } from '@/utils'
 import styled, { keyframes } from 'styled-components'
+import Big from 'big.js'
 
 const fadeInUp = keyframes`
   0% {
@@ -58,15 +60,19 @@ interface CoordinatePointProps {
 
 const CoordinatePoint = ({ x, y, list }: CoordinatePointProps) => {
   const isDisplay = x !== 0 && y !== 0
+  const { ticker } = useMarket()
 
   return isDisplay ? (
     <PointWrapper key={`x:${x},y:${y}`} x={x} y={y}>
       {list.map(item => {
-        const isUp = item.change >= 0
+        const price = new Big(ticker[item.symbol]?.price || 0)
+        const open = new Big(ticker[item.symbol]?.open || 0)
+        const change = price.minus(open)
+        const isUp = change.toNumber() >= 0
         return (
           <IndexItem key={item.symbol}>
-            <div>{`${item.label}`}</div>
-            <div style={{ color: getChangeColor(item.change) }}>{`${item.price} ${isUp ? '↑' : '↓'}`}</div>
+            <div>{`${item.name}`}</div>
+            <div style={{ color: getChangeColor(change.toNumber()) }}>{`${formatNumber(price.toString(), 2)} ${isUp ? '↑' : '↓'}`}</div>
           </IndexItem>
         )
       })}

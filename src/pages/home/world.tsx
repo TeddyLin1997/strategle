@@ -47,7 +47,6 @@ const WorldStockIndex = ({ indexList }) => {
   return (
     <S.StockIndex>
       <S.Container>
-
         <S.WorldMap ref={worldContainer} className="world-container" onClick={handleClick}>
           <CoordinatePoint x={point.x} y={point.y} list={activeCountries} />
           <WorldMap countriesData={indexList} activeCountry={activeCountry} />

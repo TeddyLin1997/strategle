@@ -21,6 +21,7 @@ const stylingFunction = (tick: Tick) => {
 
 const WorldMap = ({ countriesData, activeCountry, ...props }: WorldMapProps) => {
   const { ticker } = useMarket()
+
   useEffect(() => {
     countriesData.forEach(item => {
       const pathDom = document.getElementById(item.country)
@@ -30,7 +31,7 @@ const WorldMap = ({ countriesData, activeCountry, ...props }: WorldMapProps) => 
       pathDom?.setAttribute('fill', isActive ? '#FFC408' : style.fill)
       pathDom?.setAttribute('fill-opacity', isActive ? '1' : String(style.fillOpacity))
     })
-  }, [countriesData, activeCountry])
+  }, [countriesData, activeCountry, ticker])
 
   return (
     <svg {...props} viewBox="0, 0 ,1010, 666" fill="#81858c">
