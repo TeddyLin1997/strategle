@@ -42,8 +42,6 @@ const WorldStockIndex = ({ indexList }) => {
     setPoints({ x, y })
   }
 
-
-
   return (
     <S.StockIndex>
       <S.Container>
