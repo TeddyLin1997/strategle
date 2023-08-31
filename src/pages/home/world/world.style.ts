@@ -14,7 +14,7 @@ export const MainIndex = styled.div`
 
 export const Container = styled.div`
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1.2rem;
   width: 100%;
   max-width: 1240px;
   display: flex;
@@ -53,7 +53,7 @@ export const WorldMap = styled.div`
 
 export const IndexList = styled.section`
   margin: 10px 0 2rem;
-  width: 25%;
+  width: 32%;
   max-width: 320px;
   height: 30vw;
   max-height: 600px;
@@ -78,13 +78,6 @@ export const IndexList = styled.section`
     transition: all .4s;
     &:hover {
       background-color: #b289055a;
-    }
-
-    & > .index-item-name {
-
-    }
-    & > .index-item-price {
-
     }
   }
 `

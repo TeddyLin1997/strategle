@@ -1,8 +1,10 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
-import WorldMap from '@/components/svgs/world-map'
-import CoordinatePoint from './coordinate-point'
 import { useMarket } from '@/hooks/useMarket'
+import WorldMap from './world-map'
+import CoordinatePoint from './coordinate-point'
 import * as S from './world.style'
+import { formatNumber, getChangeColor } from '@/utils'
+import Big from 'big.js'
 
 const WorldStockIndex = ({ indexList }) => {
   const { ticker } = useMarket()
@@ -52,10 +54,26 @@ const WorldStockIndex = ({ indexList }) => {
 
         <S.IndexList>
           {indexList.map(item => {
+            const price = new Big(ticker[item.symbol]?.price || 0)
+            const open = new Big(ticker[item.symbol]?.open || 1)
+            const change = price.minus(open)
+            const changePercent = change.times(100).div(open)
+            const isUp = change.toNumber() >= 0
+
             return (
               <div className="index-item" key={item.symbol}>
-                <div className="index-item-name">{item.name}</div>
-                <div className="index-item-price">{ticker[item.symbol]?.price || '-'}</div>
+                <div style={{ marginRight: '0.6rem' }}>{item.name}</div>
+                <div style={{ color: getChangeColor(change.toNumber()) }}>
+                  { ticker[item.symbol] ?
+                    <>
+                      <span>{formatNumber(price.toString(), 2)}</span> &nbsp;
+                      <span style={{ whiteSpace: 'nowrap' }}>
+                        {`(${isUp ? '+' : '' }${formatNumber(changePercent.toString(), 2)}%) ${isUp ? '↑' : '↓'}`}
+                      </span>
+                    </>
+                    : '-'
+                  }
+                </div>
               </div>
             )
           })}

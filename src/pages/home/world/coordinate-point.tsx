@@ -68,11 +68,15 @@ const CoordinatePoint = ({ x, y, list }: CoordinatePointProps) => {
         const price = new Big(ticker[item.symbol]?.price || 0)
         const open = new Big(ticker[item.symbol]?.open || 0)
         const change = price.minus(open)
+        const changePercent = change.times(100).div(open)
         const isUp = change.toNumber() >= 0
         return (
           <IndexItem key={item.symbol}>
             <div>{`${item.name}`}</div>
-            <div style={{ color: getChangeColor(change.toNumber()) }}>{`${formatNumber(price.toString(), 2)} ${isUp ? '↑' : '↓'}`}</div>
+            <div style={{ color: getChangeColor(change.toNumber()) }}>
+              <span className="index-price">{formatNumber(price.toString(), 2)}</span>
+              {` (${isUp ? '+' : '' }${formatNumber(changePercent.toString(), 2)}%) ${isUp ? '↑' : '↓'}`}
+            </div>
           </IndexItem>
         )
       })}

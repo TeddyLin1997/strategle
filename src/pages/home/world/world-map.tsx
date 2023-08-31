@@ -8,14 +8,16 @@ interface WorldMapProps extends HTMLAttributes<SVGSVGElement> {
   activeCountry: string
 }
 
-const stylingFunction = (tick: Tick) => {
-  const change = Number(tick?.price || '0') - Number(tick?.open || '0')
-  const opacityLevel = Math.min(0.3 + (0.07 * Math.abs(change)), 0.9)
-  const fillColor = change > 0 ? '#0ecb81' : '#FF6E6E'
+const stylingFunction = (tick: Tick, maxChangePercent: number) => {
+  const baseNumber = 0.6 / maxChangePercent
+
+  const changePercent = 100 * (Number(tick?.price || '0') - Number(tick?.open || '0')) / Number(tick?.open || '1')
+  const opacityLevel = Math.min(0.3 + baseNumber * Math.abs(changePercent), 0.9)
+  const fillColor = changePercent > 0 ? '#0ecb81' : '#FF6E6E'
 
   return {
-    fill: change ? fillColor : '#93bed4',
-    fillOpacity: change ? opacityLevel : 0.3,
+    fill: changePercent ? fillColor : '#93bed4',
+    fillOpacity: changePercent ? opacityLevel : 0.3,
   }
 }
 
@@ -23,9 +25,14 @@ const WorldMap = ({ countriesData, activeCountry, ...props }: WorldMapProps) => 
   const { ticker } = useMarket()
 
   useEffect(() => {
+    const maxChangePercent = countriesData.reduce((acc, curr) => {
+      const changePercent = 100 * (Number(ticker[curr.symbol]?.price || '0') - Number(ticker[curr.symbol]?.open || '0')) / Number(ticker[curr.symbol]?.open || '1')
+      return Math.max(acc, changePercent)
+    }, 0)
+
     countriesData.forEach(item => {
       const pathDom = document.getElementById(item.country)
-      const style = stylingFunction(ticker[item.symbol])
+      const style = stylingFunction(ticker[item.symbol], maxChangePercent)
       const isActive = item.country === activeCountry
       pathDom?.classList.add('country-border')
       pathDom?.setAttribute('fill', isActive ? '#FFC408' : style.fill)
