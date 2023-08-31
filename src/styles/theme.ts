@@ -31,3 +31,6 @@ export const theme = createTheme({
 
 // 漲 #0ecb81
 // 跌 #FF6E6E
+
+// 淡色率 #D0F2F2
+// 淡色紅 #FFE2E2

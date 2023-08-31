@@ -27,22 +27,44 @@ export const TopList = styled.section`
     color: #81858c;
 
     &:hover {
-      background-color: unset;
+      background-color: unset !important;
       cursor: unset;
     }
   }
 `
 
-export const TopItem = styled.div`
+export const TopItem = styled.div<{ isUp?: boolean }>`
+  position: relative;
   margin-bottom: 0.6rem;
   padding: 0.7rem 1rem;
   width: 100%;
+  height: 3.375rem;
   display: flex;
   align-items: center;
   border-radius: 4px;
+  overflow: hidden;
   cursor: pointer;
+
+  & .background {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: tick .6s linear;
+    animation-fill-mode: forwards;
+    background-color: ${ props => props.isUp ? '#D0F2F2' : '#FFE2E2' };
+    z-index: 0;
+    pointer-events: none;
+
+    @keyframes tick {
+      to {
+        background-color: transparent;
+      }
+    }
+  }
+
   &:hover {
-    background-color: #fff6d8;
+    background-color: #fff6d8 !important;
   }
 
   & > .top-icon {
@@ -50,16 +72,20 @@ export const TopItem = styled.div`
     width: 2rem;
     height: auto;
     border-radius: 50%;
+    z-index: 1;
   }
 
   & > .top-name {
     flex: 1;
+    z-index: 1;
   }
   & > .top-price {
     width: 30%;
+    z-index: 1;
   }
   & > .top-change-percent {
     width: 20%;
     text-align: right;
+    z-index: 1;
   }
 `
