@@ -18,7 +18,6 @@ export const CommoditySection = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
 `
 
 export const CommodityItem = styled.article`
@@ -58,6 +57,7 @@ export const CommodityItem = styled.article`
     display: inline-block;
     text-align: center;
     font-weight: bold;
+    white-space: nowrap;
   }
 
   & .price {

@@ -33,7 +33,7 @@ export const TopList = styled.section`
   }
 `
 
-export const TopItem = styled.div<{ isUp?: boolean }>`
+export const TopItem = styled.div<{ isup?: number }>`
   position: relative;
   margin-bottom: 0.6rem;
   padding: 0.7rem 1rem;
@@ -52,7 +52,7 @@ export const TopItem = styled.div<{ isUp?: boolean }>`
     height: 100%;
     animation: tick .6s linear;
     animation-fill-mode: forwards;
-    background-color: ${ props => props.isUp ? '#D0F2F2' : '#FFE2E2' };
+    background-color: ${ props => props.isup ? '#D0F2F2' : '#FFE2E2' };
     z-index: 0;
     pointer-events: none;
 

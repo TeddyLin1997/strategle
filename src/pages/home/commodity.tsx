@@ -1,3 +1,4 @@
+import { useMarket } from '@/hooks/useMarket'
 import { Container, Title, CommoditySection, CommodityItem } from './commodity.style'
 import Divider from '@mui/material/Divider'
 
@@ -6,6 +7,8 @@ interface CommodityProps {
 }
 
 const Commodity = ({ commodityList }: CommodityProps) => {
+  const { ticker } = useMarket()
+
   return (
     <Container>
       <Divider variant="middle" />
@@ -20,7 +23,7 @@ const Commodity = ({ commodityList }: CommodityProps) => {
               <div className="commodity-name">{item.name}</div>
             </div>
             <div className="price">
-              <div className="commodity-price">{'1971.21'} <span className="unit">USD</span></div>
+              <div className="commodity-price">{String(ticker[item.symbol]?.price || '-')}<span className="unit"> USD</span></div>
               <div className="commodity-description">{item.description}</div>
             </div>
           </CommodityItem>
