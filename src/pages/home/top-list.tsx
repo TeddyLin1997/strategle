@@ -32,8 +32,8 @@ const TopSection = ({ title,  list = [], ...props }: TopListProps) => {
           <S.TopItem key={item.name} $isup={(change.toNumber() >= 0) ? 1 : 0}>
             <img className="top-icon" src={item.icon} />
             <div className="top-name">{item.name}</div>
-            <div className="top-price" style={color}>{formatNumber(price.toString())}</div>
-            <div className="top-change-percent" style={color}>{`${formatNumber(percent, 2)}%`}</div>
+            <div className="top-price" style={color}>{price.toNumber() ? formatNumber(price.toString()) : '-' }</div>
+            <div className="top-change-percent" style={color}>{`${change.toNumber() > 0 ? '+' : ''}${formatNumber(percent, 2)}%`}</div>
             <div className="background" key={`${item.name}-${price}`} />
           </S.TopItem>
         )

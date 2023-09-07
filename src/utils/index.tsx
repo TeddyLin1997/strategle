@@ -3,7 +3,6 @@ export const getChangeColor = (changeValue: number) => {
 }
 
 export const formatNumber = (input: string, fixed: number = 4) => {
-  if (input === '0') return '-'
   // 轉換為浮點數
   const num = parseFloat(input)
 
