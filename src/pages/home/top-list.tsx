@@ -17,9 +17,9 @@ const TopSection = ({ title,  list = [], ...props }: TopListProps) => {
 
       <S.TopItem key="header" className="header">
         <div className="top-icon" />
-        <div className="top-name">名稱</div>
-        <div className="top-price">最新價格</div>
-        <div className="top-change-percent">漲跌幅</div>
+        <div className="top-name">Name</div>
+        <div className="top-price">Latest Price</div>
+        <div className="top-change-percent">Change(%)</div>
       </S.TopItem>
 
       {list.map(item => {
@@ -29,7 +29,7 @@ const TopSection = ({ title,  list = [], ...props }: TopListProps) => {
         const percent = change.times(100).div(open.toNumber() ? open : new Big(1)).toString()
         const color = { color: getChangeColor(change.toNumber()) }
         return (
-          <S.TopItem key={item.name} isup={(change.toNumber() >= 0) ? 1 : 0}>
+          <S.TopItem key={item.name} $isup={(change.toNumber() >= 0) ? 1 : 0}>
             <img className="top-icon" src={item.icon} />
             <div className="top-name">{item.name}</div>
             <div className="top-price" style={color}>{formatNumber(price.toString())}</div>
@@ -46,8 +46,8 @@ const TopList = ({ cryptoList = [], usStockList = [] }) => {
   return (
     <S.Container>
       <S.TopContainer>
-        <TopSection title="美股 TOP10" list={usStockList} style={{ marginRight: '6%' }} />
-        <TopSection title="加密貨幣 TOP10" list={cryptoList} />
+        <TopSection title="US stocks Tpo10" list={usStockList} style={{ marginRight: '6%' }} />
+        <TopSection title="Crypto TOP10" list={cryptoList} />
       </S.TopContainer>
     </S.Container>
   )

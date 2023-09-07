@@ -31,8 +31,8 @@ const Home = () => {
       <S.StartTrade>
         <div className="container">
           <div className="button">
-            <div className="tip">立即開啟您的交易之旅！</div>
-            <Button variant="contained" size="large">開始交易</Button>
+            <div className="tip">Embark on Your Trade Journey Today!</div>
+            <Button variant="contained" size="large">Start Trade</Button>
           </div>
           <img className="img" src={tradeBusinessImg} alt="" />
         </div>

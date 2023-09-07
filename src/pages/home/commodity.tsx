@@ -13,7 +13,7 @@ const Commodity = ({ commodityList }: CommodityProps) => {
     <Container>
       <Divider variant="middle" />
 
-      <Title>期貨商品</Title>
+      <Title>Commodities</Title>
 
       <CommoditySection>
         {commodityList.map(item => (
