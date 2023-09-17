@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
+import { isDevelopmentMode } from '@/utils'
 
 type WebSocketServer = WebSocket | null
 
@@ -12,11 +13,13 @@ const initWebSocketContext: WebSocketContextProps = {
 
 export const WebSocketContext = createContext(initWebSocketContext)
 
+const URL = isDevelopmentMode() ? 'localhost:3000' : location.host
+
 export const WebSocketProvider = ({ children }) => {
   const [server, setServer] = useState<WebSocketServer>(null)
 
   const createWebSocket = () => {
-    try { setServer(new WebSocket('ws://localhost:3000')) }
+    try { setServer(new WebSocket(`ws://${URL}`)) }
     catch { setTimeout(() => createWebSocket(), 3000) }
   }
 

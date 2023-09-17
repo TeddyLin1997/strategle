@@ -22,6 +22,11 @@ export const formatNumber = (input: string, fixed: number = 4) => {
   }
 }
 
+export function isDevelopmentMode() {
+  return process.env.NODE_ENV === 'development'
+}
+
+
 // 測試函式
 // console.log(formatNumber('123.4560'))  // 輸出: "123.456"
 // console.log(formatNumber('789'))       // 輸出: "789"

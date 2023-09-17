@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { isDevelopmentMode } from '@/utils'
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? '/api' : '/'
+const BASE_URL = isDevelopmentMode() ? '/api' : '/'
 
 export const request = axios.create({ baseURL: BASE_URL, withCredentials: true })
 
