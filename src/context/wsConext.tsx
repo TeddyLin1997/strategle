@@ -13,13 +13,13 @@ const initWebSocketContext: WebSocketContextProps = {
 
 export const WebSocketContext = createContext(initWebSocketContext)
 
-const URL = isDevelopmentMode() ? 'localhost:3000' : location.host
+const WS_URL = isDevelopmentMode() ? 'ws://localhost:3000' : `wss://${location.host}`
 
 export const WebSocketProvider = ({ children }) => {
   const [server, setServer] = useState<WebSocketServer>(null)
 
   const createWebSocket = () => {
-    try { setServer(new WebSocket(`ws://${URL}`)) }
+    try { setServer(new WebSocket(WS_URL)) }
     catch { setTimeout(() => createWebSocket(), 3000) }
   }
 
