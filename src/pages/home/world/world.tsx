@@ -31,18 +31,18 @@ const WorldStockIndex = ({ indexList }) => {
   }, [])
 
   const handleClick = event => {
-    if (ticker[activeCountries] === undefined) return
+    const countryName = event.target.id
 
     if (
       !worldContainer.current ||
-      !indexList.some(item => item.country === event.target.id)
+      !indexList.some(item => item.country === countryName)
     ) return reset()
 
     const containerRect = worldContainer.current.getBoundingClientRect()
     const x = event.clientX - containerRect.left
     const y = event.clientY - containerRect.top - 14
 
-    setActiveCountry(event.target.id)
+    setActiveCountry(countryName)
     setPoints({ x, y })
   }
 

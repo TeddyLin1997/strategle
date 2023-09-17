@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from 'react'
-import { isDevelopmentMode } from '@/utils'
 
 type WebSocketServer = WebSocket | null
 
@@ -13,7 +12,8 @@ const initWebSocketContext: WebSocketContextProps = {
 
 export const WebSocketContext = createContext(initWebSocketContext)
 
-const WS_URL = isDevelopmentMode() ? 'ws://localhost:3000' : `wss://${location.host}`
+const isDev = location.hostname === 'localhost'
+const WS_URL = isDev ? 'ws://localhost:3000' : `wss://${location.host}`
 
 export const WebSocketProvider = ({ children }) => {
   const [server, setServer] = useState<WebSocketServer>(null)
