@@ -31,6 +31,8 @@ const WorldStockIndex = ({ indexList }) => {
   }, [])
 
   const handleClick = event => {
+    if (ticker[activeCountries] === undefined) return
+
     if (
       !worldContainer.current ||
       !indexList.some(item => item.country === event.target.id)

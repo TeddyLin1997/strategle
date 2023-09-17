@@ -66,7 +66,7 @@ const CoordinatePoint = ({ x, y, list }: CoordinatePointProps) => {
     <PointWrapper key={`x:${x},y:${y}`} x={x} y={y}>
       {list.map(item => {
         const price = new Big(ticker[item.symbol]?.price || 0)
-        const open = new Big(ticker[item.symbol]?.open || 0)
+        const open = new Big(ticker[item.symbol]?.open || 1)
         const change = price.minus(open)
         const changePercent = change.times(100).div(open)
         const isUp = change.toNumber() >= 0
