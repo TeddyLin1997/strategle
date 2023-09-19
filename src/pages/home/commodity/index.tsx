@@ -1,5 +1,5 @@
 import { useMarket } from '@/hooks/useMarket'
-import { Container, Title, CommoditySection, CommodityItem } from './commodity.style'
+import { Container, Title, CommoditySection, CommodityItem } from './index.style'
 import Divider from '@mui/material/Divider'
 
 interface CommodityProps {

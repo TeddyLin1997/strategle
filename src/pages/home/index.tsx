@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import WorldStockIndex from './world/world'
 import TopList from './top-list'
 import Commodity from './commodity'
+import Forex from './forex'
 // import LatestNews from './latest-news'
 import { Button } from '@mui/material'
 import { fetcher } from '@/service/api-request'
@@ -13,20 +14,23 @@ const Home = () => {
   const { data: indexList } = useSWR('/home/index_list', fetcher)
   const { data: topList } = useSWR('/home/top_list', fetcher)
   const { data: commodityList } = useSWR('/home/commodity_list', fetcher)
+  const { data: forexList } = useSWR('/home/forex_list', fetcher)
 
   const homeLists = useMemo(() => ({
     index: indexList || [] as WorldIndex[],
     crypto: topList?.crypto || [] as TopItem[],
     usStock: topList?.usStock || [] as TopItem[],
     commodity: commodityList || [] as Commodity[],
-  }), [topList, indexList, commodityList])
+    forex: forexList || [] as TopItem[],
+  }), [topList, indexList, commodityList, forexList])
 
   return (
     <S.Wrapper>
       <WorldStockIndex indexList={homeLists.index} />
+      {/* <LatestNews /> */}
       <TopList cryptoList={homeLists.crypto} usStockList={homeLists.usStock} />
       <Commodity commodityList={homeLists.commodity} />
-      {/* <LatestNews /> */}
+      <Forex forexList={homeLists.forex} />
 
       <S.StartTrade>
         <div className="container">

@@ -42,6 +42,7 @@ export const TopItem = styled.div<{ $isup?: number }>`
   display: flex;
   align-items: center;
   border-radius: 4px;
+  font-weight: 500;
   overflow: hidden;
   cursor: pointer;
 
@@ -84,8 +85,17 @@ export const TopItem = styled.div<{ $isup?: number }>`
     z-index: 1;
   }
   & > .top-change-percent {
-    width: 20%;
-    text-align: right;
+    margin-left: auto;
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     z-index: 1;
+  }
+
+  & .top-flag {
+    margin-left: .4rem;
+    width: 20px;
+    height: auto;
   }
 `

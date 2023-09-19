@@ -1,13 +1,12 @@
 import Divider from '@mui/material/Divider'
-import * as S from './latest-news.style'
-
+import * as S from './index.style'
 
 const LatestNews = () => {
   return (
     <S.Container>
       <Divider />
 
-      <S.Title>最新動態</S.Title>
+      <S.Title>Latest News</S.Title>
 
     </S.Container>
   )

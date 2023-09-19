@@ -1,5 +1,5 @@
 export const getChangeColor = (changeValue: number) => {
-  return changeValue >= 0 ? '#20b26c' : '#FF6E6E'
+  return changeValue >= 0 ? '#0ecb81' : '#FF6E6E'
 }
 
 export const formatNumber = (input: string, fixed: number = 4) => {
