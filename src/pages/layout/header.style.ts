@@ -17,7 +17,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
 `
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled(NavLink)`
   margin-right: 16px;
   height: 100%;
   display: flex;

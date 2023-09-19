@@ -10,9 +10,12 @@ const SuspenseLayout = () => (
 )
 
 const Home = lazy(() => import('@/pages/home'))
-const Market = lazy(() => import('@/pages/market'))
-const Portfolio = lazy(() => import('@/pages/portfolio'))
+const Economy = lazy(() => import('@/pages/economy'))
+const Analysis = lazy(() => import('@/pages/analysis'))
+const Community = lazy(() => import('@/pages/community'))
 const Protocol = lazy(() => import('@/pages/protocol'))
+const UserOverview = lazy(() => import('@/pages/user/overview'))
+const UserWallet = lazy(() => import('@/pages/user/wallet'))
 
 const root = (
   <Route path="/"
@@ -21,9 +24,12 @@ const root = (
   >
     <Route element={<SuspenseLayout />}>
       <Route index element={<Home/>} />
-      <Route path="/market" element={<Market/>} />
-      <Route path="/portfolio" element={<Portfolio/>} />
+      <Route path="/economy" element={<Economy/>} />
+      <Route path="/analysis" element={<Analysis/>} />
+      <Route path="/community" element={<Community/>} />
       <Route path="/protocol" element={<Protocol/>} />
+      <Route path="/user/overview" element={<UserOverview/>} />
+      <Route path="/user/wallet" element={<UserWallet/>} />
     </Route>
   </Route>
 )

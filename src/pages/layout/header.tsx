@@ -2,16 +2,17 @@ import { MouseEvent, useState } from 'react'
 import { HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem } from './header.style'
 import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
 import { useWallet } from '@/hooks/useWallet'
-import { useSnackbar } from 'notistack'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/strategle.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
+import { NavLink } from 'react-router-dom'
 
 const navLinks = [
-  { key: 'home', path: '/', text: '首頁' },
-  { key: 'market', path: '/market', text: '市場' },
-  { key: 'portfolio', path: '/portfolio', text: '投資組合' },
-  { key: 'protocol', path: '/protocol', text: 'STRAG 協議' },
+  { key: 'market', path: '/', text: 'Market' },
+  { key: 'economy', path: '/economy', text: 'Economy' },
+  { key: 'community', path: '/community', text: 'Community' },
+  { key: 'analysis', path: '/analysis', text: 'Analysis' },
+  { key: 'protocol', path: '/protocol', text: 'STRAG Protocol' },
 ]
 
 const walletList = [
@@ -24,15 +25,10 @@ const walletList = [
 ]
 
 const Header = () => {
-  const { enqueueSnackbar } = useSnackbar()
   const wallet = useWallet()
 
   const isConnect = wallet.account !== ''
   const ellipsisAddress = isConnect ? `${wallet.account.slice(0, 5)}...${wallet.account.slice(-4)}` : ''
-  const handleCopyAddress = () => {
-    navigator.clipboard.writeText(wallet.account)
-    enqueueSnackbar('已複製')
-  }
 
   // dialog
   const [isOpenDialog, setIsOpenDialog] = useState(false)
@@ -49,7 +45,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <LogoWrapper>
+      <LogoWrapper to="/">
         <img className="logo-img" src={LogoImg} />
         <div>
           <div className="logo-title">Strategle</div>
@@ -70,9 +66,11 @@ const Header = () => {
         <AccountContainer>
           <Button onClick={openPopover} variant="outlined" size="small" sx={{ mr: 2 }}>
             { CHAIN_INFO[wallet.chainId] && <img className="current-chain-icon" src={CHAIN_INFO[wallet.chainId]?.icon} /> }
-            { CHAIN_INFO[wallet.chainId]?.name || '不支持此網絡' }
+            { CHAIN_INFO[wallet.chainId]?.name || 'Not support network chain' }
           </Button>
-          <Button onClick={handleCopyAddress} variant="contained" size="small" sx={{ fontWeight: 'bold' }}>{ellipsisAddress}</Button>
+          <NavLink to="/user/overview">
+            <Button variant="contained" size="small" sx={{ fontWeight: 'bold' }}>{ellipsisAddress}</Button>
+          </NavLink>
           <Popover
             open={open}
             anchorEl={anchorEl}
@@ -93,11 +91,11 @@ const Header = () => {
       }
 
       {/* 連接錢包 */}
-      { !isConnect && <ConnectWallet variant="contained" size="small" onClick={handleOpen}>連接錢包</ConnectWallet> }
+      { !isConnect && <ConnectWallet variant="contained" size="small" onClick={handleOpen}>Connect wallet</ConnectWallet> }
       {/* 連接錢包 dialog */}
       <Dialog onClose={handleClose} open={isOpenDialog}>
         <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>
-          請選擇連接錢包
+          Please connect wallet
         </DialogTitle>
         <DialogContent>
           <WalletContainer>
@@ -111,7 +109,7 @@ const Header = () => {
 
               return (
                 <WalletItem key={item.name} onClick={isInstall ? handleConnect : handleInstall}>
-                  { !isInstall && <Chip label="未安裝" color="error" size="small" /> }
+                  { !isInstall && <Chip label="Not installed" color="error" size="small" /> }
                   <img className="wallet-icon" src={item.icon} />
                   <div className="wallet-name">{item.name}</div>
                 </WalletItem>

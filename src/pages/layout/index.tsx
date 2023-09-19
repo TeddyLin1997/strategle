@@ -3,13 +3,18 @@ import Footer from './footer'
 import { Outlet } from 'react-router-dom'
 import { LayoutContainer, Main } from './index.style'
 
-const Layout = () => {
+interface LayoutProps {
+  isErrorPage?: boolean
+  children?: React.ReactNode
+}
+
+const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
   return (
     <LayoutContainer>
       <Header />
 
       <Main>
-        <Outlet />
+        { isErrorPage ? children : <Outlet /> }
       </Main>
 
       <Footer />

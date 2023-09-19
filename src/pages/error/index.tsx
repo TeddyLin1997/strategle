@@ -1,5 +1,11 @@
+import Layout from '@/pages/layout'
+
 const Error = () => {
-  return <div>Error</div>
+  return (
+    <Layout isErrorPage>
+      <div>Error</div>
+    </Layout>
+  )
 }
 
 export default Error

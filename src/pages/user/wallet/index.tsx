@@ -1,6 +1,6 @@
 import Container from '@/components/container'
 
-const Portfolio = () => {
+const Wallet = () => {
   return (
     <Container>
       <div>
@@ -16,4 +16,4 @@ const Portfolio = () => {
   )
 }
 
-export default Portfolio
+export default Wallet
