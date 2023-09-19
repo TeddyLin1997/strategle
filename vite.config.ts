@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: '../strategle-backend/public',
+      outDir: '../strategle-backend/public/web',
     },
     server: {
       host: true,
