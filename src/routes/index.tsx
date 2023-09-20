@@ -1,35 +1,31 @@
-import { Suspense, lazy } from 'react'
-import { createRoutesFromElements, createBrowserRouter, RouterProvider, Route, Outlet } from 'react-router-dom'
+import { lazy } from 'react'
+import { createRoutesFromElements, createBrowserRouter, RouterProvider, Route } from 'react-router-dom'
 import Layout from '@/pages/layout'
-import ErrorBoundary from '@/pages/error'
 
-const SuspenseLayout = () => (
-  <Suspense fallback={<>Loading...</>}>
-    <Outlet />
-  </Suspense>
-)
-
-const Home = lazy(() => import('@/pages/home'))
-const Economy = lazy(() => import('@/pages/economy'))
-const Analysis = lazy(() => import('@/pages/analysis'))
-const Community = lazy(() => import('@/pages/community'))
-const Protocol = lazy(() => import('@/pages/protocol'))
-const UserOverview = lazy(() => import('@/pages/user/overview'))
-const UserWallet = lazy(() => import('@/pages/user/wallet'))
+const routes = [
+  { key: 'home', path: '/', index: true, component: lazy(() => import('@/pages/home')) },
+  { key: 'economy', path: '/economy', index: false, component: lazy(() => import('@/pages/economy')) },
+  { key: 'analysis', path: '/analysis', index: false, component: lazy(() => import('@/pages/analysis')) },
+  { key: 'community', path: '/community', index: false, component: lazy(() => import('@/pages/community')) },
+  { key: 'protocol', path: '/protocol', index: false, component: lazy(() => import('@/pages/protocol')) },
+  { key: 'user-overview', path: '/user/overview', index: false, component: lazy(() => import('@/pages/user/overview')) },
+  { key: 'user-wallet', path: '/user/wallet', index: false, component: lazy(() => import('@/pages/user/wallet')) },
+]
 
 const root = (
   <Route path="/"
     element={<Layout />}
-    errorElement={<ErrorBoundary />}
+    errorElement={<Layout.ErrorBoundary />}
   >
-    <Route element={<SuspenseLayout />}>
-      <Route index element={<Home/>} />
-      <Route path="/economy" element={<Economy/>} />
-      <Route path="/analysis" element={<Analysis/>} />
-      <Route path="/community" element={<Community/>} />
-      <Route path="/protocol" element={<Protocol/>} />
-      <Route path="/user/overview" element={<UserOverview/>} />
-      <Route path="/user/wallet" element={<UserWallet/>} />
+    <Route element={<Layout.SuspenseLayout />}>
+      { routes.map(item =>
+        (<Route
+          key={item.key}
+          index={item.index}
+          path={item.path}
+          element={<item.component/>}
+        />))
+      }
     </Route>
   </Route>
 )

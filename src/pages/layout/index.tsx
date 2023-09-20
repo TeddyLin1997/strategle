@@ -1,7 +1,10 @@
+import { Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 import Header from './header'
 import Footer from './footer'
-import { Outlet } from 'react-router-dom'
-import { LayoutContainer, Main } from './index.style'
+import { LayoutContainer, Main, SuspenseContainer } from './index.style'
+import ProgressLinear from '@/components/progress-linear'
+import ProgressCircular from '@/components/progress-circular'
 
 interface LayoutProps {
   isErrorPage?: boolean
@@ -11,6 +14,7 @@ interface LayoutProps {
 const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
   return (
     <LayoutContainer>
+      <ProgressLinear />
       <Header />
 
       <Main>
@@ -19,6 +23,27 @@ const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
 
       <Footer />
     </LayoutContainer>
+  )
+}
+
+Layout.SuspenseLayout = () => {
+  return (
+    <Suspense
+      fallback={
+        <SuspenseContainer>
+          <ProgressCircular />
+        </SuspenseContainer>
+      }>
+      <Outlet />
+    </Suspense>
+  )
+}
+
+Layout.ErrorBoundary = () => {
+  return (
+    <Layout isErrorPage>
+      <div>Error</div>
+    </Layout>
   )
 }
 

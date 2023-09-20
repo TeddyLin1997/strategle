@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 const ContainerWrapper = styled.div`
   margin: 0 auto;
-  padding: 76px 20px 18px;
+  padding: 20px;
   max-width: 1240px;
 `
 
-const Container = ({ children }) => {
+const Container = ({ children, ...props }) => {
   return (
-    <ContainerWrapper>
+    <ContainerWrapper {...props}>
       {children}
     </ContainerWrapper>
   )
