@@ -1,24 +1,7 @@
 import styled from 'styled-components'
 
-export const Title = styled.div`
-  margin-bottom: 1rem;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  font-weight: 500;
-`
-
-export const FedNew = styled.a`
-  margin-left: auto;
-  width: 40%;
-  font-size: 12px;
-  text-align: right;
-  color: #306F7D;
-  text-decoration: underline;
-`
-
 export const Header = styled.header`
+  padding: 0 12px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -26,7 +9,7 @@ export const Header = styled.header`
 
   & > .indicies {
     padding: .6rem 1rem;
-    width: 25%;
+    width: calc(25% - 15px);
     border-radius: 8px;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
 
@@ -65,6 +48,7 @@ export const Header = styled.header`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        color: #214d57;
       }
 
       .date {

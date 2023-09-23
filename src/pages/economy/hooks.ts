@@ -1,11 +1,12 @@
 import useSWR from 'swr'
+import { useState, useMemo, ChangeEvent } from 'react'
 import { fetcher } from '@/service/api-request'
 import CpiIcon from '@/assets/images/economy/cpi.png'
 import InflationIcon from '@/assets/images/economy/inflation.png'
 import FederalIcon from '@/assets/images/economy/federal.png'
 import TreasuryIcon from '@/assets/images/economy/treasury-yield.png'
-import { useMemo } from 'react'
 import { Economy } from './constant'
+import dayjs from 'dayjs'
 
 const initData = {
   data: [],
@@ -21,17 +22,6 @@ export const useEconomyOverview = () => {
   const indicies = useMemo(() => {
     return [
       {
-        key: 'cpi',
-        name: 'Consumer Price Index',
-        icon: CpiIcon,
-        fullName: economy.cpi?.name || '',
-        value: economy.cpi?.value || '',
-        prevValue: economy.cpi?.prevValue || '',
-        formatValue: economy.cpi?.value || '-',
-        unit: '',
-        time: economy.cpi?.time || '',
-      },
-      {
         key: 'fed_fund_rate',
         name: 'Federal Funds Rate',
         icon: FederalIcon,
@@ -41,6 +31,17 @@ export const useEconomyOverview = () => {
         formatValue: `${economy.fed_fund_rate?.value || '-'} %`,
         unit: '%',
         time: economy.fed_fund_rate?.time || '',
+      },
+      {
+        key: 'cpi',
+        name: 'Consumer Price Index',
+        icon: CpiIcon,
+        fullName: economy.cpi?.name || '',
+        value: economy.cpi?.value || '',
+        prevValue: economy.cpi?.prevValue || '',
+        formatValue: economy.cpi?.value || '-',
+        unit: '',
+        time: economy.cpi?.time || '',
       },
       {
         key: 'treasury_yield',
@@ -70,8 +71,18 @@ export const useEconomyOverview = () => {
   return { indicies }
 }
 
-export const useIndicate = (indicate: Economy) => {
-  const { data: indicateResult = initData } = useSWR(`/economy/${indicate}`, fetcher)
+export const useIndicate = () => {
+  const [activeIndicate, setActiveIndicate] = useState(Economy.fed_fund_rate)
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => setActiveIndicate(event.target.value as Economy)
+
+  const indicateOptions = [
+    { label: 'Federal Funds Rate', value: Economy.fed_fund_rate },
+    { label: 'Consumer Price Index', value: Economy.cpi },
+    { label: 'Treasury Rate', value: Economy.treasury_yield },
+    { label: 'Inflation', value: Economy.inflation },
+  ]
+
+  const { data: indicateResult = initData } = useSWR(`/economy/${activeIndicate}`, fetcher)
 
   const indicateData = useMemo(() => {
     return {
@@ -82,5 +93,24 @@ export const useIndicate = (indicate: Economy) => {
     }
   }, [indicateResult])
 
-  return { indicateData }
+  const unit = indicateData.unit === 'percent' ? '%' : ''
+
+  return { activeIndicate, handleChange, indicateData, indicateOptions, unit }
+}
+
+export const useHistory = (history: { index: number, value: string, date: string, change: string }[] = []) => {
+  enum Sort { Latest = 'Latest', Oldest = 'Oldest' }
+
+  const [sort, setSort] = useState(Sort.Latest)
+  const handleSort = (event: ChangeEvent<HTMLInputElement>) => setSort(event.target.value as Sort)
+
+  const historyList = useMemo(() => {
+    return history.sort((a, b) => {
+      const aTime = dayjs(a.date).valueOf()
+      const bTime = dayjs(b.date).valueOf()
+      return sort === Sort.Latest ? bTime - aTime : aTime - bTime
+    })
+  }, [history, sort])
+
+  return { sort, handleSort, Sort, historyList }
 }

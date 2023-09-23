@@ -1,59 +1,21 @@
-import Big from 'big.js'
 import Container from '@/components/container'
-import EnconomyEcharts from './enconomy-echarts'
-import DownIcon from '@/assets/images/down.png'
-import UpIcon from '@/assets/images/up.png'
-import { getChangeColor } from '@/utils'
-import { useEconomyOverview } from './hooks'
+import Echarts from './echarts'
+import Indicate from './indicate'
 import * as S from './style'
 
 
 const Economy = () => {
-  const { indicies } = useEconomyOverview()
 
   return (
-    <Container style={{ backgroundColor: 'white' }}>
+    <Container style={{ padding: '20px 8px', backgroundColor: 'white' }}>
       <S.Title>
         <span>Economic Indicators</span>
+        <S.FedNew href="/" target="_blank">美聯儲柯林斯：完全支持利率政策最新指引或需進一步加息(做跑馬燈)</S.FedNew>
       </S.Title>
 
-      <S.Header>
-        { indicies.map(item => {
-          const curr = new Big(item.value || 0)
-          const prev = new Big(item.prevValue || 0)
-          const change = curr.minus(prev)
-          const changeNumber = change.toNumber()
-          const isUp = changeNumber >= 0
+      <Indicate />
 
-          return (
-            <div key={item.key} className="indicies">
-              <div className="header">
-                <div className="icon-container">
-                  <img src={item.icon} />
-                </div>
-                <div className="title-container">
-                  <div className="title">{item.name}</div>
-                  <div className="date">{item.time}</div>
-                </div>
-              </div>
-
-              <div className="footer">
-                <img className="flag" src={isUp ? UpIcon : DownIcon } />
-
-                <div className="price">
-                  <div className="value">{item.formatValue}</div>
-                  <div className="change" style={{ color: getChangeColor(changeNumber) }}>
-                    {`${isUp ? '+' : '-'} ${change.toFixed(2)}${item.unit}`}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        }
-        ) }
-      </S.Header>
-
-      <EnconomyEcharts />
+      <Echarts />
 
     </Container>
   )
