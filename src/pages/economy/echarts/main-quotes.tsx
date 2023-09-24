@@ -29,7 +29,6 @@ const Article = styled.article`
   border-radius: 4px;
   cursor: pointer;
   transition: all .2s;
-  ${shadow}
 
   &:hover {
     ${shadow}

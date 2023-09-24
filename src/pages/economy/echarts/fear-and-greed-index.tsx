@@ -16,7 +16,9 @@ const IndexChart = styled(ReactECharts)`
   margin: auto;
   position: absolute;
   width: 100%;
-  height: 22vw !important;
+  height: 23vw !important;
+  min-height: 150px;
+  max-height: 320px;
   top: 0;
   bottom: 0;
   pointer-events: none;
