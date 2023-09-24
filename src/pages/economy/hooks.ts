@@ -101,6 +101,7 @@ export const useIndicate = () => {
 export const useHistory = (history: { index: number, value: string, date: string, change: string }[] = []) => {
   enum Sort { Latest = 'Latest', Oldest = 'Oldest' }
 
+  // sort
   const [sort, setSort] = useState(Sort.Latest)
   const handleSort = (event: ChangeEvent<HTMLInputElement>) => setSort(event.target.value as Sort)
 
@@ -112,5 +113,18 @@ export const useHistory = (history: { index: number, value: string, date: string
     })
   }, [history, sort])
 
-  return { sort, handleSort, Sort, historyList }
+  // page
+  const PageCount = 6
+  const [page, setPage] = useState(1)
+  const onPage = (_, page: number) => setPage(page)
+
+  const displayHistory = useMemo(() => {
+    const end = page * PageCount
+    const start = end - PageCount
+    return historyList.slice(start, end)
+  }, [historyList, page, sort])
+
+  const count = Math.round(historyList.length / PageCount)
+
+  return { sort, handleSort, Sort, displayHistory, onPage, count }
 }

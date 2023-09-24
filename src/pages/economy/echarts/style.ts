@@ -24,6 +24,9 @@ export const ChartContainer = styled.div`
     margin-bottom: 12px;
     font-weight: 500;
     color: #306F7D;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .fear-greed-index-container {
@@ -44,6 +47,8 @@ export const HistoryContainer = styled.div`
 
   .history {
     margin-right: 16px;
+    display: flex;
+    flex-direction: column;
     width: 60%;
 
     .history-header {
@@ -53,8 +58,10 @@ export const HistoryContainer = styled.div`
     }
 
     .history-title {
-      margin-bottom: 12px;
       font-weight: 500;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       span {
         color: #306F7D;
@@ -63,12 +70,18 @@ export const HistoryContainer = styled.div`
 
     .history-list {
       margin-top: 16px;
-      padding: 12px;
+      padding: 0 12px;
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: .8rem;
-      height: 400px;
-      overflow: auto;
+      overflow: visible;
+    }
+
+    .history-pagination {
+      margin: 16px auto 0;
+      padding: 0 12px .6rem;
+      width: fit-content;
     }
 
     .history-item {
@@ -78,10 +91,10 @@ export const HistoryContainer = styled.div`
       ${shadow}
 
       .history-date {
-        width: 20%;
+        width: 40%;
       }
       .history-value {
-        width: 40%;
+        width: 30%;
         text-align: right;
       }
       .history-change {
@@ -89,9 +102,5 @@ export const HistoryContainer = styled.div`
         text-align: right;
       }
     }
-  }
-
-  .other {
-    flex: 1;
   }
 `

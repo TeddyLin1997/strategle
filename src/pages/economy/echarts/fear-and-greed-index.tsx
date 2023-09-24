@@ -58,20 +58,20 @@ const FearAndGreedIndexChart = memo(() => {
           icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
           length: '30%',
           width: 10,
-          offsetCenter: [0, '-50%'],
+          offsetCenter: [0, '-40%'],
           itemStyle: {
             color: 'auto'
           }
         },
         axisTick: {
-          length: 12,
+          length: 0,
           lineStyle: {
             color: 'auto',
             width: 2
           }
         },
         splitLine: {
-          length: 16,
+          length: 12,
           lineStyle: {
             color: 'auto',
             width: 4
@@ -99,11 +99,11 @@ const FearAndGreedIndexChart = memo(() => {
         },
         title: {
           offsetCenter: [0, '-5%'],
-          fontSize: '1.2rem',
           color: '#214d57',
+          fontWeight: 'bold',
         },
         detail: {
-          fontSize: '1.6rem',
+          fontSize: '1.4rem',
           offsetCenter: [0, '-23%'],
           valueAnimation: true,
           formatter: function (value) {
@@ -113,7 +113,7 @@ const FearAndGreedIndexChart = memo(() => {
         },
         data: [
           {
-            value: 56,
+            value: indexData.value,
             name: indexData.label
           }
         ]
