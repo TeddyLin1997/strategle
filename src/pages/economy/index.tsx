@@ -1,8 +1,8 @@
 import Container from '@/components/container'
 import Echarts from './echarts'
 import Indicate from './indicate'
+import News from './news'
 import * as S from './style'
-
 
 const Economy = () => {
 
@@ -16,6 +16,8 @@ const Economy = () => {
       <Indicate />
 
       <Echarts />
+
+      <News />
 
     </Container>
   )

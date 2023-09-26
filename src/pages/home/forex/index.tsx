@@ -9,7 +9,7 @@ const Forex = ({ forexList }) => {
   const { ticker } = useMarket()
 
   const forexListNode = useMemo(() => forexList.map(item => {
-    const { price = 0, open = 0 } = ticker[item.symbol]
+    const { price = 0, open = 0 } = ticker[item.symbol] || {}
     const isUp = price >= open
     return (
       <S.Forex key={item.symbol} $isUp={isUp}>

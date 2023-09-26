@@ -73,7 +73,7 @@ const MainQuotes = () => {
             <img className="img" src={item.icon} />
             <div className="name">{item.name}</div>
             <div className="price">{
-              item.symbol === 'GOLD' ?  ticker[item.symbol].price : Number(ticker[item.symbol].price).toFixed(2)
+              item.symbol === 'GOLD' ?  ticker[item.symbol]?.price || '-' : Number(ticker[item.symbol]?.price).toFixed(2)
             }</div>
           </Article>
         ))}

@@ -112,7 +112,6 @@ export default function EconomyChart () {
         <MainQuotes />
 
       </S.HistoryContainer>
-      <div>news</div>
     </div>
   )
 }
