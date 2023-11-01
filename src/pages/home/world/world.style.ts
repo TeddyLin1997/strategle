@@ -16,14 +16,14 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 0 1.2rem;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
   display: flex;
   align-items: center;
   overflow: hidden;
 `
 
 export const WorldMap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   position: relative;
   flex: 1;
   overflow: visible;

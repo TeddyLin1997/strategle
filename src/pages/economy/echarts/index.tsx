@@ -63,7 +63,7 @@ export default function EconomyChart () {
         </div>
       </S.ChartContainer>
 
-      <S.HistoryContainer>
+      {/* <S.HistoryContainer>
         <div className="history">
           <div className="history-header">
             <div className="history-title">
@@ -111,7 +111,7 @@ export default function EconomyChart () {
 
         <MainQuotes />
 
-      </S.HistoryContainer>
+      </S.HistoryContainer> */}
     </div>
   )
 }

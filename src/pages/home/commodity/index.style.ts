@@ -4,7 +4,7 @@ export const Container = styled.div`
   margin: auto;
   padding: 0 1.6rem 1rem;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
 `
 
 export const Title = styled.div`

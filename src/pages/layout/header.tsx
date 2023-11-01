@@ -10,9 +10,9 @@ import { NavLink } from 'react-router-dom'
 const navLinks = [
   { key: 'market', path: '/', text: 'Market' },
   { key: 'economy', path: '/economy', text: 'Economy' },
-  { key: 'analysis', path: '/analysis', text: 'Analysis' },
-  { key: 'community', path: '/community', text: 'Community' },
-  { key: 'protocol', path: '/protocol', text: 'STRAG Protocol' },
+  // { key: 'analysis', path: '/analysis', text: 'Analysis' },
+  // { key: 'community', path: '/community', text: 'Community' },
+  // { key: 'protocol', path: '/protocol', text: 'STRAG Protocol' },
 ]
 
 const walletList = [

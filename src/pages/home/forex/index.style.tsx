@@ -4,7 +4,7 @@ export const Container = styled.div`
   margin: auto;
   padding: 0 1.6rem;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
 `
 
 export const Title = styled.div`
@@ -25,7 +25,7 @@ export const ForexList = styled.section`
 
   & .forex-divider {
     margin: 1.6rem 2.8rem;
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1200px) {
       margin: 1.6rem;
     }
   }

@@ -73,13 +73,13 @@ export const Header = styled.header`
       }
 
       .value {
-        font-size: 1.5rem;
-        font-weight: bold;
+        font-size: 1.25rem;
+        font-weight: 500;
       }
       .change {
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 500;
-        line-height: 1.2rem;
+        line-height: 1rem;
       }
     }
   }

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export const getChangeColor = (changeValue: number) => {
   return changeValue >= 0 ? '#0ecb81' : '#FF6E6E'
 }
@@ -24,6 +26,10 @@ export const formatNumber = (input: string, fixed: number = 4) => {
 
 export function isDevelopmentMode() {
   return process.env.NODE_ENV === 'development'
+}
+
+export function timeFormat(time: keyof any = '', format = 'YYYY/MM/DD HH:mm:ss') {
+  return dayjs(time).format(format)
 }
 
 
