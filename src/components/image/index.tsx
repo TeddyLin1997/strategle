@@ -13,7 +13,7 @@ const Image = ({ src, defaultSrc, ...props }: ImageProps) => {
   }
 
   return (
-    <img src={src} onError={handleError} {...props} />
+    <img src={src || defaultSrc} onError={handleError} {...props} />
   )
 }
 

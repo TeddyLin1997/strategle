@@ -73,7 +73,7 @@ const News = () => {
               { (deduplicationNews['blockchain'] || []).slice(1, 5).map(item => (
                 <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className='main-sub-article'>
                   <div className="main-sub-image">
-                    <Image src={item.banner_image || defaultLogo} defaultSrc={defaultLogo} className='image' />
+                    <Image src={item.banner_image} defaultSrc={defaultLogo} className='image' />
                   </div>
                   <div className="main-sub-title">{item.title}</div>
                 </a>
@@ -112,6 +112,8 @@ const News = () => {
 
       <Categories industryList={industryList} />
 
+      <br />
+      <br />
     </div>
   )
 }

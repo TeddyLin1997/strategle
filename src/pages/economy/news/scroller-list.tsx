@@ -19,7 +19,7 @@ const Section = styled.section`
     height: 0;
   }
 
-  & > article:not(:last-child) {
+  & > a:not(:last-child) {
     margin-right: 16px;
   }
 `
@@ -31,7 +31,7 @@ const Title = styled.div`
   text-align: center;
 `
 
-const Article = styled.article`
+const Article = styled.a`
   position: relative;
   display: inline-block;
   width: 256px;
@@ -96,7 +96,7 @@ const ScrollerList = ({ title, list }: ScrollListProps) => {
 
       <Section>
         {list.map(item => (
-          <Article key={`${item.source}-${item.title}`}>
+          <Article key={`${item.source}-${item.title}`} href={item.url} target="_blank">
             <Image className="article-image" src={item.banner_image} defaultSrc={defaultLogo} />
             <div className="article-title">{item.title}</div>
           </Article>

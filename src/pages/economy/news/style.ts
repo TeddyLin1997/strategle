@@ -69,7 +69,6 @@ export const Monetary = styled.div`
     margin: auto;
     width: 100%;
     height: 100%;
-    /* max-height: 4.6rem; */
     object-fit: cover;
   }
 
@@ -119,6 +118,7 @@ export const MainNew = styled.div`
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
 
     .image {
+      object-position: top left;
       filter: brightness(70%);
       border-radius: 6px;
       transition: all .2s;
@@ -195,4 +195,3 @@ export const MainNew = styled.div`
     text-overflow: ellipsis;
   }
 `
-
