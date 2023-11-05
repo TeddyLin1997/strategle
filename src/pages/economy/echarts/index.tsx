@@ -63,7 +63,7 @@ export default function EconomyChart () {
         </div>
       </S.ChartContainer>
 
-      {/* <S.HistoryContainer>
+      <S.HistoryContainer>
         <div className="history">
           <div className="history-header">
             <div className="history-title">
@@ -89,7 +89,7 @@ export default function EconomyChart () {
               return (
                 <article className="history-item" key={item.index}>
                   <div className="history-date">{String(item.date).replaceAll('-', ' / ')}</div>
-                  <div className="history-value" style={{ color: getChangeColor(change) }}>{Number(item.value).toFixed(3)} {unit}</div>
+                  <div className="history-value" style={{ color: getChangeColor(change) }}>{Number(item.value || 0).toFixed(3)} {unit}</div>
                   <div className="history-change" style={{ color: getChangeColor(change) }}>{`${change >= 0 ? '+' : ''} ${item.change}`} {unit}</div>
                 </article>
               )
@@ -111,7 +111,7 @@ export default function EconomyChart () {
 
         <MainQuotes />
 
-      </S.HistoryContainer> */}
+      </S.HistoryContainer>
     </div>
   )
 }

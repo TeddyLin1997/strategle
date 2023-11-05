@@ -104,9 +104,9 @@ const News = () => {
 
       <Divider />
 
-      <ScrollerList title={'總體經濟'} list={deduplicationNews?.['economy_macro'] || []} />
+      <ScrollerList title={'Macroeconomics'} list={deduplicationNews?.['economy_macro'] || []} />
 
-      <ScrollerList title={'金融市場'} list={deduplicationNews?.['finance'] || []} />
+      <ScrollerList title={'Finance Markets'} list={deduplicationNews?.['finance'] || []} />
 
       <ScrollerList list={deduplicationNews?.['financial_markets'] || []} />
 
