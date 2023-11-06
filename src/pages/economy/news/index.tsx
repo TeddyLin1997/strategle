@@ -86,7 +86,7 @@ const News = () => {
             {(deduplicationNews['economy_monetary'] || []).slice(1, 7).map(item => (
               <a key={`${item.source}-${item.title}`} className="monetary-article" href={item.url} target="_blank">
                 <div className="monetary-image-container">
-                  <Image src={item.banner_image} defaultSrc={defaultLogo} className="monetary-image" />
+                  <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="monetary-image" />
                 </div>
                 <div className="monetary-content">
                   <div className="monetary-title">{item.title}</div>
@@ -102,7 +102,7 @@ const News = () => {
 
       </Container>
 
-      <Divider />
+      <Divider style={{ margin: '0 16px' }} className="divider" />
 
       <ScrollerList title={'Macroeconomics'} list={deduplicationNews?.['economy_macro'] || []} />
 

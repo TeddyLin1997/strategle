@@ -77,7 +77,7 @@ const Category = ({ industry: { name, news } }: CategoryProps) => {
       <NewsContainer>
         {news.slice(1, 4).map(item => (
           <Article key={`${item.source}-${item.title}`} href={item.url} target="_blank">
-            <Image src={item.banner_image} defaultSrc={defaultLogo} className="image"  />
+            <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="image"  />
             <div className="title">{item.title}</div>
           </Article>
         ))}

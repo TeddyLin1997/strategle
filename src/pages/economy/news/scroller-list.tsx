@@ -97,7 +97,7 @@ const ScrollerList = ({ title, list }: ScrollListProps) => {
       <Section>
         {list.map(item => (
           <Article key={`${item.source}-${item.title}`} href={item.url} target="_blank">
-            <Image className="article-image" src={item.banner_image} defaultSrc={defaultLogo} />
+            <Image className="article-image" src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} />
             <div className="article-title">{item.title}</div>
           </Article>
         ))}
