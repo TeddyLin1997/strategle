@@ -1,19 +1,23 @@
 import { createContext, useEffect, useState } from 'react'
-import { JsonRpcProvider } from 'ethers'
+import { JsonRpcProvider, formatEther } from 'ethers'
 import { CHAIN_INFO } from '@/global/chain'
 
 export interface WalletContextProps {
-  account: string;
-  chainId: number;
-  provider: JsonRpcProvider;
-  connect: () => Promise<void>;
-  switchChain: (newChainId: number) => Promise<void>;
+  provider: JsonRpcProvider | null
+  chainId: number
+  account: string
+  balance: number
+  isConnect: boolean
+  connect: () => Promise<void>
+  switchChain: (newChainId: number) => Promise<void>
 }
 
 const initWalletContext = {
-  account: '',
-  chainId: 1,
   provider: new JsonRpcProvider(),
+  chainId: 1,
+  account: '',
+  balance: 0,
+  isConnect: false,
   connect: () => Promise.resolve(),
   switchChain: () => Promise.resolve(),
 }
@@ -29,6 +33,7 @@ export const WalletProvider = ({ children }) => {
 
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      console.log(accounts)
       setAccount(accounts[0])
 
       const chainId = await window.ethereum.request({ method: 'eth_chainId' })
@@ -54,6 +59,8 @@ export const WalletProvider = ({ children }) => {
     }
   }
 
+  useEffect(() => { setIsConnect(false) }, [chainId])
+
   useEffect(() => {
     if (!window.ethereum) return
     connect()
@@ -62,16 +69,38 @@ export const WalletProvider = ({ children }) => {
   }, [])
 
   // provider
+  const [isConnect, setIsConnect] = useState(false)
   const [provider, setProvider] = useState(initWalletContext.provider)
 
   useEffect(() => {
     if (!CHAIN_INFO[chainId]) return
     const rpcProvider = new JsonRpcProvider(CHAIN_INFO[chainId]?.rpc)
+
+    rpcProvider.getNetwork()
+      .then((network) => {
+        setIsConnect(true)
+        console.log('connect blockchain success:', network.name, ', network ID：', network.chainId)
+      })
+      .catch((error) => {
+        console.error('connect blockchain erro:', error)
+      })
+
     setProvider(rpcProvider)
   }, [chainId])
 
+  // balance
+  const [balance, setBalance] = useState(initWalletContext.balance)
+  useEffect(() => {
+    if (isConnect && account) getBalance()
+    async function getBalance () {
+      const balanceInWei = await provider.getBalance(account)
+      const balanceInEth = Number(formatEther(balanceInWei))
+      setBalance(Math.round(balanceInEth * 10000) / 10000) // 只留四位小數)
+    }
+  }, [account, provider, isConnect])
+
   return (
-    <WalletContext.Provider value={{ account, chainId, provider, connect, switchChain }}>
+    <WalletContext.Provider value={{ account, chainId, provider, balance, isConnect, connect, switchChain }}>
       {children}
     </WalletContext.Provider>
   )

@@ -4,6 +4,8 @@ import { createTheme } from '@mui/material/styles'
 // fafafa hover灰
 // #f2f3f5 背景灰
 // #efefef 框線灰
+// box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+
 export const theme = createTheme({
   palette: {
     primary: {
@@ -16,7 +18,7 @@ export const theme = createTheme({
       light: '#598b97',
       main: '#306F7D',
       dark: '#214d57',
-      contrastText: '#000',
+      contrastText: '#fff',
     },
   },
   typography: {

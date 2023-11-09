@@ -2,7 +2,7 @@
 
 :root {
   width: 100%;
-  min-width: 600px;
+  min-width: 375px;
   overflow-x: hidden;
   overflow-y: auto;
   font-family: 'Kanit', 'Noto Sans TC', robot, Inter, system-ui, sans-serif;

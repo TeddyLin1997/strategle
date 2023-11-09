@@ -23,6 +23,10 @@ type ChainInfo = {
   name: string
   rpc: string
   explorer: string
+  coin: {
+    name: string
+    icon: string
+  }
 }
 
 export const CHAIN_INFO: { [props: number]: ChainInfo } = {
@@ -32,6 +36,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'Ethereum',
     rpc: 'https://mainnet.infura.io/v3/021832fd97e24479889d13082356357f',
     explorer: 'https://etherscan.io',
+    coin: {
+      name: 'ETH',
+      icon: ethereum,
+    },
   },
   [Chain.BSC]: {
     icon: bsc,
@@ -39,6 +47,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'BSC',
     rpc: 'https://bsc-dataseed.binance.org',
     explorer: 'https://bscscan.com',
+    coin: {
+      name: 'BNB',
+      icon: bsc,
+    },
   },
   [Chain.AVAX]: {
     icon: avalanche,
@@ -46,6 +58,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'Avalanche',
     rpc: 'https://api.avax.network/ext/bc/C/rpc',
     explorer: 'https://avascan.info',
+    coin: {
+      name: 'AVAX',
+      icon: avalanche,
+    },
   },
   [Chain.Polygon]: {
     icon: polygon,
@@ -53,6 +69,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'Polygon',
     rpc: 'https://rpc-mainnet.matic.network',
     explorer: 'https://polygonscan.com',
+    coin: {
+      name: 'MATIC',
+      icon: polygon,
+    },
   },
   [Chain.ARB]: {
     icon: arbitrum,
@@ -60,6 +80,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'Arbitrum',
     rpc: 'https://arb1.arbitrum.io/rpc',
     explorer: 'https://arbiscan.io',
+    coin: {
+      name: 'ETH',
+      icon: ethereum,
+    },
   },
   [Chain.OP]: {
     icon: optimism,
@@ -67,6 +91,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'Optimism',
     rpc: 'https://mainnet.optimism.io',
     explorer: 'https://optimistic.etherscan.io',
+    coin: {
+      name: 'ETH',
+      icon: ethereum,
+    },
   },
   [Chain.ZK]: {
     icon: zksync,
@@ -74,6 +102,10 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     name: 'ZkSync era',
     rpc: 'https://mainnet.era.zksync.io',
     explorer: 'https://explorer.zksync.io',
+    coin: {
+      name: 'ETH',
+      icon: ethereum,
+    },
   },
 }
 

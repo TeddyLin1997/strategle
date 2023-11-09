@@ -1,11 +1,15 @@
 import { MouseEvent, useState } from 'react'
-import { HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem } from './header.style'
+import { HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem, UserItem } from './header.style'
 import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
 import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/strategle.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
-import { NavLink } from 'react-router-dom'
+import UserIcon from '@/assets/images/user.png'
+import WalletIcon from '@/assets/images/wallet.png'
+
+const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
+const anchorStyle = { top: 8 }
 
 const navLinks = [
   { key: 'market', path: '/', text: 'Market' },
@@ -13,6 +17,11 @@ const navLinks = [
   // { key: 'analysis', path: '/analysis', text: 'Analysis' },
   // { key: 'community', path: '/community', text: 'Community' },
   // { key: 'protocol', path: '/protocol', text: 'STRAG Protocol' },
+]
+
+const userMenu = [
+  { key: 'user', path: '/user/overview', text: 'User', icon: UserIcon },
+  { key: 'wallet', path: '/user/wallet', text: 'Wallet', icon: WalletIcon },
 ]
 
 const walletList = [
@@ -36,11 +45,18 @@ const Header = () => {
   const handleClose = () => setIsOpenDialog(false)
 
   // switch chain
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const open = Boolean(anchorEl)
+  const [chainMenuElement, setChainMenuElement] = useState<HTMLButtonElement | null>(null)
+  const chainMenuOpen = Boolean(chainMenuElement)
 
-  const openPopover = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)
-  const closePopover = () => setAnchorEl(null)
+  const openPopover = (event: MouseEvent<HTMLButtonElement>) => setChainMenuElement(event.currentTarget)
+  const closePopover = () => setChainMenuElement(null)
+
+  // user menu
+  const [userMenuElement, setUserMenuElement] = useState<HTMLElement | null>(null)
+  const userMenuOpen = Boolean(userMenuElement)
+  const handleUserMenuOpen = (event: MouseEvent<HTMLElement>) => setUserMenuElement(event.currentTarget)
+  const handleUserMenuClose = () => setUserMenuElement(null)
+
 
 
   return (
@@ -64,19 +80,17 @@ const Header = () => {
       {/* 錢包狀態 */}
       { isConnect &&
         <AccountContainer>
+          {/* chain switch */}
           <Button onClick={openPopover} variant="outlined" size="small" sx={{ mr: 2 }}>
             { CHAIN_INFO[wallet.chainId] && <img className="current-chain-icon" src={CHAIN_INFO[wallet.chainId]?.icon} /> }
             { CHAIN_INFO[wallet.chainId]?.name || 'Not support network chain' }
           </Button>
-          <NavLink to="/user/overview">
-            <Button variant="contained" size="small" sx={{ fontWeight: 'bold' }}>{ellipsisAddress}</Button>
-          </NavLink>
           <Popover
-            open={open}
-            anchorEl={anchorEl}
+            open={chainMenuOpen}
+            anchorEl={chainMenuElement}
             onClose={closePopover}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            sx={{top: 8}}
+            anchorOrigin={anchorOrigin}
+            sx={anchorStyle}
           >
             <div style={{ padding: 4 }}>
               {CHAIN_INFO_LIST.map((item) => (
@@ -84,6 +98,25 @@ const Header = () => {
                   <img className="chain-icon" src={item.icon}  />
                   <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.name}</Typography>
                 </ChainItem>
+              ))}
+            </div>
+          </Popover>
+
+          {/* User overview */}
+          <Button variant="contained" size="small" onClick={handleUserMenuOpen}>{ellipsisAddress}</Button>
+          <Popover
+            open={userMenuOpen}
+            anchorEl={userMenuElement}
+            onClose={handleUserMenuClose}
+            anchorOrigin={anchorOrigin}
+            sx={anchorStyle}
+          >
+            <div style={{ padding: '6px', width: '164px' }}>
+              {userMenu.map((item) => (
+                <UserItem key={item.key} to={item.path}>
+                  <img className="user-icon" src={item.icon}  />
+                  <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
+                </UserItem>
               ))}
             </div>
           </Popover>
