@@ -17,7 +17,7 @@ export const Header = styled.header`
       display: flex;
       align-items: center;
       font-size: 1.125rem;
-      font-weight: 500;
+      font-weight: 700;
 
       .icon-container {
         margin-right: .8rem;
@@ -74,11 +74,11 @@ export const Header = styled.header`
 
       .value {
         font-size: 1.25rem;
-        font-weight: 500;
+        font-weight: 700;
       }
       .change {
         font-size: 1rem;
-        font-weight: 500;
+        font-weight: 700;
         line-height: 1rem;
       }
     }

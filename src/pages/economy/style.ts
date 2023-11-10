@@ -6,7 +6,7 @@ export const Title = styled.div`
   display: flex;
   align-items: center;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
 `
 
 export const FedNew = styled.a`
@@ -34,7 +34,7 @@ export const Header = styled.header`
       display: flex;
       align-items: center;
       font-size: 1.125rem;
-      font-weight: 500;
+      font-weight: 700;
 
       .icon-container {
         margin-right: .8rem;
@@ -94,7 +94,7 @@ export const Header = styled.header`
       }
       .change {
         font-size: 1.2rem;
-        font-weight: 500;
+        font-weight: 700;
         line-height: 1.2rem;
       }
     }

@@ -5,8 +5,8 @@ import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/strategle.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
-import UserIcon from '@/assets/images/user.png'
-import WalletIcon from '@/assets/images/wallet.png'
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
+import PersonIcon from '@mui/icons-material/Person'
 
 const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
 const anchorStyle = { top: 8 }
@@ -20,8 +20,8 @@ const navLinks = [
 ]
 
 const userMenu = [
-  { key: 'user', path: '/user/overview', text: 'User', icon: UserIcon },
-  { key: 'wallet', path: '/user/wallet', text: 'Wallet', icon: WalletIcon },
+  { key: 'user', path: '/user/overview', text: 'User', icon: <PersonIcon /> },
+  { key: 'wallet', path: '/user/wallet', text: 'Wallet', icon: <AccountBalanceWalletIcon /> },
 ]
 
 const walletList = [
@@ -56,8 +56,6 @@ const Header = () => {
   const userMenuOpen = Boolean(userMenuElement)
   const handleUserMenuOpen = (event: MouseEvent<HTMLElement>) => setUserMenuElement(event.currentTarget)
   const handleUserMenuClose = () => setUserMenuElement(null)
-
-
 
   return (
     <HeaderContainer>
@@ -114,7 +112,7 @@ const Header = () => {
             <div style={{ padding: '6px', width: '164px' }}>
               {userMenu.map((item) => (
                 <UserItem key={item.key} to={item.path}>
-                  <img className="user-icon" src={item.icon}  />
+                  {item.icon}
                   <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
                 </UserItem>
               ))}

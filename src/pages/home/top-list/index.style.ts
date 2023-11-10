@@ -42,7 +42,7 @@ export const TopItem = styled.div<{ $isup?: number }>`
   display: flex;
   align-items: center;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 700;
   overflow: hidden;
   cursor: pointer;
 

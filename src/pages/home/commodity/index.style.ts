@@ -77,7 +77,7 @@ export const CommodityItem = styled.article`
   & .commodity-description {
     text-align: right;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 700;
     color: #81858c;
   }
 `

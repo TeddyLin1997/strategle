@@ -8,7 +8,7 @@ const Container = styled.div`
 
   .quote-title {
     color: #306F7D;
-    font-weight: 500;
+    font-weight: 700;
   }
 `
 
@@ -42,7 +42,7 @@ const Article = styled.article`
 
   .name {
     color: #306F7D;
-    font-weight: 500;
+    font-weight: 700;
   }
 
   .price {

@@ -58,7 +58,7 @@ export const IndexList = styled.section`
   height: 30vw;
   max-height: 600px;
   color: #FFF;
-  font-weight: 500;
+  font-weight: 700;
   overflow: auto;
 
   // 隱藏滾動

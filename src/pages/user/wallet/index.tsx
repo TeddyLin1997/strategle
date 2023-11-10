@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import Container from '@/components/container'
 import { Tabs, Tab, Avatar } from '@mui/material'
-import { Wrapper, Title, Account, Balance, Content } from './style'
+import { Padding, Wrapper, Title, Account, Balance, Content } from './style'
 import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO } from '@/global/chain'
 import AvatarIcon from '@/assets/images/avatar3.png'
@@ -10,9 +10,6 @@ import Swap from './swap'
 import Bridge from './bridge'
 import Donate from './donate'
 import { useMarket } from '@/hooks/useMarket'
-
-
-const containerStyle = { padding: '20px 120px' }
 
 enum ETab {
   OVERVIEW = 'overview',
@@ -23,7 +20,6 @@ enum ETab {
 }
 
 const tabList = [
-  // { name: 'Overview', value: ETab.OVERVIEW },
   { name: 'Send', value: ETab.SEND },
   { name: 'Swap', value: ETab.SWAP },
   { name: 'Bridge', value: ETab.BRIDGE },
@@ -31,20 +27,26 @@ const tabList = [
 ]
 
 const Wallet = () => {
+  // tab
   const [tab, setTab] = useState(ETab.SEND)
   const handleChange = (_, value: ETab) => setTab(value)
 
-  const { ticker } = useMarket()
 
+  // chain info
   const { chainId, account, provider, isConnect, balance } = useWallet()
   const chainInfo = CHAIN_INFO[chainId]
-  const [ensName, setEnsName] = useState('-')
 
+
+  // balance value
+  const { ticker } = useMarket()
   const netValue = useMemo(() => {
     const coinPrice = Number(ticker?.[`${chainInfo.coin.name}USDT`]?.price) || 0
     return (coinPrice * balance).toFixed(2)
   }, [chainId, ticker, balance])
 
+
+  // ens name
+  const [ensName, setEnsName] = useState('-')
   useEffect(() => {
     getEnsName()
 
@@ -57,54 +59,60 @@ const Wallet = () => {
   }, [account, provider, isConnect])
 
   return (
-    <Container style={containerStyle}>
-      <Title>
-        <Account>
-          <Avatar alt={ensName} src={AvatarIcon} sx={{ marginRight: '1rem', width: 84, height: 84 }} />
-          <div>
-            <div className="ensname">{ensName || '-'}</div>
-            <div className="account">{account || '-'}</div>
-            <div className="bio">This user has not added a bio yet</div>
-          </div>
-        </Account>
+    <Container>
+      <Padding>
 
-        <Balance>
-          <div className="balance">
-            <img src={CHAIN_INFO[chainId]?.coin?.icon} />
-            <div>{balance} {CHAIN_INFO[chainId]?.coin?.name}</div>
-          </div>
-          <div className="netvalue">≈$ {netValue}</div>
-        </Balance>
-      </Title>
+        <Title>
+          <Account>
+            <Avatar alt={ensName} src={AvatarIcon} className="avatar" />
+            <div className="avatar-text">
+              <div className="ensname">{ensName || '-'}</div>
+              <div className="account">{account || '-'}</div>
+              <div className="bio">This user has not added a bio yet</div>
+            </div>
+          </Account>
 
-      <Wrapper>
-        <Content style={{ width: '65%' }}>
-          <Tabs value={tab} onChange={handleChange} textColor="secondary" indicatorColor="secondary">
-            {tabList.map(tab => <Tab key={tab.name} label={tab.name} value={tab.value} />)}
-          </Tabs>
+          <Balance>
+            <div className="balance">
+              <img src={CHAIN_INFO[chainId]?.coin?.icon} />
+              <div>
+                <div className="coin-balance">{balance} {CHAIN_INFO[chainId]?.coin?.name}</div>
+                <div className="netvalue">≈$ {netValue}</div>
+              </div>
+            </div>
+          </Balance>
+        </Title>
 
-          <TabPane tab={tab} index={ETab.SEND}>
-            <Send />
-          </TabPane>
+        <Wrapper>
+          <Content style={{ width: '65%' }}>
+            <Tabs value={tab} onChange={handleChange} textColor="secondary" indicatorColor="secondary">
+              {tabList.map(tab => <Tab key={tab.name} label={tab.name} value={tab.value} />)}
+            </Tabs>
 
-          <TabPane tab={tab} index={ETab.SWAP}>
-            <Swap />
-          </TabPane>
+            <TabPane tab={tab} index={ETab.SEND}>
+              <Send />
+            </TabPane>
 
-          <TabPane tab={tab} index={ETab.BRIDGE}>
-            <Bridge />
-          </TabPane>
+            <TabPane tab={tab} index={ETab.SWAP}>
+              <Swap />
+            </TabPane>
 
-          <TabPane tab={tab} index={ETab.DONATE}>
-            <Donate />
-          </TabPane>
-        </Content>
+            <TabPane tab={tab} index={ETab.BRIDGE}>
+              <Bridge />
+            </TabPane>
 
-        <Content style={{ width: '35%' }}>
+            <TabPane tab={tab} index={ETab.DONATE}>
+              <Donate />
+            </TabPane>
+          </Content>
 
-        </Content>
+          <Content style={{ width: '35%' }}>
 
-      </Wrapper>
+          </Content>
+
+        </Wrapper>
+
+      </Padding>
     </Container>
   )
 }

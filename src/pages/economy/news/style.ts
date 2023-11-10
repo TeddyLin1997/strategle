@@ -14,7 +14,7 @@ export const Title = styled.div`
   margin-top: 1.8rem;
   padding: 0 12px;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
 `
 
 export const Header = styled.div`

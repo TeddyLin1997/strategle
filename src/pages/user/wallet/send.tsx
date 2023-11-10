@@ -1,12 +1,21 @@
 import styled from 'styled-components'
+import { ChangeEvent, useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import SendIcon from '@/assets/images/send.png'
 import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO } from '@/global/chain'
+import { TOKEN_INFO } from '@/global/token'
+import { Contract, parseUnits, parseEther } from 'ethers'
 
 const Container = styled.div`
   padding: 0 0.8rem 0.8rem;
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    & .MuiTextField-root {
+      width: 100%;
+    }
+  }
 `
 
 const FormItem = styled.div`
@@ -15,12 +24,12 @@ const FormItem = styled.div`
 
 const FormLabel = styled.div`
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
 `
 
 const AddressLabel = styled.div`
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 700;
   color: #306F7D;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -41,7 +50,7 @@ const BlockchainLabel = styled.div`
 
   .blockchain-name {
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: 700;
     color: #306F7D;
   }
 `
@@ -56,7 +65,7 @@ const SendButton = styled(Button)`
   }
 
   @media screen and (max-width: 768px){
-    width: 164px;
+    width: 100%;
   }
 `
 
@@ -65,16 +74,56 @@ const Image = styled.img`
   position: absolute;
   right: 0;
   bottom: 0;
-`
 
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`
 
 const Send = () => {
   // chain
   const wallet = useWallet()
   const chainInfo = CHAIN_INFO[wallet.chainId]
 
-  // address
+  // from address
   const fromAddress = wallet.account
+
+  // to address
+  const [toAddress, setToAddress] = useState('')
+  const onChangeToAddress = (event: ChangeEvent<HTMLInputElement>) => {
+    setToAddress(event.target.value)
+  }
+
+  // assets token contract
+  const [assets, setAssets] = useState(chainInfo.coin.name)
+  // const tokenContract = useMemo(() => {
+  //   const tokenContract = new Contract(tokenContractAddress, tokenContractABI, signer)
+  //   const tokenBalance = await tokenContract.balanceOf(account)
+  // }, [assets])
+
+
+  const sendTransaction = async () => {
+    if (assets === chainInfo.coin.name) sendNativeToken()
+    else sendERC20Token()
+  }
+
+  // send native token
+  async function sendNativeToken () {
+    // const toAddress = '目標地址'
+    // const valueInWei = parseEther('1.0') // 1 ETH
+    // const transaction = {
+    //   to: toAddress,
+    //   value: valueInWei,
+    // }
+    // const tx = await signer.sendTransaction(transaction)
+  }
+
+
+  // send ERC-20 token
+  async function sendERC20Token () {
+    // const tokenAmount = parseUnits('100', 18)
+    // const tokenTransaction = await tokenContract.transfer(toAddress, tokenAmount)
+  }
 
   return (
     <Container>
@@ -93,7 +142,14 @@ const Send = () => {
 
       <FormItem>
         <FormLabel>Send To :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={{ marginTop: '.4rem' }} placeholder="Enter public address(0x)" />
+        <TextField
+          value={toAddress}
+          onChange={onChangeToAddress}
+          variant="outlined"
+          color="secondary"
+          size="small"
+          sx={{ marginTop: '.4rem' }}
+          placeholder="Enter public address(0x)" />
       </FormItem>
 
       <FormItem>
@@ -107,7 +163,14 @@ const Send = () => {
       </FormItem>
 
       <FormItem>
-        <SendButton variant="contained" color="secondary" size='large'>Send</SendButton>
+        <SendButton
+          variant="contained"
+          color="secondary"
+          size='large'
+          onClick={sendTransaction}
+        >
+          Send
+        </SendButton>
       </FormItem>
 
       <Image src={SendIcon} />

@@ -33,7 +33,6 @@ export const WalletProvider = ({ children }) => {
 
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      console.log(accounts)
       setAccount(accounts[0])
 
       const chainId = await window.ethereum.request({ method: 'eth_chainId' })
@@ -47,15 +46,41 @@ export const WalletProvider = ({ children }) => {
   const [chainId, setChainId] = useState(initWalletContext.chainId)
   const switchChain = async (newChainId: number) => {
     if (!window.ethereum) return
+    const chainInfo = CHAIN_INFO[newChainId]
 
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${newChainId.toString(16)}` }],
-      })
-      setChainId(newChainId)
-    } catch (switchError) {
-      console.error('Failed to switch chain:', switchError)
+    requestChain()
+
+    async function requestChain () {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: `0x${newChainId.toString(16)}` }],
+        })
+        setChainId(newChainId)
+      } catch (error) {
+        if ((error as any).message.includes('wallet_addEthereumChain')) {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+              chainId: `0x${chainInfo.id.toString(16)}`,
+              chainName: chainInfo.name,
+              nativeCurrency: {
+                name: chainInfo.coin.name,
+                symbol: chainInfo.coin.name,
+                decimals: 18,
+              },
+              rpcUrls: [chainInfo.rpc], // Binance Smart Chain 的 RPC URL
+              blockExplorerUrls: [chainInfo.explorer], // 区块浏览器的 URL
+            }],
+          })
+
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: `0x${newChainId.toString(16)}` }],
+          })
+          setChainId(newChainId)
+        }
+      }
     }
   }
 

@@ -39,7 +39,7 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     coin: {
       name: 'ETH',
       icon: ethereum,
-    },
+    }
   },
   [Chain.BSC]: {
     icon: bsc,

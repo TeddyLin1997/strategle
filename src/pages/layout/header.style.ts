@@ -169,12 +169,12 @@ export const UserItem = styled(NavLink)`
   color: #121214;
   cursor: pointer;
 
-  & > .user-icon {
+  & > svg {
     width: 20px;
     height: auto;
   }
 
   &:hover {
-    background-color: #FFC4088a;
+    background-color: #FFC40880;
   }
 `

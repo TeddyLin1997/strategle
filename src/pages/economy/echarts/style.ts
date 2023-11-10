@@ -22,7 +22,7 @@ export const ChartContainer = styled.div`
 
   .chart-title {
     margin-bottom: 12px;
-    font-weight: 500;
+    font-weight: 700;
     color: #306F7D;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -36,7 +36,7 @@ export const ChartContainer = styled.div`
 
   .fear-greed-index-title {
     color: #306F7D;
-    font-weight: 500;
+    font-weight: 700;
   }
 `
 
@@ -58,7 +58,7 @@ export const HistoryContainer = styled.div`
     }
 
     .history-title {
-      font-weight: 500;
+      font-weight: 700;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;

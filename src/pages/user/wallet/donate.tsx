@@ -15,12 +15,12 @@ const FormItem = styled.div`
 
 const FormLabel = styled.div`
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
 `
 
 const AddressLabel = styled.div`
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 700;
   color: #306F7D;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -41,7 +41,7 @@ const BlockchainLabel = styled.div`
 
   .blockchain-name {
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: 700;
     color: #306F7D;
   }
 `
