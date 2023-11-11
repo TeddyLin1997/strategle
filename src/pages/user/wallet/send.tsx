@@ -4,8 +4,8 @@ import { TextField, Button } from '@mui/material'
 import SendIcon from '@/assets/images/send.png'
 import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO } from '@/global/chain'
-import { TOKEN_INFO } from '@/global/token'
-import { Contract, parseUnits, parseEther } from 'ethers'
+// import { TOKEN_INFO } from '@/global/token'
+// import { Contract, parseUnits, parseEther } from 'ethers'
 
 const Container = styled.div`
   padding: 0 0.8rem 0.8rem;
@@ -95,7 +95,7 @@ const Send = () => {
   }
 
   // assets token contract
-  const [assets, setAssets] = useState(chainInfo.coin.name)
+  const [assets] = useState(chainInfo.coin.name)
   // const tokenContract = useMemo(() => {
   //   const tokenContract = new Contract(tokenContractAddress, tokenContractABI, signer)
   //   const tokenBalance = await tokenContract.balanceOf(account)
