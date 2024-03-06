@@ -63,7 +63,7 @@ const WorldStockIndex = ({ indexList }) => {
             const isUp = change.toNumber() >= 0
 
             return (
-              <div className="index-item" key={item.symbol}>
+              <div className="index-item" key={item.symbol} onClick={() => window.open(item.url)}>
                 <div style={{ marginRight: '0.6rem' }}>{item.name}</div>
                 <div style={{ color: getChangeColor(change.toNumber()) }}>
                   { ticker[item.symbol] ?

@@ -12,7 +12,7 @@ const Forex = ({ forexList }) => {
     const { price = 0, open = 0 } = ticker[item.symbol] || {}
     const isUp = price >= open
     return (
-      <S.Forex key={item.symbol} $isUp={isUp}>
+      <S.Forex key={item.symbol} $isUp={isUp} onClick={() => window.open(item.url)}>
         <img className="forex-icon" src={item.icon} />
         <div className="forex-name">{item.name}</div>
         <div className="forex-price">{Number(price).toFixed(5) || '-'}</div>

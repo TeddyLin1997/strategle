@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider'
 import { New } from './index'
 
 const Containers = styled.div`
-  padding: 32px 0 16px;
+  padding: 16px 0;
   display: flex;
   justify-content: space-between;
 
@@ -15,13 +15,11 @@ const Containers = styled.div`
 `
 
 const CategoryContainer = styled.div`
-  padding: 0 12px;
   width: 49%;
 `
 
 const NewsContainer = styled.div`
   display: flex;
-  gap: 1rem;
 
   @media screen and (max-width: 768px) {
     flex-wrap: wrap;
@@ -29,18 +27,24 @@ const NewsContainer = styled.div`
 `
 
 const Title = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 6px;
   text-align: center;
   font-size: 1.4rem;
   font-weight: bold;
-  color: #306F7D;
+  color: #121214;
 `
 
 const Article = styled.a`
+  padding: 8px 12px;
   width: 100%;
   display: flex;
   flex-direction: column;
   color: #121214;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #efefef;
+  }
 
   .title {
     margin-top: .4rem;
@@ -59,6 +63,7 @@ const Article = styled.a`
     vertical-align: top;
     width: 100%;
     height: 112px;
+    border-radius: 4px;
     object-fit: cover;
   }
 `

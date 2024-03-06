@@ -32,7 +32,7 @@ const TopSection = ({ title,  list = [], ...props }: TopListProps) => {
         const percent = change.times(100).div(open.toNumber() ? open : new Big(1)).toString()
         const color = { color: getChangeColor(change.toNumber()) }
         return (
-          <S.TopItem key={item.name} $isup={isUp ? 1 : 0}>
+          <S.TopItem key={item.name} $isup={isUp ? 1 : 0} onClick={() => window.open(item.url)}>
             <img className="top-icon" src={item.icon} />
             <div className="top-name">{item.name}</div>
             <div className="top-price" style={color}>{price.toNumber() ? formatNumber(price.toString()) : '-' }</div>

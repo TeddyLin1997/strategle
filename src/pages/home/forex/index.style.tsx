@@ -36,6 +36,7 @@ export const Forex = styled.article<{ $isUp: boolean }>`
   display: flex;
   align-items: center;
   font-weight: 700;
+  cursor: pointer;
 
   & .forex-icon {
     margin-right: .6rem;

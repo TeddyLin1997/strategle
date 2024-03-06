@@ -77,6 +77,7 @@ export const IndexList = styled.section`
     align-items: center;
     cursor: pointer;
     transition: all .4s;
+    cursor: pointer;
     &:hover {
       background-color: #b289055a;
     }

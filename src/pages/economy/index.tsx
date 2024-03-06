@@ -10,7 +10,6 @@ const Economy = () => {
     <Container style={{ padding: '20px 8px', backgroundColor: 'white' }}>
       <S.Title>
         <span>Economic Indicators</span>
-        {/* <S.FedNew href="/" target="_blank">跑馬燈</S.FedNew> */}
       </S.Title>
 
       <Indicate />

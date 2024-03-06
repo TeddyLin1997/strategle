@@ -17,7 +17,7 @@ const Commodity = ({ commodityList }: CommodityProps) => {
 
       <CommoditySection>
         {commodityList.map(item => (
-          <CommodityItem key={item.symbol}>
+          <CommodityItem key={item.symbol} onClick={() => window.open(item.url)}>
             <div className="name">
               <img className="commodity-icon" src={item.icon} />
               <div className="commodity-name">{item.name}</div>
