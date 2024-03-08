@@ -2,17 +2,21 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { Button } from '@mui/material'
 
-export const HeaderContainer = styled.header`
+export const HeaderWrapper = styled.header`
   position: fixed;
-  top: 0;
-  padding: 14px 24px;
   width: 100%;
-  height: 56px;
-  border-bottom: 1px solid #4c4c4c;
-  background-color: #1d2129;
+  top: 0;
+  padding: 10px 24px;
   user-select: none;
   z-index: 100;
+  border-bottom: 1px solid #4c4c4c;
+  background-color: #1d2129;
+`
 
+export const HeaderContainer = styled.div`
+  width: 100%;
+  margin: auto;
+  max-width: 1440px;
   display: flex;
   align-items: center;
 `
@@ -25,8 +29,8 @@ export const LogoWrapper = styled(NavLink)`
 
   & > .logo-img {
     margin-right: 6px;
-    width: auto;
-    height: 100%;
+    width: 36px;
+    height: auto;
   }
 
   & .logo-title {

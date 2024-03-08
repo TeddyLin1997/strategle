@@ -17,18 +17,20 @@ export const Container = styled.div`
   padding: 0 1.2rem;
   width: 100%;
   max-width: 1200px;
+  height: 30vw;
+  max-height: 480px;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   overflow: hidden;
 `
 
 export const WorldMap = styled.div`
-  max-width: 1200px;
+  max-width: 720px;
+  width: 50vw;
   position: relative;
   flex: 1;
   overflow: visible;
-  height: 30vw;
-  max-height: 600px;
+  height: 100%;
   display: flex;
   align-items: center;
 
@@ -55,8 +57,7 @@ export const IndexList = styled.section`
   margin: 10px 0 2rem;
   width: 32%;
   max-width: 320px;
-  height: 30vw;
-  max-height: 600px;
+  height: 100%;
   color: #FFF;
   font-weight: 700;
   overflow: auto;

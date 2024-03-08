@@ -1,5 +1,5 @@
 import { MouseEvent, useState } from 'react'
-import { HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem, UserItem } from './header.style'
+import { HeaderWrapper, HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem, UserItem } from './header.style'
 import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
 import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
@@ -58,100 +58,102 @@ const Header = () => {
   const handleUserMenuClose = () => setUserMenuElement(null)
 
   return (
-    <HeaderContainer>
-      <LogoWrapper to="/">
-        <img className="logo-img" src={LogoImg} />
-        <div>
-          <div className="logo-title">Strategle</div>
-          <div className="logo-sub-title">Future Bank</div>
-        </div>
-      </LogoWrapper>
+    <HeaderWrapper>
+      <HeaderContainer>
+        <LogoWrapper to="/">
+          <img className="logo-img" src={LogoImg} />
+          <div>
+            <div className="logo-title">Strategle</div>
+            <div className="logo-sub-title">Future Bank</div>
+          </div>
+        </LogoWrapper>
 
-      <Navigation>
-        {navLinks.map(item => (
-          <NavItem to={item.path} key={item.key} className={({ isActive }) => isActive ? 'active' : '' }>
-            {item.text}
-          </NavItem>
-        ))}
-      </Navigation>
+        <Navigation>
+          {navLinks.map(item => (
+            <NavItem to={item.path} key={item.key} className={({ isActive }) => isActive ? 'active' : '' }>
+              {item.text}
+            </NavItem>
+          ))}
+        </Navigation>
 
-      {/* 錢包狀態 */}
-      { isConnect &&
-        <AccountContainer>
-          {/* chain switch */}
-          <Button onClick={openPopover} variant="outlined" size="small" sx={{ mr: 2 }}>
-            { CHAIN_INFO[wallet.chainId] && <img className="current-chain-icon" src={CHAIN_INFO[wallet.chainId]?.icon} /> }
-            { CHAIN_INFO[wallet.chainId]?.name || 'Not support network chain' }
-          </Button>
-          <Popover
-            open={chainMenuOpen}
-            anchorEl={chainMenuElement}
-            onClose={closePopover}
-            anchorOrigin={anchorOrigin}
-            sx={anchorStyle}
-          >
-            <div style={{ padding: 4 }}>
-              {CHAIN_INFO_LIST.map((item) => (
-                <ChainItem className={item.id === wallet.chainId ? 'active' : ''} key={item.id} onClick={() => wallet.switchChain(item.id)}>
-                  <img className="chain-icon" src={item.icon}  />
-                  <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.name}</Typography>
-                </ChainItem>
-              ))}
-            </div>
-          </Popover>
+        {/* 錢包狀態 */}
+        { isConnect &&
+          <AccountContainer>
+            {/* chain switch */}
+            <Button onClick={openPopover} variant="outlined" size="small" sx={{ mr: 2 }}>
+              { CHAIN_INFO[wallet.chainId] && <img className="current-chain-icon" src={CHAIN_INFO[wallet.chainId]?.icon} /> }
+              { CHAIN_INFO[wallet.chainId]?.name || 'Not support network chain' }
+            </Button>
+            <Popover
+              open={chainMenuOpen}
+              anchorEl={chainMenuElement}
+              onClose={closePopover}
+              anchorOrigin={anchorOrigin}
+              sx={anchorStyle}
+            >
+              <div style={{ padding: 4 }}>
+                {CHAIN_INFO_LIST.map((item) => (
+                  <ChainItem className={item.id === wallet.chainId ? 'active' : ''} key={item.id} onClick={() => wallet.switchChain(item.id)}>
+                    <img className="chain-icon" src={item.icon}  />
+                    <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.name}</Typography>
+                  </ChainItem>
+                ))}
+              </div>
+            </Popover>
 
-          {/* User overview */}
-          <Button variant="contained" size="small" onClick={handleUserMenuOpen}>{ellipsisAddress}</Button>
-          <Popover
-            open={userMenuOpen}
-            anchorEl={userMenuElement}
-            onClose={handleUserMenuClose}
-            anchorOrigin={anchorOrigin}
-            sx={anchorStyle}
-          >
-            <div style={{ padding: '6px', width: '164px' }}>
-              {userMenu.map((item) => (
-                <UserItem key={item.key} to={item.path}>
-                  {item.icon}
-                  <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
-                </UserItem>
-              ))}
-            </div>
-          </Popover>
-        </AccountContainer>
-      }
+            {/* User overview */}
+            <Button variant="contained" size="small" onClick={handleUserMenuOpen}>{ellipsisAddress}</Button>
+            <Popover
+              open={userMenuOpen}
+              anchorEl={userMenuElement}
+              onClose={handleUserMenuClose}
+              anchorOrigin={anchorOrigin}
+              sx={anchorStyle}
+            >
+              <div style={{ padding: '6px', width: '164px' }}>
+                {userMenu.map((item) => (
+                  <UserItem key={item.key} to={item.path}>
+                    {item.icon}
+                    <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
+                  </UserItem>
+                ))}
+              </div>
+            </Popover>
+          </AccountContainer>
+        }
 
-      {/* 連接錢包 */}
-      { !isConnect && <ConnectWallet variant="contained" size="small" onClick={handleOpen}>Connect wallet</ConnectWallet> }
-      {/* 連接錢包 dialog */}
-      <Dialog onClose={handleClose} open={isOpenDialog}>
-        <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>
-          Please connect wallet
-        </DialogTitle>
-        <DialogContent>
-          <WalletContainer>
-            {walletList.map(item => {
-              const isInstall = item.checkIsInstall()
-              const handleInstall = () => window.open(item.installUrl)
-              const handleConnect = () => {
-                wallet.connect()
-                handleClose()
+        {/* 連接錢包 */}
+        { !isConnect && <ConnectWallet variant="contained" size="small" onClick={handleOpen}>Connect wallet</ConnectWallet> }
+        {/* 連接錢包 dialog */}
+        <Dialog onClose={handleClose} open={isOpenDialog}>
+          <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>
+            Please connect wallet
+          </DialogTitle>
+          <DialogContent>
+            <WalletContainer>
+              {walletList.map(item => {
+                const isInstall = item.checkIsInstall()
+                const handleInstall = () => window.open(item.installUrl)
+                const handleConnect = () => {
+                  wallet.connect()
+                  handleClose()
+                }
+
+                return (
+                  <WalletItem key={item.name} onClick={isInstall ? handleConnect : handleInstall}>
+                    { !isInstall && <Chip label="Not installed" color="error" size="small" /> }
+                    <img className="wallet-icon" src={item.icon} />
+                    <div className="wallet-name">{item.name}</div>
+                  </WalletItem>
+                )
               }
+              )}
+            </WalletContainer>
+          </DialogContent>
+        </Dialog>
 
-              return (
-                <WalletItem key={item.name} onClick={isInstall ? handleConnect : handleInstall}>
-                  { !isInstall && <Chip label="Not installed" color="error" size="small" /> }
-                  <img className="wallet-icon" src={item.icon} />
-                  <div className="wallet-name">{item.name}</div>
-                </WalletItem>
-              )
-            }
-            )}
-          </WalletContainer>
-        </DialogContent>
-      </Dialog>
-
-    </HeaderContainer>
+      </HeaderContainer>
+    </HeaderWrapper>
   )
 }
 

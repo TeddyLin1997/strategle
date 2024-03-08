@@ -16,13 +16,14 @@ export const TopList = styled.section`
   width: 50%;
 
   & > .title {
-    padding: 0.8rem 1rem 1.4rem;
+    padding: 0.4rem 1rem 1.2rem;
     font-size: 1.4rem;
     font-weight: 900;
   }
 
   & > .header {
     padding: 0 1rem;
+    height: 1.2rem;
     font-size: 0.8rem;
     color: #81858c;
 

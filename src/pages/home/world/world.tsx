@@ -65,11 +65,11 @@ const WorldStockIndex = ({ indexList }) => {
             return (
               <div className="index-item" key={item.symbol} onClick={() => window.open(item.url)}>
                 <div style={{ marginRight: '0.6rem' }}>{item.name}</div>
-                <div style={{ color: getChangeColor(change.toNumber()) }}>
+                <div style={{ color: getChangeColor(change.toNumber()), whiteSpace: 'nowrap' }}>
                   { ticker[item.symbol] ?
                     <>
                       <span>{formatNumber(price.toString(), 2)}</span> &nbsp;
-                      <span style={{ whiteSpace: 'nowrap' }}>
+                      <span>
                         {`(${isUp ? '+' : '' }${formatNumber(changePercent.toString(), 2)}%) ${isUp ? '↑' : '↓'}`}
                       </span>
                     </>
