@@ -1,7 +1,7 @@
 import Container from '@/components/container'
 
 
-const Overview = () => {
+const Info = () => {
   // import { useSnackbar } from 'notistack'
   // const { enqueueSnackbar } = useSnackbar()
   // const handleCopyAddress = () => {
@@ -23,4 +23,4 @@ const Overview = () => {
   )
 }
 
-export default Overview
+export default Info

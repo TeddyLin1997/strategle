@@ -163,22 +163,3 @@ export const ChainItem = styled.div`
     border: 1px solid #ccc;
   }
 `
-
-export const UserItem = styled(NavLink)`
-  margin-bottom: 4px;
-  padding-left: 12px;
-  display: flex;
-  align-items: center;
-  border-radius: 6px;
-  color: #121214;
-  cursor: pointer;
-
-  & > svg {
-    width: 20px;
-    height: auto;
-  }
-
-  &:hover {
-    background-color: #FFC40880;
-  }
-`

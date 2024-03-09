@@ -8,7 +8,6 @@ import { CHAIN_INFO } from '@/global/chain'
 // import { Contract, parseUnits, parseEther } from 'ethers'
 
 const Container = styled.div`
-  padding: 0 0.8rem 0.8rem;
   position: relative;
 
   @media screen and (max-width: 768px) {
@@ -19,7 +18,12 @@ const Container = styled.div`
 `
 
 const FormItem = styled.div`
-  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  max-width: 60%;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
 `
 
 const FormLabel = styled.div`
@@ -28,12 +32,11 @@ const FormLabel = styled.div`
 `
 
 const AddressLabel = styled.div`
+  width: 100%;
   font-size: 1.2rem;
   font-weight: 700;
   color: #306F7D;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  word-break: break-all;
 `
 
 const BlockchainLabel = styled.div`
@@ -57,8 +60,8 @@ const BlockchainLabel = styled.div`
 
 const SendButton = styled(Button)`
   margin-top: 1rem !important;
+  max-width: 100%;
   width: 210px;
-
 
   @media screen and (max-width: 1200px){
     width: 188px;
@@ -70,7 +73,7 @@ const SendButton = styled(Button)`
 `
 
 const Image = styled.img`
-  width: 45%;
+  width: 30%;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -79,6 +82,8 @@ const Image = styled.img`
     display: none;
   }
 `
+
+const inputStyle = { width: '100%', marginTop: '.4rem' }
 
 const Send = () => {
   // chain
@@ -148,27 +153,22 @@ const Send = () => {
           variant="outlined"
           color="secondary"
           size="small"
-          sx={{ marginTop: '.4rem' }}
+          sx={inputStyle}
           placeholder="Enter public address(0x)" />
       </FormItem>
 
       <FormItem>
         <FormLabel>Assets :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={{ marginTop: '.4rem' }} placeholder="Select asset" />
+        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select asset" />
       </FormItem>
 
       <FormItem>
         <FormLabel>Amount :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={{ marginTop: '.4rem' }} placeholder="0.00" />
+        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
       </FormItem>
 
       <FormItem>
-        <SendButton
-          variant="contained"
-          color="secondary"
-          size='large'
-          onClick={sendTransaction}
-        >
+        <SendButton variant="contained" color="secondary" size="large" onClick={sendTransaction}>
           Send
         </SendButton>
       </FormItem>

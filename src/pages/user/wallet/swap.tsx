@@ -1,14 +1,20 @@
 import styled from 'styled-components'
 import { TextField, Button } from '@mui/material'
 import SwapIcon from '@/assets/images/swap.png'
+import { useWallet } from '@/hooks/useWallet'
+import { CHAIN_INFO } from '@/global/chain'
 
 const Container = styled.div`
-  padding: 0 0.8rem 0.8rem;
   position: relative;
 `
 
 const FormItem = styled.div`
-  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  max-width: 60%;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
 `
 
 const FormLabel = styled.div`
@@ -17,16 +23,35 @@ const FormLabel = styled.div`
 `
 
 const AddressLabel = styled.div`
+  width: 100%;
   font-size: 1.2rem;
   font-weight: 700;
-  color: #FFC408;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  color: #306F7D;
+  word-break: break-all;
+`
+
+const BlockchainLabel = styled.div`
+  margin-top: .6rem;
+  display: flex;
+  align-items: center;
+
+  .blockchain-icon {
+    margin-right: .6rem;
+    width: 32px;
+    border-radius: 50%;
+    border: 2px solid #306F7D;
+  }
+
+  .blockchain-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #306F7D;
+  }
 `
 
 const SendButton = styled(Button)`
   margin-top: 1rem !important;
+  max-width: 100%;
   width: 210px;
 
 
@@ -35,27 +60,43 @@ const SendButton = styled(Button)`
   }
 
   @media screen and (max-width: 768px){
-    width: 164px;
+    width: 100%;
   }
 `
 
 const Image = styled.img`
-  width: 45%;
+  width: 30%;
   position: absolute;
   right: 0;
   bottom: 0;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
+const inputStyle = { width: '100%', marginTop: '.4rem' }
 
 const Swap = () => {
+  const wallet = useWallet()
+  const chainInfo = CHAIN_INFO[wallet.chainId]
+
   return (
     <Container>
       <FormItem>
+        <FormLabel>Chain Name :</FormLabel>
+        <BlockchainLabel>
+          <img className="blockchain-icon" src={chainInfo.icon} />
+          <div className="blockchain-name">{chainInfo.name}</div>
+        </BlockchainLabel>
+      </FormItem>
+
+      <FormItem>
         <FormLabel>
-          Send from :
+          Send From :
         </FormLabel>
         <AddressLabel>
-          0x9B7d9B7442Db594A91Ca5A9ee4B117C65E26721e
+          {wallet.account}
         </AddressLabel>
       </FormItem>
 
@@ -63,25 +104,25 @@ const Swap = () => {
         <FormLabel>
           Send To :
         </FormLabel>
-        <TextField variant="outlined" size="small" sx={{ marginTop: '.4rem' }} placeholder="Enter public address(0x)" />
+        <TextField variant="outlined" size="small" sx={inputStyle} placeholder="Enter public address(0x)" />
       </FormItem>
 
       <FormItem>
         <FormLabel>
           Assets :
         </FormLabel>
-        <TextField variant="outlined" size="small" sx={{ marginTop: '.4rem' }} placeholder="Select asset" />
+        <TextField variant="outlined" size="small" sx={inputStyle} placeholder="Select asset" />
       </FormItem>
 
       <FormItem>
         <FormLabel>
           Amount :
         </FormLabel>
-        <TextField variant="outlined" size="small" sx={{ marginTop: '.4rem' }} placeholder="0.00" />
+        <TextField variant="outlined" size="small" sx={inputStyle} placeholder="0.00" />
       </FormItem>
 
       <FormItem>
-        <SendButton variant="contained" size='large'>Send</SendButton>
+        <SendButton variant="contained" color="secondary" size="large">Send</SendButton>
       </FormItem>
 
       <Image src={SwapIcon} />

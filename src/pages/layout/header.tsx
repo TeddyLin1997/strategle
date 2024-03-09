@@ -1,12 +1,13 @@
 import { MouseEvent, useState } from 'react'
-import { HeaderWrapper, HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem, UserItem } from './header.style'
+import { NavLink } from 'react-router-dom'
+import { HeaderWrapper, HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem } from './header.style'
 import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
 import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/strategle.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import PersonIcon from '@mui/icons-material/Person'
+import Badge from '@mui/material/Badge'
 
 const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
 const anchorStyle = { top: 8 }
@@ -16,12 +17,12 @@ const navLinks = [
   { key: 'economy', path: '/economy', text: 'Economy' },
   // { key: 'analysis', path: '/analysis', text: 'Analysis' },
   // { key: 'community', path: '/community', text: 'Community' },
-  // { key: 'protocol', path: '/protocol', text: 'STRAG Protocol' },
-]
+  { key: 'protocol', path: '/protocol', text:
+    <Badge badgeContent=" DeFi" color="primary">
+      <div>STRAG Protocol</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </Badge>
 
-const userMenu = [
-  { key: 'user', path: '/user/overview', text: 'User', icon: <PersonIcon /> },
-  { key: 'wallet', path: '/user/wallet', text: 'Wallet', icon: <AccountBalanceWalletIcon /> },
+  },
 ]
 
 const walletList = [
@@ -37,7 +38,7 @@ const Header = () => {
   const wallet = useWallet()
 
   const isConnect = wallet.account !== ''
-  const ellipsisAddress = isConnect ? `${wallet.account.slice(0, 5)}...${wallet.account.slice(-4)}` : ''
+  const ellipsisAddress = isConnect ? `${wallet.account.slice(0, 6)} ... ${wallet.account.slice(-6)}` : ''
 
   // dialog
   const [isOpenDialog, setIsOpenDialog] = useState(false)
@@ -50,12 +51,6 @@ const Header = () => {
 
   const openPopover = (event: MouseEvent<HTMLButtonElement>) => setChainMenuElement(event.currentTarget)
   const closePopover = () => setChainMenuElement(null)
-
-  // user menu
-  const [userMenuElement, setUserMenuElement] = useState<HTMLElement | null>(null)
-  const userMenuOpen = Boolean(userMenuElement)
-  const handleUserMenuOpen = (event: MouseEvent<HTMLElement>) => setUserMenuElement(event.currentTarget)
-  const handleUserMenuClose = () => setUserMenuElement(null)
 
   return (
     <HeaderWrapper>
@@ -102,28 +97,19 @@ const Header = () => {
             </Popover>
 
             {/* User overview */}
-            <Button variant="contained" size="small" onClick={handleUserMenuOpen}>{ellipsisAddress}</Button>
-            <Popover
-              open={userMenuOpen}
-              anchorEl={userMenuElement}
-              onClose={handleUserMenuClose}
-              anchorOrigin={anchorOrigin}
-              sx={anchorStyle}
-            >
-              <div style={{ padding: '6px', width: '164px' }}>
-                {userMenu.map((item) => (
-                  <UserItem key={item.key} to={item.path}>
-                    {item.icon}
-                    <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
-                  </UserItem>
-                ))}
-              </div>
-            </Popover>
+            <NavLink to="/user">
+              <Button variant="contained" size="small">
+                <PersonIcon style={{ width: '20px', height: '20px', marginRight: '.6rem' }} />
+                <span>{ellipsisAddress}</span>
+              </Button>
+            </NavLink>
+
           </AccountContainer>
         }
 
         {/* 連接錢包 */}
         { !isConnect && <ConnectWallet variant="contained" size="small" onClick={handleOpen}>Connect wallet</ConnectWallet> }
+
         {/* 連接錢包 dialog */}
         <Dialog onClose={handleClose} open={isOpenDialog}>
           <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>

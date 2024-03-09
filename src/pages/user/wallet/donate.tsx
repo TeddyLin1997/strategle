@@ -5,12 +5,16 @@ import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO } from '@/global/chain'
 
 const Container = styled.div`
-  padding: 0 0.8rem 0.8rem;
   position: relative;
 `
 
 const FormItem = styled.div`
-  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  max-width: 60%;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
 `
 
 const FormLabel = styled.div`
@@ -19,12 +23,11 @@ const FormLabel = styled.div`
 `
 
 const AddressLabel = styled.div`
+  width: 100%;
   font-size: 1.2rem;
   font-weight: 700;
   color: #306F7D;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  word-break: break-all;
 `
 
 const BlockchainLabel = styled.div`
@@ -48,6 +51,7 @@ const BlockchainLabel = styled.div`
 
 const SendButton = styled(Button)`
   margin-top: 1rem !important;
+  max-width: 100%;
   width: 210px;
 
 
@@ -56,17 +60,22 @@ const SendButton = styled(Button)`
   }
 
   @media screen and (max-width: 768px){
-    width: 164px;
+    width: 100%;
   }
 `
 
 const Image = styled.img`
-  width: 45%;
+  width: 30%;
   position: absolute;
   right: 0;
   bottom: 0;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
+const inputStyle = { width: '100%', marginTop: '.4rem' }
 
 const Donate = () => {
   // chain
@@ -95,17 +104,23 @@ const Donate = () => {
 
       <FormItem>
         <FormLabel>Send To :</FormLabel>
-        <AddressLabel>{toAddress}</AddressLabel>
+        <TextField
+          value={toAddress}
+          variant="outlined"
+          color="secondary"
+          size="small"
+          sx={inputStyle}
+        />
       </FormItem>
 
       <FormItem>
         <FormLabel>Assets :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={{ marginTop: '.4rem' }} placeholder="Select asset" />
+        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select asset" />
       </FormItem>
 
       <FormItem>
         <FormLabel>Amount :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={{ marginTop: '.4rem' }} placeholder="0.00" />
+        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
       </FormItem>
 
       <FormItem>
