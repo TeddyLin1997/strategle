@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { ethers } from 'ethers'
 
 export const getChangeColor = (changeValue: number) => {
   return changeValue >= 0 ? '#0ecb81' : '#FF6E6E'
@@ -36,6 +37,14 @@ export function isDevelopmentMode() {
 
 export function timeFormat(time: any = '', format = 'YYYY/MM/DD HH:mm:ss') {
   return dayjs(time).format(format)
+}
+
+export function isValidEVMAddress (address: string) {
+  return ethers.isAddress(address)
+}
+
+export function toChecksumAddress (address: string) {
+  return isValidEVMAddress(address) ? ethers.getAddress(address) : address
 }
 
 

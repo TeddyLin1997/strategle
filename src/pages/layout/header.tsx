@@ -77,7 +77,7 @@ const Header = () => {
             {/* chain switch */}
             <Button onClick={openPopover} variant="outlined" size="small" sx={{ mr: 2 }}>
               { CHAIN_INFO[wallet.chainId] && <img className="current-chain-icon" src={CHAIN_INFO[wallet.chainId]?.icon} /> }
-              { CHAIN_INFO[wallet.chainId]?.name || 'Not support network chain' }
+              { CHAIN_INFO[wallet.chainId]?.name || 'no support' }
             </Button>
             <Popover
               open={chainMenuOpen}

@@ -9,8 +9,8 @@ export const HeaderWrapper = styled.header`
   padding: 10px 24px;
   user-select: none;
   z-index: 100;
-  border-bottom: 1px solid #4c4c4c;
-  background-color: #1d2129;
+  border-bottom: 2px solid #4c4c4c;
+  background-color: #1d1e25;
 `
 
 export const HeaderContainer = styled.div`

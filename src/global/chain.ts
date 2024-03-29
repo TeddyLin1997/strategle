@@ -14,7 +14,7 @@ export enum Chain {
   ARB = 42161,
   OP = 10,
   ZK = 324,
-  PolygonEVM = -1,
+  Sepolia = 11155111,
 }
 
 type ChainInfo = {
@@ -107,6 +107,17 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
       icon: ethereum,
     },
   },
+  [Chain.Sepolia]: {
+    icon: ethereum,
+    id: Chain.ETH,
+    name: 'Sepolia',
+    rpc: 'https://rpc.sepolia.org',
+    explorer: 'https://sepolia.etherscan.io',
+    coin: {
+      name: 'SepoliaETH',
+      icon: ethereum,
+    }
+  },
 }
 
 export const CHAIN_INFO_LIST = [
@@ -117,4 +128,5 @@ export const CHAIN_INFO_LIST = [
   CHAIN_INFO[Chain.ARB],
   CHAIN_INFO[Chain.OP],
   CHAIN_INFO[Chain.ZK],
+  CHAIN_INFO[Chain.Sepolia],
 ]

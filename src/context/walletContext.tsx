@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 import { JsonRpcProvider, formatEther } from 'ethers'
 import { CHAIN_INFO } from '@/global/chain'
+import { toChecksumAddress } from '@/utils'
 
 export interface WalletContextProps {
   provider: JsonRpcProvider | null
@@ -14,7 +15,7 @@ export interface WalletContextProps {
 
 const initWalletContext = {
   provider: new JsonRpcProvider(),
-  chainId: 1,
+  chainId: 0,
   account: '',
   balance: 0,
   isConnect: false,
@@ -33,7 +34,7 @@ export const WalletProvider = ({ children }) => {
 
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      setAccount(accounts[0])
+      setAccount(toChecksumAddress(accounts[0]))
 
       const chainId = await window.ethereum.request({ method: 'eth_chainId' })
       setChainId(parseInt(chainId))
@@ -90,7 +91,7 @@ export const WalletProvider = ({ children }) => {
     if (!window.ethereum) return
     connect()
     window.ethereum.on('chainChanged', (chainId: string) => setChainId(parseInt(chainId)))
-    window.ethereum.on('accountsChanged', (accounts: string[]) => setAccount(accounts[0]))
+    window.ethereum.on('accountsChanged', (accounts: string[]) => setAccount(toChecksumAddress(accounts[0])))
   }, [])
 
   // provider
@@ -104,7 +105,7 @@ export const WalletProvider = ({ children }) => {
     rpcProvider.getNetwork()
       .then((network) => {
         setIsConnect(true)
-        console.log('connect blockchain success:', network.name, ', network ID：', network.chainId)
+        console.log('connect blockchain success:', network.name)
       })
       .catch((error) => {
         console.error('connect blockchain erro:', error)
