@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         bg: {
-          DEFAULT: '#1d1e25',
+          DEFAULT: '#1a191f',
         },
         text: {
           DEFAULT: '#121214',
@@ -33,11 +33,12 @@ export default {
           extend: '#FFE2E2',
         },
         gray: {
+          bg: '#2a2932',
           hover: '#fafafa',
-          bg: '#f2f3f5',
           border: '#efefef',
           1: '#4c4c4c',
           card: '#2c2c2e',
+          secondary: '#9b9696',
         },
       }
     },

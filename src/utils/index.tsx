@@ -47,6 +47,10 @@ export function toChecksumAddress (address: string) {
   return isValidEVMAddress(address) ? ethers.getAddress(address) : address
 }
 
+export function truncateSlice(hash: string) {
+  return `${hash.slice(0, 10)}.....${hash.slice(-10)}`
+}
+
 
 // 測試函式
 // console.log(formatNumber('123.4560'))  // 輸出: "123.456"

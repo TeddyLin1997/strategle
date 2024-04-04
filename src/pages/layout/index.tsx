@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { Toaster } from 'react-hot-toast'
 import { Outlet } from 'react-router-dom'
 import Header from './header'
 import Footer from './footer'
@@ -22,6 +23,7 @@ const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
       </Main>
 
       <Footer />
+      <Toaster position="bottom-right" reverseOrder={true}/>
     </LayoutContainer>
   )
 }
