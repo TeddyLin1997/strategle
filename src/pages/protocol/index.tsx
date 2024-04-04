@@ -94,7 +94,7 @@ const Protocol = () => {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: '/public/animation/banner.json' // the path to the animation json
+      path: '/animation/banner.json' // the path to the animation json
     })
   }, [])
 
@@ -181,7 +181,7 @@ const Protocol = () => {
         <pre className="mb-6 w-full text-center font-bold text-4xl tracking-wider">TREASURY</pre>
 
         <section className="mb-10">
-          <header className="mb-6 relative gap-4 flex items-center font-bold">
+          <header className="mb-8 relative gap-4 flex items-center font-bold">
 
             <div className="w-3/5 p-4 rounded-3xl bg-gray-bg">
               <div className="mb-2">USDT Balance :</div>
@@ -192,7 +192,8 @@ const Protocol = () => {
                 <pre className="truncate">{STRAG_ADDRESS}</pre>
               </a>
             </div>
-            <div className="w-2/5">
+
+            <div className=" absolute right-0 w-2/5">
               <img src={TreasuryImage} alt="" className="mx-auto w-[360px]" />
             </div>
 
