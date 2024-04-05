@@ -1,7 +1,7 @@
-import { useMarket } from '@/hooks/useMarket'
 import { formatNumber, getChangeColor } from '@/utils'
 import styled, { keyframes } from 'styled-components'
 import Big from 'big.js'
+import MarketContainer from '@/context/marketContext'
 
 const fadeInUp = keyframes`
   0% {
@@ -60,7 +60,7 @@ interface CoordinatePointProps {
 
 const CoordinatePoint = ({ x, y, list }: CoordinatePointProps) => {
   const isDisplay = x !== 0 && y !== 0
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   return isDisplay ? (
     <PointWrapper key={`x:${x},y:${y}`} x={x} y={y}>

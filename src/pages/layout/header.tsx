@@ -1,13 +1,13 @@
 import { MouseEvent, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { HeaderWrapper, HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContainer, WalletItem, AccountContainer, ChainItem } from './header.style'
+import { HeaderWrapper, HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContent, WalletItem, AccountContainer, ChainItem } from './header.style'
 import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
-import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/strategle.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
 import PersonIcon from '@mui/icons-material/Person'
 import Badge from '@mui/material/Badge'
+import WalletContainer from '@/context/walletContext'
 
 const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
 const anchorStyle = { top: 8 }
@@ -35,7 +35,7 @@ const walletList = [
 ]
 
 const Header = () => {
-  const wallet = useWallet()
+  const wallet = WalletContainer.useContainer()
 
   const isConnect = wallet.account !== ''
   const ellipsisAddress = isConnect ? `${wallet.account.slice(0, 6)} ... ${wallet.account.slice(-6)}` : ''
@@ -116,7 +116,7 @@ const Header = () => {
             Please connect wallet
           </DialogTitle>
           <DialogContent>
-            <WalletContainer>
+            <WalletContent>
               {walletList.map(item => {
                 const isInstall = item.checkIsInstall()
                 const handleInstall = () => window.open(item.installUrl)
@@ -134,7 +134,7 @@ const Header = () => {
                 )
               }
               )}
-            </WalletContainer>
+            </WalletContent>
           </DialogContent>
         </Dialog>
 

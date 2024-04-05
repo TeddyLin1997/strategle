@@ -1,54 +1,45 @@
-import { createContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { createContainer } from 'unstated-next'
 
 type WebSocketServer = WebSocket | null
 
-export interface WebSocketContextProps {
-  webSocketServer: WebSocketServer
-}
+const WS_URL = import.meta.env.DEV ? 'ws://localhost:3000' : `wss://${location.host}`
 
-const initWebSocketContext: WebSocketContextProps = {
-  webSocketServer: null
-}
-
-export const WebSocketContext = createContext(initWebSocketContext)
-
-const isDev = location.hostname === 'localhost'
-const WS_URL = isDev ? 'ws://localhost:3000' : `wss://${location.host}`
-
-export const WebSocketProvider = ({ children }) => {
-  const [server, setServer] = useState<WebSocketServer>(null)
+const useWebSocketServer = () => {
+  const [webSocketServer, setServer] = useState<WebSocketServer>(null)
 
   const createWebSocket = () => {
     try { setServer(new WebSocket(WS_URL)) }
     catch { setTimeout(() => createWebSocket(), 3000) }
   }
 
-  useEffect(() => createWebSocket(), [])
+  useEffect(() => {
+    if (import.meta.env.PROD) createWebSocket()
+  }, [])
 
   useEffect(() => {
-    if (server === null) return
+    if (webSocketServer === null) return
 
-    server.onopen = function(event) {
+    webSocketServer.onopen = function(event) {
       console.warn('WebSocket Open.', event)
     }
 
-    server.onerror = function (event) {
+    webSocketServer.onerror = function (event) {
       console.warn('WebSocket Error:', event)
     }
 
-    server.onclose = async function (event) {
+    webSocketServer.onclose = async function (event) {
       if (event.wasClean) console.warn(`Websocket Manual Closed: ${event.code}, Reason: ${event.reason}`)
       else {
         console.warn('WebSocket Error Closed.', event)
         setTimeout(() => createWebSocket(), 10 * 1000)
       }
     }
-  }, [server])
+  }, [webSocketServer])
 
-
-  return (
-    <WebSocketContext.Provider value={{ webSocketServer: server }}>
-      {children}
-    </WebSocketContext.Provider>
-  )
+  return { webSocketServer }
 }
+
+const WebSocketServerContainer = createContainer(useWebSocketServer)
+
+export default WebSocketServerContainer

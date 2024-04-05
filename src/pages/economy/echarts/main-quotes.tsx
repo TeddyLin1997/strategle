@@ -1,4 +1,4 @@
-import { useMarket } from '@/hooks/useMarket'
+import MarketContainer from '@/context/marketContext'
 import styled from 'styled-components'
 
 const shadow = 'box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);'
@@ -61,7 +61,7 @@ const quotesList = [
 ]
 
 const MainQuotes = () => {
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   return (
     <Container>

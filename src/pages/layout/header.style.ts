@@ -77,7 +77,7 @@ export const ConnectWallet = styled(Button)`
   margin-left: auto !important;
 `
 
-export const WalletContainer = styled.div`
+export const WalletContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

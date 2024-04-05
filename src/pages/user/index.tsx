@@ -3,11 +3,11 @@ import AvatarIcon from '@/assets/images/avatar3.png'
 import { useEffect, useMemo, useState } from 'react'
 import Wallet from './wallet'
 import Info from './info'
-import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO } from '@/global/chain'
 import { Title, Account, Balance } from './style'
 import Container from '@/components/container'
-import { useMarket } from '@/hooks/useMarket'
+import MarketContainer from '@/context/marketContext'
+import WalletContainer from '@/context/walletContext'
 
 enum TabEnum {
   Wallet = 'Wallet',
@@ -18,10 +18,11 @@ const User = () => {
   const [tab, setTab]= useState(TabEnum.Wallet)
   const handleTab = (_, tab: TabEnum) => setTab(tab)
 
-  const { chainId, account, provider, isConnect, balance } = useWallet()
+  const { chainId, account, provider, isConnect, balance } = WalletContainer.useContainer()
+
   const chainInfo = CHAIN_INFO[chainId]
 
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
   const netValue = useMemo(() => {
     const coinPrice = Number(ticker?.[`${chainInfo.coin.name}USDT`]?.price) || 0
     return (coinPrice * balance).toFixed(2)

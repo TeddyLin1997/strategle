@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { ChangeEvent, useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import SendIcon from '@/assets/images/send.png'
-import { useWallet } from '@/hooks/useWallet'
 import { CHAIN_INFO } from '@/global/chain'
+import WalletContainer from '@/context/walletContext'
 // import { TOKEN_INFO } from '@/global/token'
 // import { Contract, parseUnits, parseEther } from 'ethers'
 
@@ -87,7 +87,7 @@ const inputStyle = { width: '100%', marginTop: '.4rem' }
 
 const Send = () => {
   // chain
-  const wallet = useWallet()
+  const wallet = WalletContainer.useContainer()
   const chainInfo = CHAIN_INFO[wallet.chainId]
 
   // from address

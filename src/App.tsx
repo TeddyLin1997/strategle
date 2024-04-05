@@ -1,24 +1,27 @@
 import Router from '@/routes'
-import { WebSocketProvider } from '@/context/wsConext'
+import WebSocketServerContainer from '@/context/wsConext'
+import WalletContainer from '@/context/walletContext'
+import MarketContainer from '@/context/marketContext'
+import ContractContainer from '@/context/contractContext'
 import { ThemeProvider } from '@mui/material/styles'
-import { WalletProvider } from '@/context/walletContext'
-import { MarketProvider } from '@/context/marketContext'
 import { SnackbarProvider } from 'notistack'
 import { theme } from './styles/theme'
 
 const App = () => {
   return (
-    <WebSocketProvider>
+    <WebSocketServerContainer.Provider>
       <ThemeProvider theme={theme}>
-        <MarketProvider>
-          <WalletProvider>
-            <SnackbarProvider maxSnack={5} anchorOrigin={ { horizontal: 'right', vertical: 'bottom' }} autoHideDuration={1500}>
-              <Router />
-            </SnackbarProvider>
-          </WalletProvider>
-        </MarketProvider>
+        <MarketContainer.Provider>
+          <ContractContainer.Provider>
+            <WalletContainer.Provider>
+              <SnackbarProvider maxSnack={5} anchorOrigin={ { horizontal: 'right', vertical: 'bottom' }} autoHideDuration={1500}>
+                <Router />
+              </SnackbarProvider>
+            </WalletContainer.Provider>
+          </ContractContainer.Provider>
+        </MarketContainer.Provider>
       </ThemeProvider>
-    </WebSocketProvider>
+    </WebSocketServerContainer.Provider>
   )
 }
 

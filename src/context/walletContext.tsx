@@ -1,17 +1,8 @@
-import { createContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { JsonRpcProvider, formatEther } from 'ethers'
 import { CHAIN_INFO } from '@/global/chain'
 import { toChecksumAddress } from '@/utils'
-
-export interface WalletContextProps {
-  provider: JsonRpcProvider | null
-  chainId: number
-  account: string
-  balance: number
-  isConnect: boolean
-  connect: () => Promise<void>
-  switchChain: (newChainId: number) => Promise<void>
-}
+import { createContainer } from 'unstated-next'
 
 const initWalletContext = {
   provider: new JsonRpcProvider(),
@@ -23,9 +14,7 @@ const initWalletContext = {
   switchChain: () => Promise.resolve(),
 }
 
-export const WalletContext = createContext<WalletContextProps>(initWalletContext)
-
-export const WalletProvider = ({ children }) => {
+const useWallet = () => {
 
   // connect account
   const [account, setAccount] = useState(initWalletContext.account)
@@ -125,9 +114,11 @@ export const WalletProvider = ({ children }) => {
     }
   }, [account, provider, isConnect])
 
-  return (
-    <WalletContext.Provider value={{ account, chainId, provider, balance, isConnect, connect, switchChain }}>
-      {children}
-    </WalletContext.Provider>
-  )
+
+  return { account, chainId, provider, balance, isConnect, connect, switchChain }
 }
+
+
+const WalletContainer = createContainer(useWallet)
+
+export default WalletContainer

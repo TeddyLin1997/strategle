@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react'
-import { WebSocketContext } from '@/context/wsConext'
+import { useEffect } from 'react'
+import WebSocketServerContainer from '@/context/wsConext'
 
 
 const useWebSocket = (callback: (data: string) => void = () => {}, deps: any[]) => {
-  const { webSocketServer } = useContext(WebSocketContext)
+  const { webSocketServer } = WebSocketServerContainer.useContainer()
 
   useEffect(() => {
     if (webSocketServer === null) return

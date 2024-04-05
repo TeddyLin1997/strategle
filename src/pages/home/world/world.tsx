@@ -1,13 +1,13 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
-import { useMarket } from '@/hooks/useMarket'
 import WorldMap from './world-map'
 import CoordinatePoint from './coordinate-point'
 import * as S from './world.style'
 import { formatNumber, getChangeColor } from '@/utils'
 import Big from 'big.js'
+import MarketContainer from '@/context/marketContext'
 
 const WorldStockIndex = ({ indexList }) => {
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   // active country
   const [activeCountry, setActiveCountry] = useState('')

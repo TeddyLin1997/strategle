@@ -1,4 +1,4 @@
-import { useMarket } from '@/hooks/useMarket'
+import MarketContainer from '@/context/marketContext'
 import { Container, Title, CommoditySection, CommodityItem } from './index.style'
 import Divider from '@mui/material/Divider'
 
@@ -7,7 +7,7 @@ interface CommodityProps {
 }
 
 const Commodity = ({ commodityList }: CommodityProps) => {
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   return (
     <Container>

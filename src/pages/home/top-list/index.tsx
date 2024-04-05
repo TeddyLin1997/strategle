@@ -1,17 +1,17 @@
 import { formatNumber, getChangeColor } from '@/utils'
 import * as S from './index.style'
 import { HTMLAttributes } from 'react'
-import { useMarket } from '@/hooks/useMarket'
 import Big from 'big.js'
 import up from '@/assets/images/up.png'
 import down from '@/assets/images/down.png'
+import MarketContainer from '@/context/marketContext'
 
 interface TopListProps extends HTMLAttributes<HTMLDivElement> {
   list: Array<TopItem>
 }
 
 const TopSection = ({ title,  list = [], ...props }: TopListProps) => {
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   return (
     <S.TopList {...props}>

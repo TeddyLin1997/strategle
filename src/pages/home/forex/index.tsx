@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 import Divider from '@mui/material/Divider'
 import * as S from './index.style'
-import { useMarket } from '@/hooks/useMarket'
 import up from '@/assets/images/up.png'
 import down from '@/assets/images/down.png'
+import MarketContainer from '@/context/marketContext'
 
 const Forex = ({ forexList }) => {
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   const forexListNode = useMemo(() => forexList.map(item => {
     const { price = 0, open = 0 } = ticker[item.symbol] || {}

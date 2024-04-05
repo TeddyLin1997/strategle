@@ -1,5 +1,5 @@
+import MarketContainer from '@/context/marketContext'
 import { HTMLAttributes, useEffect } from 'react'
-import { useMarket } from '@/hooks/useMarket'
 
 type Country = { country: string, symbol: string }
 
@@ -22,7 +22,7 @@ const stylingFunction = (tick: Tick, maxChangePercent: number) => {
 }
 
 const WorldMap = ({ countriesData, activeCountry, ...props }: WorldMapProps) => {
-  const { ticker } = useMarket()
+  const { ticker } = MarketContainer.useContainer()
 
   useEffect(() => {
     const maxChangePercent = countriesData.reduce((acc, curr) => {
