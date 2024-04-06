@@ -112,9 +112,13 @@ const Treasury = () => {
       <pre className="mb-6 w-full text-center font-bold text-4xl tracking-wider">TREASURY</pre>
 
       <section className="mb-10">
-        <header className="mb-8 relative gap-4 flex items-center font-bold">
+        <header className="mb-8 mx-auto px-4 py-6 gap-4 flex w-2/3 items-stretch font-bold bg-gray-bg rounded-3xl">
 
-          <div className="w-3/5 p-4 rounded-3xl bg-gray-bg">
+          <div className="hidden md:flex w-[264px]">
+            <img src={TreasuryImage} className="mx-auto w-full" />
+          </div>
+
+          <div className="flex-1">
             <div className="mb-2">USDT Balance :</div>
             <div className="ml-6 mb-4 w-fit text-up text-3xl">$ {usdtBalance} USDT</div>
 
@@ -124,12 +128,7 @@ const Treasury = () => {
             </a>
           </div>
 
-          <div className=" absolute right-0 w-2/5">
-            <img src={TreasuryImage} alt="" className="mx-auto w-[360px]" />
-          </div>
-
         </header>
-
 
         <div className="flex gap-8">
           {/* Treasury USDT Transaction */}
