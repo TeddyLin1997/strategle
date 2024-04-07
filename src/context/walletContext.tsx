@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
-import { JsonRpcProvider, formatEther } from 'ethers'
+import { ethers, BrowserProvider, formatEther, Signer } from 'ethers'
 import { CHAIN_INFO } from '@/global/chain'
 import { toChecksumAddress } from '@/utils'
 import { createContainer } from 'unstated-next'
 
 const initWalletContext = {
-  provider: new JsonRpcProvider(),
+  provider: new BrowserProvider(window.ethereum),
   chainId: 0,
   account: '',
   balance: 0,
   isConnect: false,
+  isSigner: false,
+  signer: null,
   connect: () => Promise.resolve(),
   switchChain: () => Promise.resolve(),
 }
@@ -80,7 +82,7 @@ const useWallet = () => {
     if (!window.ethereum) return
     connect()
     window.ethereum.on('chainChanged', (chainId: string) => setChainId(parseInt(chainId)))
-    window.ethereum.on('accountsChanged', (accounts: string[]) => setAccount(toChecksumAddress(accounts[0])))
+    window.ethereum.on('accountsChanged', (accounts: string[]) => setAccount(toChecksumAddress(accounts[0] || '')))
   }, [])
 
   // provider
@@ -89,7 +91,7 @@ const useWallet = () => {
 
   useEffect(() => {
     if (!CHAIN_INFO[chainId]) return
-    const rpcProvider = new JsonRpcProvider(CHAIN_INFO[chainId]?.rpc)
+    const rpcProvider = new ethers.BrowserProvider(window.ethereum)
 
     rpcProvider.getNetwork()
       .then((network) => {
@@ -114,8 +116,22 @@ const useWallet = () => {
     }
   }, [account, provider, isConnect])
 
+  // signer
+  const [isSigner, setisSigner] = useState(initWalletContext.isSigner)
+  const [signer, setSigner] = useState<Signer | null>(initWalletContext.signer)
 
-  return { account, chainId, provider, balance, isConnect, connect, switchChain }
+  useEffect(() => {
+    setisSigner(false)
+    setSigner(null)
+
+    provider.getSigner().then(res => {
+      setisSigner(true)
+      setSigner(res)
+    })
+  }, [provider, account, chainId])
+
+
+  return { isSigner, signer, account, chainId, provider, balance, isConnect, connect, switchChain }
 }
 
 

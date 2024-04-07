@@ -13,13 +13,13 @@ interface InfoProps {
 
 const Info = ({ handleTab }: InfoProps) => {
 
-  const { STRAG_ADDRESS, stragleTokenContract } = ContractContainer.useContainer()
+  const { STRAG_ADDRESS, STRAGContract } = ContractContainer.useContainer()
 
   // token info
   const [tokenInfo, setTokenInfo] = useState({ totalSupply: '-', totalStake: '-' })
   useEffect(() => {
-    stragleTokenContract.totalSupply().then(res => setTokenInfo(prev => ({ ...prev, totalSupply: ethers.formatEther(res) })) )
-    stragleTokenContract.balanceOf(STRAG_ADDRESS).then(res => setTokenInfo(prev => ({ ...prev, totalStake: ethers.formatEther(res) })) )
+    STRAGContract.totalSupply().then(res => setTokenInfo(prev => ({ ...prev, totalSupply: ethers.formatEther(res) })) )
+    STRAGContract.balanceOf(STRAG_ADDRESS).then(res => setTokenInfo(prev => ({ ...prev, totalStake: ethers.formatEther(res) })) )
   }, [])
 
 

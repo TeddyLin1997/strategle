@@ -12,13 +12,13 @@ const App = () => {
     <WebSocketServerContainer.Provider>
       <ThemeProvider theme={theme}>
         <MarketContainer.Provider>
-          <ContractContainer.Provider>
-            <WalletContainer.Provider>
+          <WalletContainer.Provider>
+            <ContractContainer.Provider>
               <SnackbarProvider maxSnack={5} anchorOrigin={ { horizontal: 'right', vertical: 'bottom' }} autoHideDuration={1500}>
                 <Router />
               </SnackbarProvider>
-            </WalletContainer.Provider>
-          </ContractContainer.Provider>
+            </ContractContainer.Provider>
+          </WalletContainer.Provider>
         </MarketContainer.Provider>
       </ThemeProvider>
     </WebSocketServerContainer.Provider>

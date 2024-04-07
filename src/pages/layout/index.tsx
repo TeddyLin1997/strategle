@@ -23,7 +23,7 @@ const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
       </Main>
 
       <Footer />
-      <Toaster position="bottom-right" reverseOrder={true}/>
+      <Toaster position="top-center" reverseOrder={true}/>
     </LayoutContainer>
   )
 }

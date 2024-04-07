@@ -8,7 +8,7 @@ const routes = [
   { key: 'analysis', path: '/analysis', index: false, component: lazy(() => import('@/pages/analysis')) },
   { key: 'community', path: '/community', index: false, component: lazy(() => import('@/pages/community')) },
   { key: 'protocol', path: '/protocol', index: false, component: lazy(() => import('@/pages/protocol')) },
-  { key: 'user', path: '/user', index: false, component: lazy(() => import('@/pages/user')) },
+  { key: 'wallet', path: '/wallet', index: false, component: lazy(() => import('@/pages/wallet')) },
 ]
 
 const root = (

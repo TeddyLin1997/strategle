@@ -163,3 +163,38 @@ export const ChainItem = styled.div`
     border: 1px solid #ccc;
   }
 `
+
+export const UserItem = styled(NavLink)`
+  margin-bottom: 4px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  color: #121214;
+  cursor: pointer;
+
+  & > svg {
+    width: 20px;
+    height: auto;
+  }
+
+  &:hover {
+    background-color: #FFC40880;
+  }
+`
+
+export const Protocol = styled.div`
+  position: relative;
+
+  &::after {
+    content: 'DeFi';
+    position: absolute;
+    bottom: 50%;
+    left: 100%;
+    display: block;
+    padding: 1px 8px;
+    background-color: #FFC408;
+    border-radius: 80px;
+    color: #121214;
+  }
+`

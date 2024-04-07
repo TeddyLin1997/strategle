@@ -110,6 +110,7 @@ const Donate = () => {
           color="secondary"
           size="small"
           sx={inputStyle}
+          disabled
         />
       </FormItem>
 
