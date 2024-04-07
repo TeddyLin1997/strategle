@@ -64,7 +64,7 @@ const Stake = () => {
         <TextField value={amount} onChange={onChangeAmount} size="small" fullWidth className="bg-white rounded-md" />
       </div>
 
-      <Button className="!mt-6" variant="contained" onClick={stake}>Stake</Button>
+      <Button className="!mt-2" variant="contained" onClick={stake}>Stake</Button>
       <LoadingFullscreen open={isLoading} />
     </div>
   )

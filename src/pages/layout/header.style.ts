@@ -190,9 +190,10 @@ export const Protocol = styled.div`
     content: 'DeFi';
     position: absolute;
     bottom: 50%;
-    left: 100%;
+    left: 98%;
     display: block;
-    padding: 1px 8px;
+    font-size: 12px;
+    padding: 2px 8px;
     background-color: #FFC408;
     border-radius: 80px;
     color: #121214;

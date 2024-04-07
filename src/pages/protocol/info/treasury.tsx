@@ -60,7 +60,7 @@ const Treasury = () => {
       <pre className="mb-6 w-full text-center font-bold text-4xl tracking-wider">TREASURY</pre>
 
       <section className="mb-10">
-        <header className="mb-8 mx-auto p-6 gap-4 flex w-2/3 items-stretch font-bold bg-gray-bg rounded-3xl">
+        <header className="mb-8 mx-auto p-6 gap-4 flex w-full md:w-2/3 items-stretch font-bold bg-gray-bg rounded-3xl">
 
           <div className="hidden md:flex w-[264px]">
             <img src={TreasuryImage} className="mx-auto w-full" />
@@ -78,9 +78,9 @@ const Treasury = () => {
 
         </header>
 
-        <div className="flex gap-8">
+        <div className="flex gap-8 flex-wrap md:flex-nowrap">
           {/* Treasury USDT Transaction */}
-          <article className="w-1/2">
+          <article className="w-full md:w-1/2">
             <div className="mb-2 font-bold text-lg">Treasury USDT Transactions : </div>
             <div className="py-2 rounded-lg overflow-auto">
               {usdtTransferEvents.map((item ,index) => <CardTreasury key={index} event={item}  />)}
@@ -88,7 +88,7 @@ const Treasury = () => {
           </article>
 
           {/* Recent Transactions */}
-          <article className="w-1/2">
+          <article className="w-full md:w-1/2">
             <div className="mb-2 font-bold text-lg">Recent Transactions : </div>
             <div className="py-2 rounded-lg overflow-auto">
               {transactionEvents.map((item ,index) => <CardEvent key={index} event={item} />)}

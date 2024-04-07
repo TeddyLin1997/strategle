@@ -76,7 +76,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     if (!action) return
 
     if (action === 'Claim') claimEl.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    else actionEl.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    else actionEl.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [action])
 
   // STRAG token info
@@ -229,12 +229,12 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
       <section className="mb-8 flex gap-4">
         {/* earn machine animation */}
-        <div className="w-3/5 relative flex">
+        <div className="w-full md:w-3/5 relative flex">
           <div ref={earnMachineAnimation} className="m-auto absolute top-[-20%] left-[-10%] scale-125 bottom-0 pointer-events-none" />
           { rewardList.map(item => <RewardAnimation key={item} amount={formatNumber(perSecondReward.mul(staker.stakingBalance).toFixed(8), 8)} />) }
         </div>
 
-        <div className="w-2/5">
+        <div className="w-full md:w-2/5">
           <div className="mb-4 flex flex-wrap gap-2 text-xl font-bold">
             Stake
             <span className="text-primary-light">$STRAG</span>
@@ -281,7 +281,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
       <hr className="mb-8 md:mb-10 border-gray-1" />
 
-      <section className="mb-20 flex gap-6">
+      <section className="mb-10 flex flex-wrap md:flex-nowrap gap-6">
         <div ref={actionEl} className="px-6 pb-6 w-full md:w-1/2 h-fit rounded-xl bg-gray-bg">
 
           <Tabs value={tab} onChange={onActionTab} indicatorColor="primary" textColor="inherit" className="!mb-6" variant="scrollable" scrollButtons="auto">
@@ -321,7 +321,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
            <div>
              {displayTransactionEvents.map((item ,index) => <EventTransactionCard key={index} event={item} />)}
 
-             <PageContainer className="p-2 flex justify-end md:justify-center rounded">
+             <PageContainer className="p-2 flex justify-center rounded">
                <Pagination
                  count={count}
                  onChange={onPage}

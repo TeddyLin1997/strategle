@@ -61,16 +61,16 @@ const Mint = () => {
         <div>{formatNumber(usetBalance)} USDT</div>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-1">
         <div className="mb-2 font-bold">Mint Amount : </div>
         <TextField value={amount} onChange={onChangeAmount} size="small" fullWidth className="bg-white rounded-md" />
       </div>
 
-      <div className="mb-4 text-xs text-primary-light">
+      <div className="mb-1 text-xs text-primary-light">
         Rate : 1 STRAG = 1 USDT (Equivalent exchange tokens)
       </div>
 
-      <Button className="!mt-6" variant="contained" onClick={mint}>Mint</Button>
+      <Button variant="contained" onClick={mint}>Mint</Button>
       <LoadingFullscreen open={isLoading} />
     </div>
   )
