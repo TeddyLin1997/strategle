@@ -69,7 +69,7 @@ const Header = () => {
 
         <Navigation>
           {navLinks.map(item => (
-            <NavItem to={item.path} key={item.key} className={({ isActive }) => isActive ? 'active' : '' }>
+            <NavItem to={item.path} key={item.key}>
               {item.text}
             </NavItem>
           ))}

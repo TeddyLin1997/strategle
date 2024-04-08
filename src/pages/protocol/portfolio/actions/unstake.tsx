@@ -13,7 +13,7 @@ const Unstake = () => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
-  const { STRAGContract } = ContractContainer.useContainer()
+  const { isSupportChain, STRAGContract, STRAGContractBindWallet } = ContractContainer.useContainer()
 
   const [unstakeTime, setUnstakeTime] = useState(0)
 
@@ -23,15 +23,15 @@ const Unstake = () => {
     })
   }, [])
 
-
   const unstake = async () => {
+    if (!isSupportChain) return toast.error('Currency network is not supported.')
     if (!isSigner) return toast.error('Wallet is not connected.')
     if (unstakeTime === 0) return toast.error('The unstaking time has not yet reached')
 
     try {
       load()
 
-      const tx = await STRAGContract.unstake()
+      const tx = await STRAGContractBindWallet.unstake()
       await tx.wait()
 
       toast.success('Withdraw Success.')

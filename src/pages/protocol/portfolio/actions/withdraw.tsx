@@ -13,7 +13,7 @@ const Withdraw = () => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
-  const { STRAGContract } = ContractContainer.useContainer()
+  const { isSupportChain, STRAGContract, STRAGContractBindWallet } = ContractContainer.useContainer()
 
   const [unlockTime, setUnlockTime] = useState(0)
 
@@ -24,13 +24,14 @@ const Withdraw = () => {
   }, [])
 
   const withdraw = async () => {
+    if (!isSupportChain) return toast.error('Currency network is not supported.')
     if (!isSigner) return toast.error('Wallet is not connected.')
     if (unlockTime === 0) return toast.error('The withdrawal time has not yet reached')
 
     try {
       load()
 
-      const tx = await STRAGContract.withdraw()
+      const tx = await STRAGContractBindWallet.withdraw()
       await tx.wait()
 
       toast.success('Withdraw Success.')

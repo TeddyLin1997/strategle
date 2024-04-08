@@ -9,8 +9,8 @@ import ClaimIcon from '@/assets/icons/event-claim.svg?react'
 import TimeIcon from '@/assets/icons/time.svg?react'
 import Copy from '@/components/copy'
 import dayjs from 'dayjs'
-import WalletContainer from '@/context/walletContext'
 import { useEffect, useState } from 'react'
+import ContractContainer from '@/context/contractContext'
 
 enum Event {
   Mint = 'Mint',
@@ -53,7 +53,7 @@ interface EventTransactionCardProps {
 }
 
 const EventTransactionCard = ({ event }: EventTransactionCardProps) => {
-  const { provider } = WalletContainer.useContainer()
+  const { protocolProvider } = ContractContainer.useContainer()
 
   // block timestamp
   const [blockTimestamp, setBlockTimestamp] = useState(0)
@@ -63,7 +63,7 @@ const EventTransactionCard = ({ event }: EventTransactionCardProps) => {
   }, [event.blockHash])
 
   const getBlockTimestamp = async (blockHash: string) => {
-    const block = await provider.getBlock(blockHash)
+    const block = await protocolProvider.getBlock(blockHash)
     setBlockTimestamp(block?.timestamp || 0)
   }
 

@@ -12,12 +12,13 @@ const Stake = () => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
-  const { STRAGContract, STRAG_ADDRESS } = ContractContainer.useContainer()
+  const { isSupportChain, STRAGContract, STRAGContractBindWallet, STRAG_ADDRESS } = ContractContainer.useContainer()
 
   const [amount, setAmount] = useState('')
   const onChangeAmount = (event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)
 
   const stake = async () => {
+    if (!isSupportChain) return toast.error('Currency network is not supported.')
     if (!isSigner) return toast.error('Wallet is not connected.')
     if (Number(amount) === 0) return toast.error('STRAG balance is zero.')
 
@@ -25,11 +26,11 @@ const Stake = () => {
       load()
 
       // 1. approve STRAG
-      const approveTx = await STRAGContract.approve(STRAG_ADDRESS, ethers.parseEther(amount))
+      const approveTx = await STRAGContractBindWallet.approve(STRAG_ADDRESS, ethers.parseEther(amount))
       await approveTx.wait()
 
       // 2. stake STRAG
-      const mintTx = await STRAGContract.stake(ethers.parseEther(amount))
+      const mintTx = await STRAGContractBindWallet.stake(ethers.parseEther(amount))
       await mintTx.wait()
 
       toast.success(`Stake Success: ${amount} $STRAG`)

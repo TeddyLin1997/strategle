@@ -109,9 +109,9 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
   },
   [Chain.Sepolia]: {
     icon: ethereum,
-    id: Chain.ETH,
+    id: Chain.Sepolia,
     name: 'Sepolia',
-    rpc: 'https://rpc.sepolia.org',
+    rpc: 'https://ethereum-sepolia-rpc.publicnode.com',
     explorer: 'https://sepolia.etherscan.io',
     coin: {
       name: 'SepoliaETH',

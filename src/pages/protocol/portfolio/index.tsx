@@ -28,21 +28,18 @@ enum TabsEvent {
   Withdraw = 'Withdraw',
 }
 
-const perSecondReward = Big(0.0033).div(60).div(60).div(24)
+const perSecondReward = Big(0.12).div(365).div(24).div(60).div(60)
 
 interface PortfolioProps {
   handleTab: () => void
 }
 
-const initPortfolio = {
-  stragBalance: '-',
-  rewards: '-',
-}
-
 const initStaker = {
   stakingBalance: '0',
-  unstakeTime: '-',
-  unlockTime: '-',
+  rewardUpdateTime: 0,
+  reward: '0',
+  unstakeTime: 0,
+  unlockTime: 0,
 }
 
 const PageContainer = styled.div`
@@ -80,38 +77,37 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
   }, [action])
 
   // STRAG token info
-  const { isSigner, signer, account, provider, chainId } = WalletContainer.useContainer()
-  const { STRAGContract } = ContractContainer.useContainer()
+  const { isSigner, account, provider, chainId } = WalletContainer.useContainer()
+  const { isSupportChain, STRAGContract, STRAGContractBindWallet } = ContractContainer.useContainer()
 
-  const [portfolio, setPortfolio] = useState(initPortfolio)
+  const [stragBalance, setStragBalance] = useState('-')
   const [staker, setStaker] = useState(initStaker)
 
   useEffect(() => {
     if (!account) return
 
-    setPortfolio({ ...initPortfolio })
+    setStragBalance('-')
     setStaker({ ...initStaker })
 
-    STRAGContract.balanceOf(account).then(res => setPortfolio(prev => ({ ...prev, stragBalance: ethers.formatEther(res) })))
+    STRAGContract.balanceOf(account).then(res => setStragBalance(res))
     STRAGContract.stakers(account).then(res => {
       setStaker({
-        stakingBalance: ethers.formatEther(res[0]),
-        unstakeTime: res[3],
-        unlockTime: res[4],
+        stakingBalance: res[0],
+        rewardUpdateTime: Number(Big(res[1]).toString()),
+        reward: res[2],
+        unstakeTime: Number(Big(res[3]).toString()),
+        unlockTime: Number(Big(res[4]).toString()),
       })
     })
   }, [account, provider, chainId])
 
-  useEffect(() => {
-    if (!isSigner) return
-    if (!signer) return
-
-    const timerId = setInterval(() => {
-      STRAGContract.getAddressRewards().then(res => setPortfolio(prev => ({ ...prev, rewards: formatNumber(ethers.formatEther(res)) })))
-    }, 25 * 1000)
-
-    return () => clearInterval(timerId)
-  }, [isSigner, signer])
+  const rewards = useMemo(() => {
+    const elapsedTime = (Date.now() / 1000) - staker.rewardUpdateTime
+    const stakingBalance = ethers.formatEther(staker.stakingBalance)
+    const calcedReward = ethers.formatEther(staker.reward)
+    const newRewards = Big(stakingBalance).mul(elapsedTime).mul(perSecondReward).add(calcedReward).toFixed(4)
+    return newRewards
+  }, [staker])
 
   // tab
   const [tab, setTab] = useState(TabsEvent.Mint)
@@ -164,12 +160,13 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
   }, [staker.stakingBalance])
 
   const claimRewards = async () => {
+    if (!isSupportChain) return toast.error('Currency network is not supported.')
     if (!isSigner) return toast.error('Wallet is not connected.')
 
     try {
       load()
 
-      const tx = await STRAGContract.claimRewards()
+      const tx = await STRAGContractBindWallet.claimRewards()
       await tx.wait()
 
       toast.success('Claim Reward Success.')
@@ -194,11 +191,11 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
 
       const res = await Promise.all([
-        STRAGContract.queryFilter(filterMint),
-        STRAGContract.queryFilter(filterStake),
-        STRAGContract.queryFilter(filterUnstake),
-        STRAGContract.queryFilter(filterWithdraw),
-        STRAGContract.queryFilter(filterClaimRewards),
+        STRAGContract.queryFilter(filterMint, -50000),
+        STRAGContract.queryFilter(filterStake, -50000),
+        STRAGContract.queryFilter(filterUnstake, -50000),
+        STRAGContract.queryFilter(filterWithdraw, -50000),
+        STRAGContract.queryFilter(filterClaimRewards, -50000),
       ])
 
       const events = res.flat().sort((a, b) => b.blockNumber - a.blockNumber) as EventLog[]
@@ -231,7 +228,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
         {/* earn machine animation */}
         <div className="w-full md:w-3/5 relative flex">
           <div ref={earnMachineAnimation} className="m-auto absolute top-[-20%] left-[-10%] scale-125 bottom-0 pointer-events-none" />
-          { rewardList.map(item => <RewardAnimation key={item} amount={formatNumber(perSecondReward.mul(staker.stakingBalance).toFixed(8), 8)} />) }
+          { rewardList.map(item => <RewardAnimation key={item} amount={formatNumber(perSecondReward.mul(ethers.formatEther(staker.stakingBalance)).toFixed(8), 8)} />) }
         </div>
 
         <div className="w-full md:w-2/5">
@@ -251,17 +248,17 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
             <article className="mb-2">
               <div className="mb-1">- STRAG Balance : </div>
-              <div className="ml-8 font-bold text-lg text-primary-light">$ {formatNumber(portfolio.stragBalance)} STRAG</div>
+              <div className="ml-8 font-bold text-lg text-primary-light">$ {formatNumber(ethers.formatEther(stragBalance))} STRAG</div>
             </article>
 
             <article className="mb-2">
               <div className="mb-1">- Staking STRAG Amount : </div>
-              <div className="ml-8 font-bold text-lg text-primary-light">$ {formatNumber(staker.stakingBalance)} STRAG</div>
+              <div className="ml-8 font-bold text-lg text-primary-light">$ {formatNumber(ethers.formatEther(staker.stakingBalance))} STRAG</div>
             </article>
 
             <article className="mb-2">
               <div className="mb-1">- Expected Rewards / Year : </div>
-              <div className="ml-8 font-bold text-lg text-up"> $ {formatNumber(String(Number(staker.stakingBalance) * 0.12))} USDT</div>
+              <div className="ml-8 font-bold text-lg text-up"> $ {formatNumber(String(Number(ethers.formatEther(staker.stakingBalance)) * 0.12))} USDT</div>
             </article>
           </section>
         </div>
@@ -271,7 +268,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
       <section className="mb-14 flex flex-col justify-center">
         <div className="mb-6 text-center font-bold text-3xl">
           <span>Rewards : </span>
-          <span className="text-up">{portfolio.rewards} USDT</span>
+          <span className="text-up">{rewards} USDT</span>
         </div>
 
         <div ref={claimEl} className="w-full flex justify-center">

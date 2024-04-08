@@ -6,7 +6,6 @@ import LinkIcon from '@/assets/icons/external-link.svg?react'
 import TimeIcon from '@/assets/icons/time.svg?react'
 import Copy from '@/components/copy'
 import dayjs from 'dayjs'
-import WalletContainer from '@/context/walletContext'
 import { useEffect, useState } from 'react'
 import ContractContainer from '@/context/contractContext'
 
@@ -15,8 +14,7 @@ interface TransactionCardTreasuryProps {
 }
 
 const TransactionCardTreasury = ({ event }: TransactionCardTreasuryProps) => {
-  const { provider } = WalletContainer.useContainer()
-  const { STRAG_ADDRESS } = ContractContainer.useContainer()
+  const { protocolProvider, STRAG_ADDRESS } = ContractContainer.useContainer()
 
   // block timestamp
   const [blockTimestamp, setBlockTimestamp] = useState(0)
@@ -26,7 +24,7 @@ const TransactionCardTreasury = ({ event }: TransactionCardTreasuryProps) => {
   }, [event.blockHash])
 
   const getBlockTimestamp = async (blockHash: string) => {
-    const block = await provider.getBlock(blockHash)
+    const block = await protocolProvider.getBlock(blockHash)
     setBlockTimestamp(block?.timestamp || 0)
   }
 
