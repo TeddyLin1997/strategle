@@ -58,7 +58,7 @@ const Mint = ({ isActive }: { isActive: boolean }) => {
       </div>
 
       <div className="mb-4">
-        <div className="mb-2 font-bold">Your USDT Balance : </div>
+        <div className="mb-2 font-bold">Wallet USDT Balance : </div>
         <div>{formatNumber(usetBalance)} USDT</div>
       </div>
 

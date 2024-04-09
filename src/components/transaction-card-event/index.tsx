@@ -3,8 +3,7 @@ import { ethers, EventLog } from 'ethers'
 import LinkIcon from '@/assets/icons/external-link.svg?react'
 import MintIcon from '@/assets/icons/event-mint.svg?react'
 import StakeIcon from '@/assets/icons/event-stake.svg?react'
-import UnstakeIcon from '@/assets/icons/event-unstake.svg?react'
-import WithdrawIcon from '@/assets/icons/event-withdraw.svg?react'
+import UnstakeIcon from '@/assets/icons/event-withdraw.svg?react'
 import ClaimIcon from '@/assets/icons/event-claim.svg?react'
 import TimeIcon from '@/assets/icons/time.svg?react'
 import Copy from '@/components/copy'
@@ -16,7 +15,6 @@ enum Event {
   Mint = 'Mint',
   Stake = 'Stake',
   Unstake = 'Unstake',
-  Withdraw = 'Withdraw',
   ClaimRewards = 'ClaimRewards'
 }
 
@@ -32,13 +30,8 @@ const eventMap = {
     unit: 'STRAG',
   },
   [Event.Unstake]: {
-    value: () => '-',
-    icon: <div className="mr-2 w-8 h-8 flex bg-[#C8E2EC] rounded-full"><UnstakeIcon className="m-auto w-7 h-7 fill-[#30728C]" /></div>,
-    unit: 'STRAG',
-  },
-  [Event.Withdraw]: {
     value: (event: EventLog) => formatNumber(ethers.formatEther(event.args[1])),
-    icon: <div className="mr-2 w-8 h-8 flex bg-down-extend rounded-full"><WithdrawIcon className="m-auto w-5 h-5 fill-down" /></div>,
+    icon: <div className="mr-2 w-8 h-8 flex bg-down-extend rounded-full"><UnstakeIcon className="m-auto w-5 h-5 fill-down" /></div>,
     unit: 'STRAG',
   },
   [Event.ClaimRewards]: {

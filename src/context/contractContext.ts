@@ -9,8 +9,7 @@ import { CHAIN_INFO, Chain } from '@/global/chain'
 
 
 const supportChain = CHAIN_INFO[Chain.Sepolia]
-const isProtocolSupportChain = Number(window.ethereum?.networkVersion) === supportChain.id
-
+const isProtocolSupportChain = Number(await window.ethereum.request({method: 'net_version'})) === supportChain.id
 const protocolProvider = isProtocolSupportChain ? new ethers.BrowserProvider(window.ethereum) : new ethers.JsonRpcProvider(supportChain.rpc)
 
 // support chain contract
@@ -19,7 +18,13 @@ const STRAGContract = new ethers.Contract(STRAG_ADDRESS, stragleTokenAbi, protoc
 
 const useContract = () => {
   const { isSigner, signer, chainId } = WalletContainer.useContainer()
-  const isSupportChain = Number(window.ethereum?.networkVersion) === chainId
+
+  const [isSupportChain, setIsSupportChain] = useState(false)
+  useEffect(() => {
+    window.ethereum.request({method: 'net_version'}).then(res => {
+      setIsSupportChain(Number(res || 0) === supportChain.id)
+    })
+  }, [chainId])
 
   // bind wallet contract
   const [USDTContractBindWallet, setUSDTContractBindWallet] = useState(new ethers.Contract(USDT_ADDRESS, tetherTokenAbi, protocolProvider))

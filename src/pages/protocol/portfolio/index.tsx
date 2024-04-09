@@ -1,33 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import { useLocation } from 'react-router'
 import toast from 'react-hot-toast'
-import { ethers, EventLog } from 'ethers'
-import lottie from 'lottie-web'
-import dayjs from 'dayjs'
+import { ethers } from 'ethers'
 import Big from 'big.js'
-import RewardAnimation from './reward-animation'
 import { ArrowBack } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import Pagination from '@mui/material/Pagination'
 import LoadingFullscreen from '@/components/loading-fullscreen'
 import ContractContainer from '@/context/contractContext'
 import WalletContainer from '@/context/walletContext'
 import useLoading from '@/hooks/useLoading'
-import EventTransactionCard from '@/components/transaction-card-event'
-import { formatNumber, sleep, truncateSlice } from '@/utils'
-import Mint from './actions/mint'
-import Stake from './actions/stake'
-import Unstake from './actions/unstake'
-import Withdraw from './actions/withdraw'
-import styled from 'styled-components'
-
-
-enum TabsEvent {
-  Mint = 'Mint',
-  Stake = 'Stake',
-  Unstake = 'Unstake',
-  Withdraw = 'Withdraw',
-}
+import { formatNumber, truncateSlice } from '@/utils'
+import Actions from './actions'
+import TxHistory from './tx-history'
+import EarnMachine from './earn-machine'
 
 const perSecondReward = Big(0.12).div(365).div(24).div(60).div(60)
 
@@ -39,26 +24,9 @@ const initStaker = {
   stakingBalance: '0',
   rewardUpdateTime: 0,
   reward: '0',
-  unstakeTime: 0,
-  unlockTime: 0,
 }
 
-const PageContainer = styled.div`
-  .Mui-selected {
-    color: black !important;
-  }
-
-  button {
-    color: white !important;
-  }
-
-  svg {
-    fill: white;
-  }
-`
-
 const Portfolio = ({ handleTab }: PortfolioProps) => {
-  const navigate = useNavigate()
   const { isLoading, load, unload } = useLoading()
 
   const actionEl = useRef<HTMLDivElement>(null)
@@ -95,8 +63,6 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
         stakingBalance: res[0],
         rewardUpdateTime: Number(Big(res[1]).toString()),
         reward: res[2],
-        unstakeTime: Number(Big(res[3]).toString()),
-        unlockTime: Number(Big(res[4]).toString()),
       })
     })
   }, [account, provider, chainId])
@@ -108,56 +74,6 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     const newRewards = Big(stakingBalance).mul(elapsedTime).mul(perSecondReward).add(calcedReward).toFixed(4)
     return newRewards
   }, [staker])
-
-  // tab
-  const [tab, setTab] = useState(TabsEvent.Mint)
-  useEffect(() => {
-    if (action === TabsEvent.Mint) setTab(TabsEvent.Mint)
-    if (action === TabsEvent.Stake) setTab(TabsEvent.Stake)
-    if (action === TabsEvent.Unstake) setTab(TabsEvent.Unstake)
-    if (action === TabsEvent.Withdraw) setTab(TabsEvent.Withdraw)
-  }, [action])
-
-  const onActionTab = (tab: TabsEvent) => {
-    setTab(tab)
-    navigate(`/protocol?tab=Portfolio&action=${tab}`)
-  }
-
-  // earn machine animation
-  const earnMachineAnimation = useRef(null)
-  useEffect(() => {
-    if (!earnMachineAnimation.current) return
-    lottie.loadAnimation({
-      container: earnMachineAnimation.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: '/animation/earn-machine.json' // the path to the animation json
-    })
-  }, [])
-
-  // rewards animation
-  const [rewardList, setRewardList] = useState<number[]>([])
-  useEffect(() => {
-    if (Number(staker.stakingBalance) === 0) return
-
-    const timerId = setInterval(() => {
-      setRewardList(prev => [...prev, dayjs().valueOf() as number])
-    }, 1.3 * 1000)
-
-    let removeTimerId: NodeJS.Timeout
-    timer()
-    async function timer () {
-      await sleep(3)
-      removeTimerId = setInterval(() => {
-        setRewardList(prev => [...prev.slice(1, prev.length)])
-      }, 1.3 * 1000)
-    }
-    return () => {
-      clearInterval(timerId)
-      clearInterval(removeTimerId)
-    }
-  }, [staker.stakingBalance])
 
   const claimRewards = async () => {
     if (!isSupportChain) return toast.error('Currency network is not supported.')
@@ -177,46 +93,6 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     }
   }
 
-  // transactions
-  const [transactionEvents, setTransactionEvents]= useState<Array<EventLog>>([])
-  useEffect(() => {
-    getTransactions()
-
-    async function getTransactions () {
-      const filterMint = await STRAGContract.filters.Mint(account, null, null).getTopicFilter()
-      const filterStake = await STRAGContract.filters.Stake(account, null, null).getTopicFilter()
-      const filterUnstake = await STRAGContract.filters.Unstake(account, null).getTopicFilter()
-      const filterWithdraw = await STRAGContract.filters.Withdraw(account, null, null).getTopicFilter()
-      const filterClaimRewards = await STRAGContract.filters.ClaimRewards(account, null, null).getTopicFilter()
-
-
-      const res = await Promise.all([
-        STRAGContract.queryFilter(filterMint, -50000),
-        STRAGContract.queryFilter(filterStake, -50000),
-        STRAGContract.queryFilter(filterUnstake, -50000),
-        STRAGContract.queryFilter(filterWithdraw, -50000),
-        STRAGContract.queryFilter(filterClaimRewards, -50000),
-      ])
-
-      const events = res.flat().sort((a, b) => b.blockNumber - a.blockNumber) as EventLog[]
-      setTransactionEvents(events)
-    }
-  }, [account])
-
-
-  // page
-  const PageCount = 5
-  const [page, setPage] = useState(1)
-  const onPage = (_, page: number) => setPage(page)
-
-  const displayTransactionEvents = useMemo(() => {
-    const end = page * PageCount
-    const start = end - PageCount
-    return transactionEvents.slice(start, end)
-  }, [transactionEvents, page])
-
-  const count = Math.round(transactionEvents.length / PageCount)
-
   return (
     <div>
       <div className="mb-8 flex items-center gap-4 font-bold text-3xl">
@@ -226,10 +102,8 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
       <section className="mb-8 flex gap-4">
         {/* earn machine animation */}
-        <div className="w-full md:w-3/5 relative flex">
-          <div ref={earnMachineAnimation} className="m-auto absolute top-[-20%] left-[-10%] scale-125 bottom-0 pointer-events-none" />
-          { rewardList.map(item => <RewardAnimation key={item} amount={formatNumber(perSecondReward.mul(ethers.formatEther(staker.stakingBalance)).toFixed(8), 8)} />) }
-        </div>
+        <EarnMachine stakingBalance={staker.stakingBalance} />
+
 
         <div className="w-full md:w-2/5">
           <div className="mb-4 flex flex-wrap gap-2 text-xl font-bold">
@@ -279,51 +153,9 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
       <hr className="mb-8 md:mb-10 border-gray-1" />
 
       <section className="mb-10 flex flex-wrap md:flex-nowrap gap-6">
-        <div ref={actionEl} className="p-6 w-full md:w-1/2 h-fit rounded-xl bg-gray-bg">
-          <div className="mb-4 flex items-center gap-2 cursor-pointer">
-            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Mint ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Mint)}>{TabsEvent.Mint}</div>
-            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Stake ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Stake)}>{TabsEvent.Stake}</div>
-            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Unstake ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Unstake)}>{TabsEvent.Unstake}</div>
-            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Withdraw ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Withdraw)}>{TabsEvent.Withdraw}</div>
-          </div>
+        <Actions ref={actionEl} />
 
-          <Mint isActive={tab=== TabsEvent.Mint} />
-          <Stake isActive={tab=== TabsEvent.Stake} />
-          <Unstake isActive={tab=== TabsEvent.Unstake} />
-          <Withdraw isActive={tab=== TabsEvent.Withdraw} />
-
-
-          <article className="mt-10">
-            <div className="mb-2 flex items-center gap-2 text-lg font-bold">
-              <img src="/logo.ico" className="w-5 h-5" />
-              <span>Tips : </span>
-            </div>
-            <ul className="ml-8 list-disc leading-relaxed">
-              <li>Token supply is limited to 3,600,000.</li>
-              <li>Minimum staking period is 365 days.</li>
-              <li>Unstaking requires a 180-day waiting period.</li>
-              <li>The team will inject investment rewards quarterly.</li>
-              <li>Staking again will recalculate the unlocking time.</li>
-            </ul>
-          </article>
-
-        </div>
-
-
-        <div className="w-full md:w-1/2">
-          {displayTransactionEvents.length === 0 && <div className="p-4 text-center text-xl font-bold">No transaction record</div>}
-
-          { displayTransactionEvents.length !== 0 &&
-           <div>
-             {displayTransactionEvents.map((item ,index) => <EventTransactionCard key={index} event={item} />)}
-             { displayTransactionEvents.length > PageCount &&
-                <PageContainer className="p-2 flex justify-center rounded">
-                  <Pagination count={count} onChange={onPage} className="history-pagination !fill-white" color="primary" variant="text" shape="rounded" siblingCount={1}/>
-                </PageContainer>
-             }
-           </div>
-          }
-        </div>
+        <TxHistory />
       </section>
 
       <LoadingFullscreen open={isLoading} />

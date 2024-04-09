@@ -56,7 +56,7 @@ const Stake = ({ isActive }: { isActive: boolean }) => {
       </div>
 
       <div className="mb-4">
-        <div className="mb-2 font-bold">Your STRAG Balance : </div>
+        <div className="mb-2 font-bold">Wallet STRAG Balance : </div>
         <div>{formatNumber(stragBalance)} STRAG</div>
       </div>
 

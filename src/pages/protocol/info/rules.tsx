@@ -35,7 +35,6 @@ const Rules = () => {
 
             <ul className="ml-8 list-disc leading-[2]">
               <li>Apply to unstake STRAG tokens.</li>
-              <li>Wait for 180 days.</li>
               <li>Withdraw STRAG tokens.</li>
             </ul>
           </article>
@@ -64,11 +63,8 @@ const Rules = () => {
               <span>Tips : </span>
             </div>
             <ul className="ml-8 list-disc leading-relaxed">
-              <li>Token supply is limited to 3,600,000.</li>
-              <li>Minimum staking period is 365 days.</li>
-              <li>Unstaking requires a 180-day waiting period.</li>
+              <li>Token supply is limited to 5,000,000.</li>
               <li>The team will inject investment rewards quarterly.</li>
-              <li>Staking again will recalculate the unlocking time.</li>
             </ul>
           </article>
 
