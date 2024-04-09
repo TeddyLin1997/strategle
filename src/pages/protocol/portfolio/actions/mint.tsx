@@ -9,7 +9,7 @@ import { ethers } from 'ethers'
 import { ChangeEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-const Mint = () => {
+const Mint = ({ isActive }: { isActive: boolean }) => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
@@ -51,7 +51,7 @@ const Mint = () => {
   }, [account])
 
   return (
-    <div>
+    <div className={ isActive ? 'block' : 'hidden' }>
       <div className="mb-4">
         <div className="mb-2 font-bold">Address : </div>
         <div className="break-all text-primary-light">{ account }</div>
@@ -71,7 +71,7 @@ const Mint = () => {
         Rate : 1 STRAG = 1 USDT (Equivalent exchange tokens)
       </div>
 
-      <Button variant="contained" onClick={mint}>Mint</Button>
+      <Button className="!mt-2" variant="contained" onClick={mint}>Mint</Button>
       <LoadingFullscreen open={isLoading} />
     </div>
   )

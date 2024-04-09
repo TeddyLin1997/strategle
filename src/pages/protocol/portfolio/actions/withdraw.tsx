@@ -9,7 +9,7 @@ import useLoading from '@/hooks/useLoading'
 import LoadingFullscreen from '@/components/loading-fullscreen'
 import { timeCountdown } from '@/utils'
 
-const Withdraw = () => {
+const Withdraw = ({ isActive }: { isActive: boolean }) => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
@@ -52,7 +52,7 @@ const Withdraw = () => {
   }, [])
 
   return (
-    <div>
+    <div className={ isActive ? 'block' : 'hidden' }>
       <div className="mb-4">
         <div className="mb-2 font-bold">Address : </div>
         <div className="break-all text-primary-light">{ account }</div>
@@ -76,7 +76,7 @@ const Withdraw = () => {
         }
       </div>
 
-      <Button className="!mt-6" variant="contained" onClick={withdraw}>Withdraw</Button>
+      <Button className="!mt-8" variant="contained" onClick={withdraw}>Withdraw</Button>
       <LoadingFullscreen open={isLoading} />
     </div>
   )

@@ -8,7 +8,7 @@ import ContractContainer from '@/context/contractContext'
 import WalletContainer from '@/context/walletContext'
 import { formatNumber } from '@/utils'
 
-const Stake = () => {
+const Stake = ({ isActive }: { isActive: boolean }) => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
@@ -49,7 +49,7 @@ const Stake = () => {
 
 
   return (
-    <div>
+    <div className={ isActive ? 'block' : 'hidden' }>
       <div className="mb-4">
         <div className="mb-2 font-bold">Address : </div>
         <div className="break-all text-primary-light">{ account }</div>
@@ -65,7 +65,7 @@ const Stake = () => {
         <TextField value={amount} onChange={onChangeAmount} size="small" fullWidth className="bg-white rounded-md" />
       </div>
 
-      <Button className="!mt-2" variant="contained" onClick={stake}>Stake</Button>
+      <Button className="!mt-4" variant="contained" onClick={stake}>Stake</Button>
       <LoadingFullscreen open={isLoading} />
     </div>
   )

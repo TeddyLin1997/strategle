@@ -60,18 +60,22 @@ const Treasury = () => {
       <pre className="mb-6 w-full text-center font-bold text-4xl tracking-wider">TREASURY</pre>
 
       <section className="mb-10">
-        <header className="mb-8 mx-auto p-6 gap-4 flex w-full md:w-2/3 items-stretch font-bold bg-gray-bg rounded-3xl">
+        <header className="mb-8 mx-auto p-6 gap-4 flex w-full md:w-2/3 max-w-[680px] items-stretch font-bold bg-gray-bg rounded-3xl">
 
-          <div className="hidden md:flex w-[264px]">
-            <img src={TreasuryImage} className="mx-auto w-full" />
+          <div className="hidden lg:flex w-[224px]">
+            <img src={TreasuryImage} className="mx-auto w-full h-auto object-contain" />
           </div>
 
           <div className="flex-1">
             <div className="mb-2">USDT Balance :</div>
-            <div className="ml-6 mb-4 w-fit text-up text-3xl">$ {usdtBalance} USDT</div>
+            <div className="sm:ml-6 mb-4 w-fit text-up sm:text-3xl">$ {usdtBalance} USDT</div>
 
             <div className="mb-2">Contract Address : </div>
-            <a href={`https://sepolia.etherscan.io/address/${STRAG_ADDRESS}`} target="__blank" className="ml-6 block w-fit text-primary hover:text-white">
+            <a
+              className="sm:ml-6 block w-fit text-primary hover:text-white"
+              href={`https://sepolia.etherscan.io/address/${STRAG_ADDRESS}`}
+              target="__blank"
+            >
               <pre className="truncate">{STRAG_ADDRESS}</pre>
             </a>
           </div>

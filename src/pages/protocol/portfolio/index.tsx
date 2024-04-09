@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 import Big from 'big.js'
 import RewardAnimation from './reward-animation'
 import { ArrowBack } from '@mui/icons-material'
-import { Tabs, Tab, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 import LoadingFullscreen from '@/components/loading-fullscreen'
 import ContractContainer from '@/context/contractContext'
@@ -20,6 +20,7 @@ import Stake from './actions/stake'
 import Unstake from './actions/unstake'
 import Withdraw from './actions/withdraw'
 import styled from 'styled-components'
+
 
 enum TabsEvent {
   Mint = 'Mint',
@@ -65,7 +66,6 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
   const location = useLocation()
   const params = new URLSearchParams(location.search)
   const action = params.get('action') || ''
-
 
   useEffect(() => {
     if (!actionEl.current) return
@@ -118,7 +118,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     if (action === TabsEvent.Withdraw) setTab(TabsEvent.Withdraw)
   }, [action])
 
-  const onActionTab = (_, tab: TabsEvent) => {
+  const onActionTab = (tab: TabsEvent) => {
     setTab(tab)
     navigate(`/protocol?tab=Portfolio&action=${tab}`)
   }
@@ -279,19 +279,18 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
       <hr className="mb-8 md:mb-10 border-gray-1" />
 
       <section className="mb-10 flex flex-wrap md:flex-nowrap gap-6">
-        <div ref={actionEl} className="px-6 pb-6 w-full md:w-1/2 h-fit rounded-xl bg-gray-bg">
+        <div ref={actionEl} className="p-6 w-full md:w-1/2 h-fit rounded-xl bg-gray-bg">
+          <div className="mb-4 flex items-center gap-2 cursor-pointer">
+            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Mint ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Mint)}>{TabsEvent.Mint}</div>
+            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Stake ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Stake)}>{TabsEvent.Stake}</div>
+            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Unstake ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Unstake)}>{TabsEvent.Unstake}</div>
+            <div className={`py-2 flex-auto rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Withdraw ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Withdraw)}>{TabsEvent.Withdraw}</div>
+          </div>
 
-          <Tabs value={tab} onChange={onActionTab} indicatorColor="primary" textColor="inherit" className="!mb-6" variant="scrollable" scrollButtons="auto">
-            <Tab label={TabsEvent.Mint} value={TabsEvent.Mint} />
-            <Tab label={TabsEvent.Stake} value={TabsEvent.Stake} />
-            <Tab label={TabsEvent.Unstake} value={TabsEvent.Unstake} />
-            <Tab label={TabsEvent.Withdraw} value={TabsEvent.Withdraw} />
-          </Tabs>
-
-          {tab=== TabsEvent.Mint && <Mint />}
-          {tab=== TabsEvent.Stake && <Stake />}
-          {tab=== TabsEvent.Unstake && <Unstake />}
-          {tab=== TabsEvent.Withdraw && <Withdraw />}
+          <Mint isActive={tab=== TabsEvent.Mint} />
+          <Stake isActive={tab=== TabsEvent.Stake} />
+          <Unstake isActive={tab=== TabsEvent.Unstake} />
+          <Withdraw isActive={tab=== TabsEvent.Withdraw} />
 
 
           <article className="mt-10">
@@ -317,18 +316,11 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
           { displayTransactionEvents.length !== 0 &&
            <div>
              {displayTransactionEvents.map((item ,index) => <EventTransactionCard key={index} event={item} />)}
-
-             <PageContainer className="p-2 flex justify-center rounded">
-               <Pagination
-                 count={count}
-                 onChange={onPage}
-                 className="history-pagination !fill-white"
-                 color="primary"
-                 variant="text"
-                 shape="rounded"
-                 siblingCount={1}
-               />
-             </PageContainer>
+             { displayTransactionEvents.length > PageCount &&
+                <PageContainer className="p-2 flex justify-center rounded">
+                  <Pagination count={count} onChange={onPage} className="history-pagination !fill-white" color="primary" variant="text" shape="rounded" siblingCount={1}/>
+                </PageContainer>
+             }
            </div>
           }
         </div>

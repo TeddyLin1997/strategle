@@ -78,7 +78,7 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     icon: arbitrum,
     id: Chain.ARB,
     name: 'Arbitrum',
-    rpc: 'https://arb1.arbitrum.io/rpc',
+    rpc: 'https://arbitrum.llamarpc.com',
     explorer: 'https://arbiscan.io',
     coin: {
       name: 'ETH',

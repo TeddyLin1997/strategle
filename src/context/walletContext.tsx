@@ -61,15 +61,15 @@ const useWallet = () => {
                 symbol: chainInfo.coin.name,
                 decimals: 18,
               },
-              rpcUrls: [chainInfo.rpc], // Binance Smart Chain 的 RPC URL
-              blockExplorerUrls: [chainInfo.explorer], // 区块浏览器的 URL
+              rpcUrls: [chainInfo.rpc],
+              blockExplorerUrls: [chainInfo.explorer],
             }],
           })
 
-          await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: `0x${newChainId.toString(16)}` }],
-          })
+          // await window.ethereum.request({
+          //   method: 'wallet_switchEthereumChain',
+          //   params: [{ chainId: `0x${newChainId.toString(16)}` }],
+          // })
           setChainId(newChainId)
         }
       }

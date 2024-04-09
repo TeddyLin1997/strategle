@@ -41,7 +41,7 @@ const Info = ({ handleTab }: InfoProps) => {
       {/* header */}
       <div className="mb-8 md:mb-14 w-full flex">
         <div className="w-full md:w-3/5">
-          <pre className="mb-4 text-4xl font-bold leading-normal">{'Decentralized \nAI Investment protocol.'}</pre>
+          <pre className="mb-4 text-4xl font-bold leading-normal">{'Decentralized AI \nInvestment protocol.'}</pre>
 
           <div className="mb-4 flex items-center font-bold">
             <div className="w-1/2">

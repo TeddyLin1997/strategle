@@ -42,9 +42,32 @@ const useContract = () => {
     STRAGContract,
     USDTContractBindWallet,
     STRAGContractBindWallet,
+    switchToArbitrum,
   }
 }
 
 const ContractContainer = createContainer(useContract)
 
 export default ContractContainer
+
+
+async function switchToArbitrum () {
+  if (!window.ethereum) return
+
+  await window.ethereum.request({
+    method: 'wallet_addEthereumChain',
+    params: [{
+      chainId: `0x${Chain.ARB.toString(16)}`,
+      chainName: 'Arbitrum',
+      nativeCurrency: {
+        name: 'Ether',
+        symbol: 'ETH',
+        decimals: 18
+      },
+      rpcUrls: ['https://arbitrum.llamarpc.com'],
+      blockExplorerUrls: ['https://arbiscan.io/'],
+    }]
+  })
+}
+
+
