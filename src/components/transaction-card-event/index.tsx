@@ -85,7 +85,7 @@ const EventTransactionCard = ({ event }: EventTransactionCardProps) => {
 
         <div className="ml-auto text-right">
           <div className="mb-2 font-bold text-secondary-light">{`${eventMap[event.eventName]?.value(event)} ${eventMap[event.eventName]?.unit}`}</div>
-          <a href={`https://sepolia.etherscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
+          <a href={`https://arbiscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
             <span  className="text-xs" >View on Scan</span>
             <LinkIcon className="w-4 h-4 fill-primary-light" />
           </a>

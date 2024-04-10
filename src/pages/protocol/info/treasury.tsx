@@ -73,7 +73,7 @@ const Treasury = () => {
             <div className="mb-2">Contract Address : </div>
             <a
               className="sm:ml-6 block w-fit text-primary hover:text-white"
-              href={`https://sepolia.etherscan.io/address/${STRAG_ADDRESS}`}
+              href={`https://arbiscan.io/address/${STRAG_ADDRESS}`}
               target="__blank"
             >
               <pre className="truncate">{STRAG_ADDRESS}</pre>

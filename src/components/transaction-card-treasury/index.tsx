@@ -63,7 +63,7 @@ const TransactionCardTreasury = ({ event }: TransactionCardTreasuryProps) => {
 
         <div className="ml-auto text-right">
           <div className={isReceive ? 'text-lg font-bold text-up' : 'text-lg font-bold text-down'}>{formatNumber(ethers.formatEther(event.args[2]))} U</div>
-          <a href={`https://sepolia.etherscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
+          <a href={`https://arbiscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
             <span  className="text-xs" >View on Scan</span>
             <LinkIcon className="w-4 h-4 fill-primary-light" />
           </a>
