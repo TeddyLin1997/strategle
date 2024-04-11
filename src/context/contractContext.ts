@@ -7,7 +7,7 @@ import WalletContainer from './walletContext'
 import { useEffect, useState } from 'react'
 import { CHAIN_INFO, Chain } from '@/global/chain'
 
-const supportChain = CHAIN_INFO[Chain.Sepolia]
+const supportChain = CHAIN_INFO[Chain.ARB]
 const isProtocolSupportChain = Number(window.ethereum.networkVersion) === supportChain.id
 const protocolProvider = isProtocolSupportChain ? new ethers.BrowserProvider(window.ethereum) : new ethers.JsonRpcProvider(supportChain.rpc)
 

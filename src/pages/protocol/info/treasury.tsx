@@ -22,7 +22,7 @@ const Treasury = () => {
 
   const [usdtBalance, setUsdtBalance] = useState('-')
   useEffect(() => {
-    USDTContract.balanceOf(STRAG_ADDRESS).then(res => setUsdtBalance(formatNumber(ethers.formatEther(res))))
+    USDTContract.balanceOf(STRAG_ADDRESS).then(res => setUsdtBalance(formatNumber(ethers.formatUnits(res, 6))))
   }, [])
 
   // all transactions
