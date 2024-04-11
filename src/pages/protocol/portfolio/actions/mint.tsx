@@ -28,11 +28,11 @@ const Mint = ({ isActive }: { isActive: boolean }) => {
       load()
 
       // 1. approve USDT
-      const approveTx = await USDTContractBindWallet.approve(STRAG_ADDRESS, ethers.parseEther(amount))
+      const approveTx = await USDTContractBindWallet.approve(STRAG_ADDRESS, ethers.parseUnits(amount, 6))
       await approveTx.wait()
 
       // 2. mint STRAG
-      const mintTx = await STRAGContractBindWallet.mint(ethers.parseEther(amount))
+      const mintTx = await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
       await mintTx.wait()
 
       toast.success(`Mint Success: ${amount} $STRAG`)
@@ -47,7 +47,7 @@ const Mint = ({ isActive }: { isActive: boolean }) => {
   const [usetBalance, setUsetBalance] = useState('-')
   useEffect(() => {
     if (!account) return
-    USDTContract.balanceOf(account).then(res => setUsetBalance(ethers.formatEther(res)))
+    USDTContract.balanceOf(account).then(res => setUsetBalance(ethers.formatUnits(res, 6)))
   }, [account])
 
   return (

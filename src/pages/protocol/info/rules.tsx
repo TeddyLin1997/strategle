@@ -63,7 +63,9 @@ const Rules = () => {
               <span>Tips : </span>
             </div>
             <ul className="ml-8 list-disc leading-relaxed">
-              <li>Token supply is limited to 5,000,000.</li>
+              <li>Token max supply is limited to 5,000,000.</li>
+              <li>20% of tokens as liquidity</li>
+              <li>10% of tokens are used as team funds</li>
               <li>The team will inject investment rewards quarterly.</li>
             </ul>
           </article>
