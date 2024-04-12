@@ -29,12 +29,13 @@ type ChainInfo = {
   }
 }
 
+const INFURA_API_KEY = import.meta.env.VITE_INFURA_API_KEY
 export const CHAIN_INFO: { [props: number]: ChainInfo } = {
   [Chain.ETH]: {
     icon: ethereum,
     id: Chain.ETH,
     name: 'Ethereum',
-    rpc: 'https://mainnet.infura.io/v3/021832fd97e24479889d13082356357f',
+    rpc: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
     explorer: 'https://etherscan.io',
     coin: {
       name: 'ETH',
@@ -79,6 +80,7 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     id: Chain.ARB,
     name: 'Arbitrum',
     rpc: 'https://arbitrum.llamarpc.com',
+    // rpc: `https://arbitrum-mainnet.infura.io/v3/${INFURA_API_KEY}`,
     explorer: 'https://arbiscan.io',
     coin: {
       name: 'ETH',
@@ -111,7 +113,8 @@ export const CHAIN_INFO: { [props: number]: ChainInfo } = {
     icon: ethereum,
     id: Chain.Sepolia,
     name: 'Sepolia',
-    rpc: 'https://ethereum-sepolia-rpc.publicnode.com',
+    // rpc: 'https://ethereum-sepolia-rpc.publicnode.com',
+    rpc: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
     explorer: 'https://sepolia.etherscan.io',
     coin: {
       name: 'SepoliaETH',

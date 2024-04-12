@@ -37,10 +37,10 @@ const TxHistory = () => {
       const filterClaimRewards = await STRAGContract.filters.ClaimRewards(account, null, null).getTopicFilter()
 
       const res = await Promise.all([
-        STRAGContract.queryFilter(filterMint, -50000),
-        STRAGContract.queryFilter(filterStake, -50000),
-        STRAGContract.queryFilter(filterUnstake, -50000),
-        STRAGContract.queryFilter(filterClaimRewards, -50000),
+        STRAGContract.queryFilter(filterMint),
+        STRAGContract.queryFilter(filterStake),
+        STRAGContract.queryFilter(filterUnstake),
+        STRAGContract.queryFilter(filterClaimRewards),
       ])
 
       const events = res.flat().sort((a, b) => b.blockNumber - a.blockNumber) as EventLog[]

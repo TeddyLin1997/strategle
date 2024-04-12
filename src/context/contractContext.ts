@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react'
 import { CHAIN_INFO, Chain } from '@/global/chain'
 
 const supportChain = CHAIN_INFO[Chain.ARB]
-const isProtocolSupportChain = Number(window.ethereum.networkVersion) === supportChain.id
-const protocolProvider = isProtocolSupportChain ? new ethers.BrowserProvider(window.ethereum) : new ethers.JsonRpcProvider(supportChain.rpc)
+const isProtocolSupportChain = Number(window.ethereum?.networkVersion) === supportChain.id
+const protocolProvider = isProtocolSupportChain ? new ethers.BrowserProvider(window.ethereum) : new ethers.QuickNodeProvider(supportChain.rpc)
 
 // support chain contract
 const USDTContract = new ethers.Contract(USDT_ADDRESS, tetherTokenAbi, protocolProvider)
@@ -20,7 +20,7 @@ const useContract = () => {
 
   const [isSupportChain, setIsSupportChain] = useState(false)
   useEffect(() => {
-    window.ethereum.request({method: 'net_version'}).then(res => {
+    window.ethereum && window.ethereum.request({method: 'net_version'}).then(res => {
       setIsSupportChain(Number(res || 0) === supportChain.id)
     })
   }, [chainId])

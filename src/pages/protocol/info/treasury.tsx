@@ -28,7 +28,7 @@ const Treasury = () => {
   // all transactions
   const [transactionEvents, setTransactionEvents]= useState<Array<EventLog>>([])
   useEffect(() => {
-    STRAGContract.queryFilter('*', -50000)
+    STRAGContract.queryFilter('*')
       .then((res) => {
         const events = res.filter((item: any) => eventList.includes(item.eventName)).sort((a, b) => b.blockNumber - a.blockNumber).slice(0, 5) as EventLog[]
         setTransactionEvents(events)
@@ -45,8 +45,8 @@ const Treasury = () => {
       const filterTo = await USDTContract.filters.Transfer(null, STRAG_ADDRESS, null).getTopicFilter()
 
       const res = await Promise.all([
-        USDTContract.queryFilter(filterFrom, -50000),
-        USDTContract.queryFilter(filterTo, -50000),
+        USDTContract.queryFilter(filterFrom),
+        USDTContract.queryFilter(filterTo),
       ])
 
       const events = res.flat().sort((a, b) => b.blockNumber - a.blockNumber).slice(0, 5) as EventLog[]
