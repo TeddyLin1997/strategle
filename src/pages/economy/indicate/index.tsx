@@ -18,7 +18,7 @@ export default function Indicate () {
         const isUp = changeNumber >= 0
 
         return (
-          <div key={item.key} className="indicies">
+          <div key={item.key} className="indicies shadow  bg-secondary-light rounded-md">
             <div className="header">
               <div className="icon-container">
                 <img src={item.icon} />
@@ -29,12 +29,12 @@ export default function Indicate () {
               </div>
             </div>
 
-            <div className="footer">
-              <img className="flag" src={isUp ? UpIcon : DownIcon } />
+            <div className="flex items-end">
+              <img className="ml-2 w-8 h-8" src={isUp ? UpIcon : DownIcon } />
 
-              <div className="price">
-                <div className="value">{item.formatValue}</div>
-                <div className="change" style={{ color: getChangeColor(changeNumber) }}>
+              <div className="ml-auto text-right">
+                <div className="font-bold text-xl">{item.formatValue}</div>
+                <div className="font-bold" style={{ color: getChangeColor(changeNumber) }}>
                   {`${isUp ? '+' : '-'} ${change.toFixed(2)} ${item.unit}`}
                 </div>
               </div>

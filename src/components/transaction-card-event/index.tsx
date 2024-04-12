@@ -26,7 +26,7 @@ const eventMap = {
   },
   [Event.Stake]: {
     value: (event: EventLog) => formatNumber(ethers.formatEther(event.args[1])),
-    icon: <div className="mr-2 w-8 h-8 flex bg-secondary rounded-full"><StakeIcon className="m-auto w-7 h-7 fill-secondary-light" /></div>,
+    icon: <div className="mr-2 w-8 h-8 flex bg-secondary-light rounded-full"><StakeIcon className="m-auto w-7 h-7 fill-secondary" /></div>,
     unit: 'STRAG',
   },
   [Event.Unstake]: {
@@ -84,7 +84,7 @@ const EventTransactionCard = ({ event }: EventTransactionCardProps) => {
         </div>
 
         <div className="ml-auto text-right">
-          <div className="mb-2 font-bold text-secondary-light">{`${eventMap[event.eventName]?.value(event)} ${eventMap[event.eventName]?.unit}`}</div>
+          <div className="mb-2 font-bold text-tertiary">{`${eventMap[event.eventName]?.value(event)} ${eventMap[event.eventName]?.unit}`}</div>
           <a href={`https://arbiscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
             <span  className="text-xs" >View on Scan</span>
             <LinkIcon className="w-4 h-4 fill-primary-light" />

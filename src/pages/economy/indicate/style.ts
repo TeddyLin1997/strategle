@@ -10,8 +10,6 @@ export const Header = styled.header`
   & > .indicies {
     padding: .6rem 1rem;
     width: calc(25% - 15px);
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
 
     .header {
       display: flex;
@@ -26,7 +24,6 @@ export const Header = styled.header`
         height: 3rem;
         display: flex;
         border-radius: 6px;
-        background-color: #D0F2F2;
         flex: 0 0 3rem;
 
         img {
@@ -58,28 +55,6 @@ export const Header = styled.header`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-      }
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      text-align: right;
-
-      .flag {
-        width: 2.1rem;
-        height: auto;
-      }
-
-      .value {
-        font-size: 1.25rem;
-        font-weight: 700;
-      }
-      .change {
-        font-size: 1rem;
-        font-weight: 700;
-        line-height: 1rem;
       }
     }
   }

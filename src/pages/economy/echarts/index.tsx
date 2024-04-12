@@ -1,10 +1,11 @@
-import { useMemo } from 'react'
-import { useIndicate, useHistory } from '../hooks'
+// import { useMemo } from 'react'
+// import { useIndicate, useHistory } from '../hooks'
+import { useIndicate } from '../hooks'
 import FearAndGreedIndexChart from './fear-and-greed-index'
 import IndicateCharts from './indicate-charts'
-import MainQuotes from './main-quotes'
-import { getChangeColor } from '@/utils'
-import Pagination from '@mui/material/Pagination'
+// import MainQuotes from './main-quotes'
+// import { getChangeColor } from '@/utils'
+// import Pagination from '@mui/material/Pagination'
 import TextField from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem'
 import * as S from './style'
@@ -18,14 +19,14 @@ export default function EconomyChart () {
 
   const { activeIndicate, handleChange, indicateData, indicateOptions, unit } = useIndicate()
 
-  const history = useMemo(() => indicateData.value.map((value, index) => ({
-    index: index,
-    value,
-    date: indicateData.date[index],
-    change: indicateData.value[index - 1] ? Number(indicateData.value[index] - indicateData.value[index - 1]).toFixed(2) : '-'
-  })), [indicateData])
+  // const history = useMemo(() => indicateData.value.map((value, index) => ({
+  //   index: index,
+  //   value,
+  //   date: indicateData.date[index],
+  //   change: indicateData.value[index - 1] ? Number(indicateData.value[index] - indicateData.value[index - 1]).toFixed(2) : '-'
+  // })), [indicateData])
 
-  const { displayHistory, onPage, count, sort, handleSort, Sort } = useHistory(history)
+  // const { displayHistory, onPage, count, sort, handleSort, Sort } = useHistory(history)
 
   return (
     <div className="chart-container">
@@ -63,7 +64,7 @@ export default function EconomyChart () {
         </div>
       </S.ChartContainer>
 
-      <S.HistoryContainer>
+      {/* <S.HistoryContainer>
         <div className="history">
           <div className="history-header">
             <div className="history-title">
@@ -111,7 +112,7 @@ export default function EconomyChart () {
 
         <MainQuotes />
 
-      </S.HistoryContainer>
+      </S.HistoryContainer> */}
     </div>
   )
 }

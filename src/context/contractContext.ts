@@ -9,7 +9,7 @@ import { CHAIN_INFO, Chain } from '@/global/chain'
 
 const supportChain = CHAIN_INFO[Chain.ARB]
 const isProtocolSupportChain = Number(window.ethereum?.networkVersion) === supportChain.id
-const protocolProvider = isProtocolSupportChain ? new ethers.BrowserProvider(window.ethereum) : new ethers.QuickNodeProvider(supportChain.rpc)
+const protocolProvider = isProtocolSupportChain ? new ethers.BrowserProvider(window.ethereum) : new ethers.JsonRpcProvider(supportChain.rpc, supportChain.id)
 
 // support chain contract
 const USDTContract = new ethers.Contract(USDT_ADDRESS, tetherTokenAbi, protocolProvider)

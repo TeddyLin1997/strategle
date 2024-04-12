@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 import { fetcher } from '@/service/api-request'
-import { Container, Title, Header, MainNew, Monetary } from './style'
 import Divider from '@mui/material/Divider'
 import { useMemo } from 'react'
 import { timeFormat } from '@/utils'
@@ -56,55 +55,58 @@ const News = () => {
   ]
 
   return (
-    <div>
-      <Title>Latest News</Title>
+    <div className="">
+      <div className="ml-3 mt-6 font-bold text-3xl">Latest News</div>
 
-      <Container>
-        <Header>
-          <MainNew>
-            <a className='main-image-container' href={deduplicationNews['blockchain']?.[0].url} target="_blank">
-              <Image src={deduplicationNews['blockchain']?.[0].banner_image} defaultSrc={defaultLogo} className='image'  />
-              <div className="main-new-title">
+      <div className="px-3 w-full flex">
+        <section className="flex flex-wrap md:flex-nowrap gap-4">
+          <article className="pt-3 w-full md:w-3/5">
+            <a className="relative block w-full h-3/5 cursor-pointer rounded-md overflow-hidden" href={deduplicationNews['blockchain']?.[0].url} target="_blank">
+              <Image src={deduplicationNews['blockchain']?.[0].banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover hover:brightness-90"  />
+              <div className="absolute bottom-0 p-3 text-white text-3xl truncate line-clamp-2 break-all whitespace-normal pointer-events-none" style={{ textShadow: '1px 1px 2px #121212' }}>
                 {deduplicationNews['blockchain']?.[0].title}
               </div>
             </a>
 
-            <div className='main-sub-container'>
+            <div className="mt-6 flex gap-4">
               { (deduplicationNews['blockchain'] || []).slice(1, 5).map(item => (
-                <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className='main-sub-article'>
-                  <div className="main-sub-image">
-                    <Image src={item.banner_image} defaultSrc={defaultLogo} className='image' />
+                <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className='flex-1'>
+                  <div className="mb-3 w-full h-32 rounded-md overflow-hidden">
+                    <Image src={item.banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover" />
                   </div>
-                  <div className="main-sub-title">{item.title}</div>
+                  <div className="text-lg font-bold truncate line-clamp-3 break-all whitespace-normal hover:text-secondary">
+                    {item.title}
+                  </div>
                 </a>
               )) }
 
             </div>
-          </MainNew>
+          </article>
 
-          <Monetary>
-            {(deduplicationNews['economy_monetary'] || []).slice(1, 7).map(item => (
-              <a key={`${item.source}-${item.title}`} className="monetary-article" href={item.url} target="_blank">
-                <div className="monetary-image-container">
-                  <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="monetary-image" />
+          <article className="w-full md:w-2/5">
+            {(deduplicationNews['economy_monetary'] || []).slice(1, 6).map(item => (
+              <a key={`${item.source}-${item.title}`} className="mb-2 p-3 flex gap-4 rounded hover:bg-secondary-light transition-all" href={item.url} target="_blank">
+                <div className="w-36 h-24 rounded-md overflow-hidden">
+                  <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover" />
                 </div>
-                <div className="monetary-content">
-                  <div className="monetary-title">{item.title}</div>
-                  <div className="monetary-tip">
-                    <span>{item.source}</span>
-                    <span>{timeFormat(item.time_published, 'YYYY / MM / DD')}</span>
+                <div className="flex-1 flex flex-col justify-between">
+                  <div className="text-lg text-secondary font-bold truncate line-clamp-2 break-all whitespace-normal">{item.title}</div>
+                  <div className="flex">
+                    <span className="font-bold">{item.source}</span>
+                    <span className="ml-auto text-sm text-[#737373]">
+                      {timeFormat(item.time_published, 'YYYY / MM / DD')}
+                    </span>
                   </div>
                 </div>
               </a>
             ))}
-          </Monetary>
-        </Header>
-
-      </Container>
+          </article>
+        </section>
+      </div>
 
       <Divider style={{ margin: '0 16px' }} className="divider" />
 
-      <ScrollerList title={'Macroeconomics'} list={deduplicationNews?.['economy_macro'] || []} />
+      <ScrollerList title={'Macroeconomics'} list={deduplicationNews?.['economy_macro']?.reverse() || []} />
 
       <ScrollerList title={'Finance Markets'} list={deduplicationNews?.['finance'] || []} />
 
