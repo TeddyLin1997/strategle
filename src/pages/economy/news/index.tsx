@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 import { fetcher } from '@/service/api-request'
-import Divider from '@mui/material/Divider'
 import { useMemo } from 'react'
 import { timeFormat } from '@/utils'
 import defaultLogo from '@/assets/images/strategle-background.png'
