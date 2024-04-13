@@ -3,22 +3,6 @@ import styled from 'styled-components'
 const shadow = 'box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);'
 
 export const ChartContainer = styled.div`
-  margin-top: 1.8rem;
-  display: flex;
-  align-items: stretch;
-
-  .chart {
-    margin-right: 16px;
-    padding: 0 12px;
-    width: 60%;
-    border-radius: 8px;
-  }
-
-  .chart-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
 
   .chart-title {
     margin-bottom: 12px;
@@ -27,16 +11,6 @@ export const ChartContainer = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-  }
-
-  .fear-greed-index-container {
-    flex: 1;
-    border-radius: 8px;
-  }
-
-  .fear-greed-index-title {
-    color: #306F7D;
-    font-weight: 700;
   }
 `
 

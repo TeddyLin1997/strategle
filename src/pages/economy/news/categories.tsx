@@ -12,13 +12,13 @@ interface CategoryProps {
 const Category = ({ industry: { name, news } }: CategoryProps) => {
   return (
     <section className="w-full">
-      <div className="mb-2 text-center text-secondary-dark text-xl font-bold">{name}</div>
+      <div className="mb-2 text-center text-secondary-dark text-2xl font-bold">{name}</div>
 
-      <article className="flex">
+      <article className="flex gap-3">
         {news.slice(1, 4).map(item => (
-          <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className="block p-3 w-full rounded-md hover:bg-secondary-light">
-            <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="mb-2 align-top w-full h-28 rounded object-cover"  />
-            <p className="font-bold truncate line-clamp-2 md:line-clamp-3 break-all whitespace-normal">{item.title}</p>
+          <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className="block pb-3 px-4 w-full rounded-xl bg-white shadow hover:shadow-lg transition-all">
+            <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="mb-4 align-top w-full h-28 rounded-lg object-cover"  />
+            <div className="h-12 font-bold line-clamp-2 break-all whitespace-normal">{item.title}</div>
           </a>
         ))}
       </article>

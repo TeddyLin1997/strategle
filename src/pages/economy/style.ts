@@ -1,14 +1,5 @@
 import styled from 'styled-components'
 
-export const Title = styled.div`
-  margin-bottom: 1rem;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  font-weight: 700;
-`
-
 export const FedNew = styled.a`
   margin-left: auto;
   width: 40%;

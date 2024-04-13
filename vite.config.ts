@@ -19,14 +19,14 @@ export default defineConfig(({ mode }) => {
       port: 8000,
       proxy: {
         '^/api': {
-          target: mode === 'development' ? 'http://localhost:3000' : '/',
+          target: mode === 'development' ? 'https://strategle-ceb4ef33a51c.herokuapp.com' : '/',
           rewrite: path => path.replace(/^\/api/, ''),
           changeOrigin: true,
           secure: false,
           ws: true,
         },
         '^/images': {
-          target: mode === 'development' ? 'http://localhost:3000' : '/',
+          target: mode === 'development' ? 'https://strategle-ceb4ef33a51c.herokuapp.com' : '/',
           changeOrigin: true,
           secure: false,
         }

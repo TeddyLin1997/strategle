@@ -30,10 +30,12 @@ export default function EconomyChart () {
 
   return (
     <div className="chart-container">
-      <S.ChartContainer>
-        <div className="chart">
-          <div className="chart-header">
-            <div className="chart-title">{indicateData.name}</div>
+      <S.ChartContainer className="mb-6 px-2 flex gap-4">
+        <div className="p-4 w-3/5 bg-white rounded-xl shadow">
+          <div className="flex justify-between items-center">
+            <div className="mb-3 font-bold text-lg text-secondary truncate">
+              {indicateData.name}
+            </div>
 
             <TextField
               label="Indicate"
@@ -58,8 +60,8 @@ export default function EconomyChart () {
           />
         </div>
 
-        <div className="fear-greed-index-container">
-          <div className="fear-greed-index-title">Fear & Greed Index</div>
+        <div className="p-4 w-2/5 bg-white rounded-xl shadow">
+          <div className="text-lg text-secondary font-bold">Fear & Greed Index</div>
           <FearAndGreedIndexChart />
         </div>
       </S.ChartContainer>
