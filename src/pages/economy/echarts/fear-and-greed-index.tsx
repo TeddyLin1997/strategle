@@ -2,27 +2,6 @@ import ReactECharts from 'echarts-for-react'
 import useSWR from 'swr'
 import { fetcher } from '@/service/api-request'
 import { memo } from 'react'
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const IndexChart = styled(ReactECharts)`
-  margin: auto;
-  position: absolute;
-  width: 100%;
-  height: 23vw !important;
-  min-height: 150px;
-  max-height: 320px;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-`
 
 const initData = {
   label: '',
@@ -122,10 +101,14 @@ const FearAndGreedIndexChart = memo(() => {
       }
     ]
   }
+
   return (
-    <Wrapper>
-      <IndexChart option={options} />
-    </Wrapper>
+    <div className="px-4 py-2 w-1/2 md:w-1/3 rounded-xl shadow bg-white">
+      <div className="text-lg text-secondary font-bold">Fear & Greed Index</div>
+      <div className="relative h-full flex items-center justify-center">
+        <ReactECharts className="m-auto absolute top-0 bottom-0 w-full !h-[18vw] min-h-[150px] max-h-[280px] pointer-events-none" option={options} />
+      </div>
+    </div>
   )
 })
 

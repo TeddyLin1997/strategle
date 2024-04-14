@@ -1,8 +1,20 @@
 import ReactECharts from 'echarts-for-react'
+import TextField from '@mui/material/TextField'
+import MenuItem from '@mui/material/MenuItem'
 import { getChangeColor } from '@/utils'
 import { Economy } from '../constant'
+import { useIndicate } from '../hooks'
+import useWindowSize from '@/hooks/useWindowSize'
 
-const IndicateCharts = ({ activeIndicate, indicateData, unit }) => {
+const IndicateCharts = () => {
+
+  const { windowSize, Size } = useWindowSize()
+
+  const isSmall = windowSize === Size.Small
+  const width = isSmall ? '164px' : '204px'
+
+  const { activeIndicate, handleChange, indicateData, indicateOptions, unit } = useIndicate()
+
   const options = {
     grid: { top: 8, right: 8, bottom: 24, left: 36 },
     xAxis: {
@@ -58,7 +70,31 @@ const IndicateCharts = ({ activeIndicate, indicateData, unit }) => {
     },
   }
 
-  return <ReactECharts style={{ height: '200px' }} option={options} />
+  return (
+    <div className="px-4 py-2 hidden md:block w-1/3 bg-white rounded-xl shadow">
+      <div className="mb-2 flex justify-between items-center gap-4">
+        <div className="mb-3 font-bold text-lg text-secondary truncate">
+          {indicateOptions.find(item => item.value === activeIndicate)?.label || '-'}
+        </div>
+
+        <TextField
+          label="Indicate"
+          style={{ width: width, maxWidth: '40%' }}
+          value={activeIndicate}
+          onChange={handleChange}
+          select
+          size="small"
+        >
+          {indicateOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+      <ReactECharts style={{ height: '160px' }} option={options} />
+    </div>
+  )
 }
 
 export default IndicateCharts

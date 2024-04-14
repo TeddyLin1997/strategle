@@ -16,7 +16,7 @@ const Category = ({ industry: { name, news } }: CategoryProps) => {
 
       <article className="flex gap-3">
         {news.slice(1, 4).map(item => (
-          <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className="block pb-3 px-4 w-full rounded-xl bg-white shadow hover:shadow-lg transition-all">
+          <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className="block py-3 px-4 w-full rounded-xl bg-white shadow hover:shadow-lg transition-all">
             <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="mb-4 align-top w-full h-28 rounded-lg object-cover"  />
             <div className="h-12 font-bold line-clamp-2 break-all whitespace-normal">{item.title}</div>
           </a>

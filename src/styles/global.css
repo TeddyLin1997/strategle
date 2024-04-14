@@ -16,8 +16,10 @@
   font-weight: 400;
 
   color: #121214;
-  background-color: #f2f3f5;
+  /* background-color: #f2f3f5; */
+  background-color: #fdfefe;
   /* background-color: #fafafa; */
+  /* background-color: red; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

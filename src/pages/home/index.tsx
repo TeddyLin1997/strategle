@@ -4,7 +4,6 @@ import WorldStockIndex from './world/world'
 import TopList from './top-list'
 import Commodity from './commodity'
 import Forex from './forex'
-// import LatestNews from './latest-news'
 import { Button } from '@mui/material'
 import { fetcher } from '@/service/api-request'
 import tradeBusinessImg from '@/assets/images/trade-business.png'
@@ -27,7 +26,6 @@ const Home = () => {
   return (
     <S.Wrapper>
       <WorldStockIndex indexList={homeLists.index} />
-      {/* <LatestNews /> */}
       <TopList cryptoList={homeLists.crypto} usStockList={homeLists.usStock} />
       <Commodity commodityList={homeLists.commodity} />
       <Forex forexList={homeLists.forex} />

@@ -76,3 +76,5 @@ export const timeCountdown = (timestamp: number) => {
 
   return { days, hours, minutes, seconds }
 }
+
+export const getRandomInteger = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min

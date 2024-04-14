@@ -43,6 +43,9 @@ export default {
           card: '#2c2c2e',
           secondary: '#9b9696',
         },
+      },
+      boxShadow: {
+        DEFAULT: 'rgba(88, 102, 126, 0.08) 0px 4px 24px, rgba(88, 102, 126, 0.12) 0px 1px 2px',
       }
     },
   },
