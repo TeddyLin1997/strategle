@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router'
 import { forwardRef, useEffect, useState } from 'react'
+import LogoIcon from '@/assets/images/logo-icon.png'
 import Mint from './mint'
 import Stake from './stake'
 import Unstake from './unstake'
@@ -44,7 +45,7 @@ const Actions = forwardRef<HTMLDivElement>((_, ref) => {
 
       <article className="mt-10">
         <div className="mb-2 flex items-center gap-2 text-lg font-bold">
-          <img src="/logo.ico" className="w-5 h-5" />
+          <img src={LogoIcon} className="w-5 h-5" />
           <span>Tips : </span>
         </div>
         <ul className="ml-8 list-disc leading-relaxed">

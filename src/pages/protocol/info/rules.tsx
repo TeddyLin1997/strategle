@@ -1,4 +1,5 @@
 import { Link } from '@mui/material'
+import LogoIcon from '@/assets/images/logo-icon.png'
 
 const Rules = () => {
   return (
@@ -15,7 +16,7 @@ const Rules = () => {
 
           <article className="w-2/5">
             <div className="mb-2 flex items-center gap-2 text-lg font-bold">
-              <img src="/logo.ico" className="w-5 h-5" />
+              <img src={LogoIcon} className="w-5 h-5" />
               <span>Join STRAG Protocol steps :</span>
             </div>
 
@@ -29,7 +30,7 @@ const Rules = () => {
 
           <article className="w-2/5">
             <div className="mb-2 flex items-center gap-2 text-lg font-bold">
-              <img src="/logo.ico" className="w-5 h-5" />
+              <img src={LogoIcon} className="w-5 h-5" />
               <span>Exit STRAG Protocol steps : </span>
             </div>
 
@@ -45,7 +46,7 @@ const Rules = () => {
 
           <article className="w-2/5">
             <div className="mb-2 flex items-center gap-2 text-lg font-bold">
-              <img src="/logo.ico" className="w-5 h-5" />
+              <img src={LogoIcon} className="w-5 h-5" />
               <span>Why Choose STRAG Protocol : </span>
             </div>
 
@@ -59,7 +60,7 @@ const Rules = () => {
 
           <article className="w-2/5">
             <div className="mb-2 flex items-center gap-2 text-lg font-bold">
-              <img src="/logo.ico" className="w-5 h-5" />
+              <img src={LogoIcon} className="w-5 h-5" />
               <span>Tips : </span>
             </div>
             <ul className="ml-8 list-disc leading-relaxed">
