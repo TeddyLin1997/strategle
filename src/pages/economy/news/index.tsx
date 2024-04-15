@@ -52,7 +52,7 @@ const News = () => {
     { key: 'real_estate', name: 'Real estate', news: deduplicationNews?.['real_estate'] || [] },
   ]
 
-  const mainFeed = deduplicationNews['blockchain']?.find(item => item.source !== 'Benzinga')
+  const mainFeed = deduplicationNews['blockchain']?.find(item => item.source !== 'Benzinga' && item.banner_image)
 
   return (
     <div>
@@ -68,7 +68,7 @@ const News = () => {
             </a>
 
             <div className="mt-4 flex flex-wrap md:flex-nowrap">
-              { (deduplicationNews['blockchain'] || []).slice(1, 5).map(item => (
+              { (deduplicationNews['blockchain'] || []).slice(11, 15).map(item => (
                 <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className="mb-4 px-2 w-1/2 md:w-1/4">
                   <div className="mb-3 w-full h-32 rounded-md overflow-hidden">
                     <Image src={item.banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover" />

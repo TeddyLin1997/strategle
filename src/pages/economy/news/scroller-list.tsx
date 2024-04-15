@@ -13,9 +13,9 @@ const ScrollerList = ({ title, list, reverse }: ScrollListProps) => {
   const scrollEl = useRef<HTMLDivElement>(null)
   const itemEl = useRef<HTMLAnchorElement>(null)
 
-  const [isHovered, setIsHovered] = useState(false)
-  const handleMouseEnter = () => setIsHovered(true)
-  const handleMouseLeave = () => setIsHovered(false)
+  const [isHovered] = useState(false)
+  // const handleMouseEnter = () => setIsHovered(true)
+  // const handleMouseLeave = () => setIsHovered(false)
 
   const distance = useRef(1)
 
@@ -40,8 +40,8 @@ const ScrollerList = ({ title, list, reverse }: ScrollListProps) => {
         ref={scrollEl}
         className="pt-4 pb-8 w-full flex items-center gap-3 overflow-auto"
         style={reverse ? { direction: 'rtl' } : {}}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        // onMouseEnter={handleMouseEnter}
+        // onMouseLeave={handleMouseLeave}
       >
         {list.map(item => (
           <a

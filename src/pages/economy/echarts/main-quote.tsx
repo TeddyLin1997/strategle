@@ -15,16 +15,16 @@ const MainQuote = () => {
   return (
     <div className="px-4 py-2 w-1/2 md:w-1/3 flex flex-col rounded-xl shadow bg-white">
       <div className="text-lg text-secondary font-bold">Main Quotes</div>
-      <div className="mt-auto pl-3 py-3 flex flex-col gap-2">
+      <div className="pl-3 py-3 h-max flex flex-col gap-3">
         {mainQuoteList.map(item => (
-          <article key={item.symbol} className="flex items-center gap-3">
+          <article key={item.symbol} className="flex-1 flex items-center gap-3">
             <div className="w-7 h-7">
               <img src={item.icon} className="w-full h-full object-cover" />
             </div>
 
-            <div className="flex-1 font-bold truncate">{item.name}</div>
+            <div className="flex-1 max-w-fit font-bold truncate">{item.name}</div>
 
-            <div className="flex-1 text-right font-bold text-secondary">$ {ticker[item.symbol] ? formatAmount(ticker[item.symbol].price, 2) : '-'}</div>
+            <div className="flex-1 text-right font-bold text-secondary whitespace-nowrap">$ {ticker[item.symbol] ? formatAmount(ticker[item.symbol].price, 2) : '-'}</div>
           </article>
         ))}
 
