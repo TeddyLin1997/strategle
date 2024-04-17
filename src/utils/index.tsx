@@ -25,7 +25,6 @@ export const formatNumber = (input: string | number, fixed?: number) => {
 
 export const formatAmount = (input: string | number, fixed?: number) => {
   const value = String(input)
-
   const integer = value.split('.')[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   const decimal = value.split('.')[1]?.slice(0, fixed || 4) || ''
   return value.includes('.') ? `${integer}.${decimal}` : `${integer}${decimal}`

@@ -7,7 +7,6 @@ import Forex from './forex'
 import { Button } from '@mui/material'
 import { fetcher } from '@/service/api-request'
 import tradeBusinessImg from '@/assets/images/trade-business.png'
-import * as S from './index.style'
 
 const Home = () => {
   const { data: indexList } = useSWR('/home/index_list', fetcher)
@@ -24,22 +23,22 @@ const Home = () => {
   }), [topList, indexList, commodityList, forexList])
 
   return (
-    <S.Wrapper>
+    <div className="bg-white">
       <WorldStockIndex indexList={homeLists.index} />
       <TopList cryptoList={homeLists.crypto} usStockList={homeLists.usStock} />
       <Commodity commodityList={homeLists.commodity} />
       <Forex forexList={homeLists.forex} />
 
-      <S.StartTrade>
-        <div className="container">
-          <div className="button">
-            <div className="tip">Embark on Your Trade Journey Today!</div>
+      <section className="px-5 bg-primary-extend">
+        <div className="mx-auto py-3 px-5 w-full flex justify-between items-center max-w-4xl">
+          <div className="mr-6">
+            <div className="mb-6 text-2xl font-bold">Embark on Your Trade Journey Today!</div>
             <Button variant="contained" size="large">Start Trade</Button>
           </div>
-          <img className="img" src={tradeBusinessImg} alt="" />
+          <img src={tradeBusinessImg} className="w-1/3 max-w-96" />
         </div>
-      </S.StartTrade>
-    </S.Wrapper>
+      </section>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 import MarketContainer from '@/context/marketContext'
-import { Container, Title, CommoditySection, CommodityItem } from './index.style'
 import Divider from '@mui/material/Divider'
+import Skeleton from '@mui/material/Skeleton'
 
 interface CommodityProps {
   commodityList: Commodity[]
@@ -10,26 +10,45 @@ const Commodity = ({ commodityList }: CommodityProps) => {
   const { ticker } = MarketContainer.useContainer()
 
   return (
-    <Container>
+    <div className="m-auto pt-0 w-full max-w-screen-lg">
       <Divider variant="middle" />
 
-      <Title>Commodities</Title>
+      <header className="py-6 px-4 text-3xl font-black text-center">Commodities</header>
 
-      <CommoditySection>
-        {commodityList.map(item => (
-          <CommodityItem key={item.symbol} onClick={() => window.open(item.url)}>
-            <div className="name">
-              <img className="commodity-icon" src={item.icon} />
-              <div className="commodity-name">{item.name}</div>
+      <section className="flex items-center flex-wrap">
+        {commodityList.length === 0 &&
+          Array.from(Array(6)).map((_, index) => (
+            <article key={index} className="mb-6 px-3 w-1/2 md:w-1/3">
+              <div className="p-4 pl-2 flex items-center justify-between bg-[#F2F2F2] rounded-xl transition-all hover:bg-[#fff6d8] cursor-pointer">
+                <div className="w-fit flex justify-center items-center gap-4 flex-wrap md:flex-nowrap">
+                  <Skeleton variant="circular" className="w-12 !h-12" />
+                  <Skeleton variant="text" className="w-16" />
+                </div>
+
+                <div className="w-fit">
+                  <Skeleton variant="text" className="w-32" />
+                  <Skeleton variant="text" className="w-32" />
+                </div>
+              </div>
+            </article>
+          ))
+        }
+        {commodityList.length > 0 && commodityList.map(item => (
+          <article key={item.symbol} onClick={() => window.open(item.url)} className="mb-6 px-3 w-1/2 md:w-1/3">
+            <div className="p-4 pl-2 flex items-center justify-between bg-[#F2F2F2] rounded-xl transition-all hover:bg-[#fff6d8] cursor-pointer">
+              <div className="w-fit flex justify-center items-center gap-4 flex-wrap md:flex-nowrap">
+                <img className="w-12 h-12" src={item.icon} />
+                <div className="w-16 text-center sm:text-left font-bold whitespace-nowrap">{item.name}</div>
+              </div>
+              <div className="flex-1">
+                <div className="text-right font-bold text-lg">{String(ticker[item.symbol]?.price || '-')}<span className="text-xs"> USD</span></div>
+                <div className="text-right text-sm font-bold text-[#81858c]">{item.description}</div>
+              </div>
             </div>
-            <div className="price">
-              <div className="commodity-price">{String(ticker[item.symbol]?.price || '-')}<span className="unit"> USD</span></div>
-              <div className="commodity-description">{item.description}</div>
-            </div>
-          </CommodityItem>
+          </article>
         ))}
-      </CommoditySection>
-    </Container>
+      </section>
+    </div>
   )
 }
 
