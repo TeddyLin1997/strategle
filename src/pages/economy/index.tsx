@@ -5,9 +5,11 @@ import News from './news'
 const Economy = () => {
 
   return (
-    <div className="p-6" >
+    <div>
       <Indicate />
+
       <Echarts />
+
       <News />
     </div>
   )

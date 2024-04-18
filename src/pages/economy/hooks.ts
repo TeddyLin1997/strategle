@@ -1,7 +1,8 @@
 import useSWR from 'swr'
 import { useState, useMemo, ChangeEvent } from 'react'
 import { fetcher } from '@/service/api-request'
-import CpiIcon from '@/assets/images/economy/cpi.png'
+import CpiIcon from '@/assets/images/economy/index.png'
+// import CpiIcon from '@/assets/images/economy/cpi.png'
 import InflationIcon from '@/assets/images/economy/inflation.png'
 import FederalIcon from '@/assets/images/economy/federal.png'
 import TreasuryIcon from '@/assets/images/economy/treasury-yield.png'
@@ -45,7 +46,7 @@ export const useEconomyOverview = () => {
       },
       {
         key: 'treasury_yield',
-        name: '10-Year Treasury Rate',
+        name: '10 Year Treasury Rate',
         icon: TreasuryIcon,
         fullName: economy.treasury_yield?.name || '',
         value: economy.treasury_yield?.value || '',
@@ -56,7 +57,7 @@ export const useEconomyOverview = () => {
       },
       {
         key: 'inflation',
-        name: 'Inflation Rate - US',
+        name: 'Inflation Rate (US)',
         icon: InflationIcon,
         fullName: economy.inflation?.name || '',
         value: economy.inflation?.value || '',
@@ -72,7 +73,7 @@ export const useEconomyOverview = () => {
 }
 
 export const useIndicate = () => {
-  const [activeIndicate, setActiveIndicate] = useState(Economy.fed_fund_rate)
+  const [activeIndicate, setActiveIndicate] = useState(Economy.inflation)
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => setActiveIndicate(event.target.value as Economy)
 
   const indicateOptions = [

@@ -16,11 +16,12 @@ const IndicateCharts = () => {
   const { activeIndicate, handleChange, indicateData, indicateOptions, unit } = useIndicate()
 
   const options = {
-    grid: { top: 8, right: 8, bottom: 24, left: 36 },
+    grid: { top: 8, bottom: 6, left: 24, right: 24, },
     xAxis: {
+      show: false,
       type: 'category',
       boundaryGap: false,
-      data: indicateData.date,
+      data: indicateData.date.slice(-24),
       axisLabel: {
         margin: 12,
         interval: activeIndicate === Economy.inflation ? 6 : 23,
@@ -28,6 +29,7 @@ const IndicateCharts = () => {
       }
     },
     yAxis: {
+      show: false,
       type: 'value',
       scale: true,
       axisLabel: { formatter: `{value} ${unit}` },
@@ -36,12 +38,13 @@ const IndicateCharts = () => {
     series: [
       {
         type: 'line',
-        data: indicateData.value,
-        areaStyle: { color: '#FDE281' },
+        data: indicateData.value.slice(-24),
+        // areaStyle: { color: '#FDE281', opacity: 0. },
         lineStyle: { width: 3, color: '#FFC408' },
-        symbolSize: 10,
+        symbolSize: 0,
         itemStyle: { color: '#FFC408' },
         emphasis: { areaStyle: { color: '#fff6d8' } },
+        smooth: true,
       }
     ],
     tooltip: {
@@ -86,7 +89,7 @@ const IndicateCharts = () => {
           size="small"
         >
           {indicateOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
+            <MenuItem key={option.value} value={option.value} >
               {option.label}
             </MenuItem>
           ))}

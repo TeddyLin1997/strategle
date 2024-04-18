@@ -14,10 +14,16 @@ export const theme = createTheme({
       dark: '#214d57',
       contrastText: '#fff',
     },
+    success: {
+      main: '#0ecb81',
+      light: '#D0F2F2',
+    },
+    error: {
+      main: '#FF6E6E',
+      light: '#FFE2E2',
+    }
   },
   typography: {
     fontFamily: '"Kanit", "Noto Sans TC", robot, Inter, system-ui, sans-serif',
   },
 })
-
-// box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);

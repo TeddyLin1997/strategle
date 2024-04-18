@@ -6,6 +6,8 @@ import defaultLogo from '@/assets/images/strategle-background.png'
 import ScrollerList from './scroller-list'
 import Categories from './categories'
 import Image from '@/components/image'
+import dayjs from 'dayjs'
+import { Link } from 'react-router-dom'
 
 // blockchain
 // economy_fiscal
@@ -17,14 +19,6 @@ import Image from '@/components/image'
 // ipo
 // real_estate
 // technology
-
-export type New = {
-  title: string
-  banner_image: string
-  source: string
-  time_published: string
-  url: string
-}
 
 const News = () => {
   const { data: news = {} } = useSWR('/news/categories/list', fetcher)
@@ -52,49 +46,73 @@ const News = () => {
     { key: 'real_estate', name: 'Real estate', news: deduplicationNews?.['real_estate'] || [] },
   ]
 
-  const mainFeed = deduplicationNews['blockchain']?.find(item => item.source !== 'Benzinga' && item.banner_image)
+  const blockChainFeedList =  useMemo(() => {
+    return (deduplicationNews['blockchain'] || []).filter(item => item.source !== 'Benzinga' && item.banner_image)
+  }, [deduplicationNews['blockchain']])
+
+  const mainFeed = blockChainFeedList?.[0] || deduplicationNews['blockchain']?.[0]
+
+
+  const score = (Math.floor((mainFeed?.overall_sentiment_score || 0) * 100) + 100) / 2
+  const sentiment = (mainFeed?.overall_sentiment_label || '-').replace('Somewhat-', '')
+
+  const classMap = {
+    Bullish: 'bg-up text-up-extend',
+    Bearish: 'bg-up text-up-extend',
+    Neutral: 'bg-primary text-primary-extend',
+  }
+  Link
 
   return (
     <div>
       <section className="mx-auto px-2 max-w-screen-xl">
-        <div className="mb-6 py-2 px-5 w-full flex rounded-xl shadow bg-white flex-wrap md:flex-nowrap gap-4">
 
-          <article className="pt-3 flex flex-col w-full md:w-3/5">
-            <a className="relative flex-1 block w-full cursor-pointer overflow-hidden rounded-lg border" href={mainFeed?.url} target="_blank">
-              <Image src={mainFeed?.banner_image || ''} defaultSrc={defaultLogo} className="w-full h-full object-cover hover:brightness-90" />
-              <div className="absolute bottom-0 p-3 text-white text-3xl truncate line-clamp-2 break-all whitespace-normal pointer-events-none" style={{ textShadow: '1px 1px 2px #121212' }}>
-                {mainFeed?.title || '-'}
-              </div>
-            </a>
+        <div className="mb-4 flex items-center gap-2 justify-between">
+          <div className="text-3xl font-bold">Blockchain News</div>
+          <Link to="/economy/blockchain" className="font-bold text-text-blue hover:text-secondary transition-all">Read More</Link>
+        </div>
+        <div className="mb-10 w-full flex flex-wrap md:flex-nowrap gap-4">
 
-            <div className="mt-4 flex flex-wrap md:flex-nowrap">
-              { (deduplicationNews['blockchain'] || []).slice(11, 15).map(item => (
-                <a key={`${item.source}-${item.title}`} href={item.url} target="_blank" className="mb-4 px-2 w-1/2 md:w-1/4">
-                  <div className="mb-3 w-full h-32 rounded-md overflow-hidden">
-                    <Image src={item.banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="text-lg font-bold truncate line-clamp-2 break-all whitespace-normal hover:text-secondary">
-                    {item.title}
-                  </div>
-                </a>
-              )) }
-            </div>
-          </article>
+          <a className="relative block w-full md:w-3/5 cursor-pointer overflow-hidden rounded-2xl border" href={mainFeed?.url} target="_blank">
+            <Image src={mainFeed?.banner_image || ''} defaultSrc={defaultLogo} className="w-full h-full object-cover hover:brightness-90" />
 
-          <article className="w-full md:w-2/5 flex flex-col gap-4" >
-            {(deduplicationNews['economy_monetary'] || []).slice(1, 7).map(item => (
-              <a key={`${item.source}-${item.title}`} className="p-3 flex gap-4 rounded-lg hover:bg-secondary-light transition-all" href={item.url} target="_blank">
-                <div className="w-36 h-24 rounded-md overflow-hidden">
-                  <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover" />
+            <div className="p-4 absolute w-full bottom-0 h-3/4 flex bg-gradient-to-t from-black to-transparent">
+              <div className="mt-auto">
+                <div className="mb-4 flex items-center gap-4">
+                  <div className={`px-3 py-1 w-fit rounded-3xl font-bold ${classMap[sentiment]}`}>{`${sentiment} ${score}%`}</div>
+                  <div className="w-8 h-8 leading-8 font-bold text-center bg-primary rounded-full">{mainFeed?.source[0] || '-'}</div>
+                  <span className="flex-1 font-bold text-xl truncate text-white">{mainFeed?.source || '-'}</span>
+
+                  <span className="ml-auto text-sm text-gray-hover">
+                    {mainFeed?.time_published ? dayjs(mainFeed?.time_published).format('YYYY-MM-DD HH:mm:ss') : null}
+                  </span>
                 </div>
-                <div className="w-[calc(100%-10rem)] flex flex-col justify-between">
-                  <div className=" text-lg text-secondary font-bold truncate line-clamp-2 break-all whitespace-normal">{item.title}</div>
-                  <div className="flex items-end gap-2">
+
+                <p className="text-white text-3xl truncate line-clamp-2 break-all whitespace-normal pointer-events-none" style={{ textShadow: '1px 1px 2px #121212' }}>
+                  {mainFeed?.title || '-'}
+                </p>
+              </div>
+            </div>
+          </a>
+
+          <article className="w-full md:w-2/5 flex flex-col gap-6" >
+            {blockChainFeedList.filter(item => item.banner_image).slice(1, 6).map(item => (
+              <a key={`${item.source}-${item.title}`} className="flex gap-4" href={item.url} target="_blank">
+                <div className="w-56 md:w-40 h-full rounded-md overflow-hidden">
+                  <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="w-auto h-full object-cover" />
+                </div>
+                <div className="w-[calc(100%-15rem)] md:w-[calc(100%-11rem)] flex flex-col">
+                  <div className="mb-2 flex items-center gap-2 text-sm">
+                    <div className="w-5 h-5 leading-5 text-center bg-primary rounded-full">
+                      {item.source[0]}
+                    </div>
                     <span className="max-w-1/2 w-fit truncate font-bold">{item.source}</span>
-                    <span className="ml-auto max-w-1/2 truncate w-fit text-right text-sm text-[#737373]">
+                    <span className="ml-auto max-w-1/2 truncate w-fit text-xs text-right text-[#737373]">
                       {timeFormat(item.time_published, 'YYYY / MM / DD')}
                     </span>
                   </div>
+                  <div className="text-secondary text-lg font-bold truncate">{item.title}</div>
+                  <div className="mt-auto font-bold truncate line-clamp-2 break-all whitespace-normal">{item.summary}</div>
                 </div>
               </a>
             ))}

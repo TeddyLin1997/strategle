@@ -12,6 +12,7 @@ export default {
         },
         text: {
           DEFAULT: '#121214',
+          blue: '#468DC9',
         },
         primary: {
           DEFAULT: '#FFC408',
