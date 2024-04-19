@@ -13,6 +13,7 @@ export const Title = styled.div`
 export const Account = styled.div`
   width: 65%;
   display: flex;
+  align-items: center;
   gap: 16px;
 
   @media screen and (max-width: 768px) {
@@ -27,11 +28,6 @@ export const Account = styled.div`
       overflow: hidden;
       white-space: nowrap;
     }
-  }
-
-  & .avatar {
-    width: 84px;
-    height: 84px;
   }
 
 

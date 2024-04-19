@@ -51,13 +51,13 @@ const MainQuote = () => {
               <div className="w-1/4 max-w-fit truncate">{item.name}</div>
 
 
-              <div className="flex-1 text-right text-primary-light whitespace-nowrap">$ {ticker[item.symbol] ? formatAmount(ticker[item.symbol].price, 2) : '-'}</div>
+              <div className="flex-1 text-right whitespace-nowrap">$ {ticker[item.symbol] ? formatAmount(ticker[item.symbol].price, 2) : '-'}</div>
               <div className={`w-1/4 text-right ${ isUp ? 'text-up' : 'text-down' } whitespace-nowrap`}>
                 <span>{`${change.toNumber() > 0 ? '+' : ''}${formatNumber(percent, 2)}%`}</span>
               </div>
 
-              <a href={item.url} target="__blank" className="p-3 hover:fill-primary">
-                <LinkIcon className="scale-150 cursor-pointer fill-white" />
+              <a href={item.url} target="__blank" className="p-3 cursor-pointer">
+                <LinkIcon className="scale-150 fill-white hover:fill-primary" />
               </a>
             </article>
           )

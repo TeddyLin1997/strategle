@@ -1,5 +1,5 @@
 import { Tabs, Tab, Avatar } from '@mui/material'
-import AvatarIcon from '@/assets/images/avatar3.png'
+import AvatarIcon from '@/assets/images/avatar/avatar1.png'
 import { useEffect, useMemo, useState } from 'react'
 import Wallet from './wallet'
 import Info from './info'
@@ -46,7 +46,7 @@ const User = () => {
     <Container style={{ backgroundColor: 'white' }}>
       <Title>
         <Account>
-          <Avatar alt={ensName} src={AvatarIcon} className="avatar" />
+          <Avatar alt={ensName} src={AvatarIcon} className="!w-16 !h-16" />
           <div className="avatar-text">
             <div className="ensname">{ensName || '-'}</div>
             <div className="account">{account || '-'}</div>
