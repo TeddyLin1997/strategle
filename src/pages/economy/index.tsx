@@ -5,7 +5,7 @@ import News from './news'
 const Economy = () => {
 
   return (
-    <div>
+    <div className="bg-white">
       <Indicate />
 
       <Echarts />

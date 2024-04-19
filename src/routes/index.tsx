@@ -3,7 +3,8 @@ import { createRoutesFromElements, createBrowserRouter, RouterProvider, Route } 
 import Layout from '@/pages/layout'
 
 const routes = [
-  { key: 'home', path: '/', index: true, component: lazy(() => import('@/pages/home')) },
+  { key: 'home', path: '/', index: true, component: lazy(() => import('@/pages/introduce')) },
+  { key: 'market', path: '/market', index: true, component: lazy(() => import('@/pages/market')) },
   { key: 'economy', path: '/economy', index: false, component: lazy(() => import('@/pages/economy')) },
   { key: 'analysis', path: '/analysis', index: false, component: lazy(() => import('@/pages/analysis')) },
   { key: 'community', path: '/community', index: false, component: lazy(() => import('@/pages/community')) },

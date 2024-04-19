@@ -8,7 +8,7 @@ export default function Indicate () {
   const { indicies } = useEconomyOverview()
 
   return (
-    <div className="mb-20 md:mb-16 bg-secondary">
+    <div className="-mb-20 pb-40 bg-secondary">
       <div className="mx-auto py-10 max-w-screen-xl">
         <header className="mb-4 px-2 text-5xl font-black text-white">Economic Overview</header>
         <p className="mb-6 px-2 text-2xl font-semibold text-white">Keep abreast of economic trends and market news information.</p>

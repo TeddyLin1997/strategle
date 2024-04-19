@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react'
 import { HeaderWrapper, HeaderContainer, LogoWrapper, Navigation, NavItem, ConnectWallet, WalletContent, WalletItem, AccountContainer, ChainItem, UserItem, Protocol } from './header.style'
 import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
-import LogoImg from '@/assets/images/strategle.png'
+import LogoImg from '@/assets/images/logo-icon.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import WalletContainer from '@/context/walletContext'
@@ -11,7 +11,7 @@ const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
 const anchorStyle = { top: 8 }
 
 const navLinks = [
-  { key: 'market', path: '/', text: 'Market' },
+  { key: 'market', path: '/market', text: 'Market' },
   { key: 'economy', path: '/economy', text: 'Economy' },
   // { key: 'analysis', path: '/analysis', text: 'Analysis' },
   // { key: 'community', path: '/community', text: 'Community' },
