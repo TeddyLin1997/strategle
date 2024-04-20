@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && rm -r ../strategle-backend/public/assets && vite build",
+    "build": "tsc && rm -r ../strategle-backend/build/public/assets && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
