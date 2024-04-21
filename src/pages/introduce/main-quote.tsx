@@ -1,9 +1,9 @@
 import MarketContainer from '@/context/marketContext'
 import LinkIcon from '@/assets/icons/external-link.svg?react'
 import LogoIcon from '@/assets/images/logo-icon.png'
+import { Button } from '@mui/material'
 import { formatAmount, formatNumber } from '@/utils'
 import Big from 'big.js'
-import { Button } from '@mui/material'
 
 const MainQuote = () => {
   const { ticker } = MarketContainer.useContainer()
@@ -21,10 +21,6 @@ const MainQuote = () => {
     { name: 'BTC', symbol: 'BTCUSDT', icon: '/images/crypto/BTCUSDT.png', url: 'https://tw.tradingview.com/symbols/BTCUSD/' },
     { name: 'ETH', symbol: 'ETHUSDT', icon: '/images/crypto/ETHUSDT.png', url: 'https://tw.tradingview.com/symbols/ETHUSD/' },
     { name: 'BNB', symbol: 'BNBUSDT', icon: '/images/crypto/BNBUSDT.png', url: 'https://tw.tradingview.com/symbols/BNBUSD/' },
-
-    // { name: 'GOLD', symbol: 'GOLD', icon: '/images/commodity/gold.png', url: 'https://tw.tradingview.com/symbols/GOLD/' },
-    // { name: 'Crude Oil', symbol: 'CRUDE_OIL', icon: '/images/commodity/petrol.png', url: 'https://tw.tradingview.com/symbols/UKOIL/?exchange=TVC' },
-    // { name: 'Natural Gas', symbol: 'NATURAL_GAS', icon: '/images/commodity/gas.png', url: 'https://tw.tradingview.com/symbols/ACTIVTRADES-NGAS1!/?contract=NGASJ2024' },
   ]
 
   return (
@@ -43,16 +39,15 @@ const MainQuote = () => {
           const percent = change.times(100).div(open.toNumber() ? open : new Big(1)).toString()
 
           return (
-            <article key={item.symbol} className="flex-1 flex items-center gap-6 text-lg font-bold">
+            <article key={item.symbol} className="flex-1 flex items-center gap-2 md:gap-6 text-lg font-bold">
               <div className="mr-4 w-12 h-12">
                 <img src={item.icon} className="w-full h-full object-cover" />
               </div>
 
               <div className="w-1/4 max-w-fit truncate">{item.name}</div>
 
-
-              <div className="flex-1 text-right whitespace-nowrap">$ {ticker[item.symbol] ? formatAmount(ticker[item.symbol].price, 2) : '-'}</div>
-              <div className={`w-1/4 text-right ${ isUp ? 'text-up' : 'text-down' } whitespace-nowrap`}>
+              <div className={`flex-1 text-right whitespace-nowrap ${ isUp ? 'text-up' : 'text-down' }`}>$ {ticker[item.symbol] ? formatAmount(ticker[item.symbol].price, 2) : '-'}</div>
+              <div className={`w-1/5 md:w-1/3 text-right ${ isUp ? 'text-up' : 'text-down' } whitespace-nowrap`}>
                 <span>{`${change.toNumber() > 0 ? '+' : ''}${formatNumber(percent, 2)}%`}</span>
               </div>
 
