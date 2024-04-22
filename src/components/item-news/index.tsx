@@ -42,7 +42,7 @@ const ItemNews = forwardRef(({ news }: ItemNewsProps, ref: Ref<HTMLDivElement>) 
         </section>
 
         <section className="mb-4 flex gap-2">
-          { news.topics.slice(0, 3).map(item => <div key={item.topic} className="px-3 py-1 h-fit text-sm rounded-3xl bg-gray-border">{item.topic.split(' ')[item.topic.split(' ').length - 1]}</div>) }
+          { news.topics.slice(0, 3).map(topic => <div key={topic} className="px-3 py-1 h-fit text-sm rounded-3xl bg-gray-border">{topic.split(' ')[topic.split(' ').length - 1]}</div>) }
         </section>
 
         <section className="px-1">

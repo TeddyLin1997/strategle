@@ -1,13 +1,13 @@
+import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 import { fetcher } from '@/service/api-request'
-import { useMemo } from 'react'
 import { timeFormat } from '@/utils'
 import defaultLogo from '@/assets/images/strategle-background.png'
 import ScrollerList from './scroller-list'
 import Categories from './categories'
 import Image from '@/components/image'
 import dayjs from 'dayjs'
-import { Link } from 'react-router-dom'
 
 // blockchain
 // economy_fiscal
@@ -61,7 +61,6 @@ const News = () => {
     Bearish: 'bg-up text-up-extend',
     Neutral: 'bg-primary text-primary-extend',
   }
-  Link
 
   return (
     <div>

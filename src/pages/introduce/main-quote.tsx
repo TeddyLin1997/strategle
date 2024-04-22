@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import MarketContainer from '@/context/marketContext'
 import LinkIcon from '@/assets/icons/external-link.svg?react'
 import LogoIcon from '@/assets/images/logo-icon.png'
@@ -60,7 +61,9 @@ const MainQuote = () => {
       </div>
 
       <div className="mx-auto">
-        <Button variant="outlined">More Info</Button>
+        <Link to="/market">
+          <Button variant="outlined">More Info</Button>
+        </Link>
       </div>
     </div>
   )

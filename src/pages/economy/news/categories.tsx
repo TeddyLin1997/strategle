@@ -62,7 +62,7 @@ const Category = ({ industry: { name, news } }: CategoryProps) => {
                 <section className="min-w-44 w-1/3">
                   <Image src={item.banner_image?.includes('benzinga') ? defaultLogo : item.banner_image} defaultSrc={defaultLogo} className="mb-4 w-full h-28 rounded-lg object-cover"  />
                   <div className="flex gap-2">
-                    { item.topics.slice(0, 2).map(item => <div key={item.topic} className="px-3 py-1 h-fit text-xs rounded-3xl bg-gray-border">{item.topic.split(' ')[item.topic.split(' ').length - 1]}</div>) }
+                    { item.topics.slice(0, 2).map(topic => <div key={topic} className="px-3 py-1 h-fit text-xs rounded-3xl bg-gray-border">{topic.split(' ')[topic.split(' ').length - 1]}</div>) }
                   </div>
                 </section>
 

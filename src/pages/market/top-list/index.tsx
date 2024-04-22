@@ -45,7 +45,7 @@ const TopSection = ({ title,  list = [] }: TopListProps) => {
       </section>
 
       { list.length == 0 && Array.from(Array(10)).map((_, index) => (
-        <article key={index} className="mb-3 py-3 px-4 relative w-full h-14 flex items-center gap-3 font-bold rounded-md overflow-hidden cursor-pointer hover:!bg-[#fff6d8] z-0">
+        <article key={index} className="mb-3 py-3 px-4 relative w-full h-14 flex items-center gap-3 font-bold rounded-md overflow-hidden cursor-pointer bg-[#F2F2F2] hover:!bg-[#fff6d8] z-0">
           <Skeleton variant="circular" className="w-8 !h-8" />
           <Skeleton variant="text" className="flex-1" />
           <Skeleton variant="text" className="w-1/3" />

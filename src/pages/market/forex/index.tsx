@@ -13,7 +13,7 @@ const Forex = ({ forexList }) => {
     const isUp = price >= open
     return (
       <article key={item.symbol} onClick={() => window.open(item.url)} className="py-3 flex items-center font-bold cursor-pointer">
-        <img className="mr-2" src={item.icon} />
+        <img className="mr-2 w-8 h-4" src={item.icon} />
         <div>{item.name}</div>
         <div className={`ml-auto ${ isUp ? 'text-up' : 'text-down' }`}>{Number(price).toFixed(5) || '-'}</div>
         <img className="ml-2 w-6 h-auto" src={isUp ? up : down} />

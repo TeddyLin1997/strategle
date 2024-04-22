@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import BannerLandingImg from '@/assets/images/banner-landing.png'
 import ProtocolImg from '@/assets/images/intro-protocol.png'
@@ -7,7 +7,6 @@ import QuoteImg from '@/assets/images/intro-quote.png'
 import MainQuote from './main-quote'
 
 const Introduce = () => {
-  const navigate = useNavigate()
 
   return (
     <div className="mx-auto max-w-screen-xl bg-bg min-h-dvh text-white">
@@ -21,9 +20,15 @@ const Introduce = () => {
           <p className="mb-8 text-white">We are committed to providing comprehensive financial market information services and insights into the world of cryptocurrencies, helping you to gain any possible advantage in the market. Whether you're interested in stocks, forex, cryptocurrencies, or global financial markets, we have everything you need.</p>
 
           <div className="flex items-center flex-wrap gap-6">
-            <Button onClick={() => navigate('/market')} variant="outlined" size="large">Market Overview</Button>
-            <Button onClick={() => navigate('/economy')} variant="outlined" size="large">Economy News</Button>
-            <Button onClick={() => navigate('/protocol')} variant="contained" size="large">Earning Profits</Button>
+            <Link to="/market">
+              <Button variant="outlined" size="large">Market Overview</Button>
+            </Link>
+            <Link to="/economy">
+              <Button variant="outlined" size="large">Economy News</Button>
+            </Link>
+            <Link to="/protocol">
+              <Button variant="contained" size="large">Earning Profits</Button>
+            </Link>
           </div>
         </div>
 
@@ -41,19 +46,25 @@ const Introduce = () => {
           <img src={QuoteImg} className="mb-2 w-auto h-32" draggable="false" />
           <div className="mb-4 font-black text-2xl text-primary-light">Market Overview</div>
           <p className="mb-6 px-4 text-center">You can easily view the latest integrated prices of cryptocurrencies, US stocks, financial markets, and forex on our website to stay informed about market dynamics at all times. We provide real-time price updates to assist you in making informed investment decisions.</p>
-          <Button onClick={() => navigate('/market')} variant="contained" className="!mt-auto">Market</Button>
+          <Link to="/market" className="mt-auto">
+            <Button variant="contained">Market</Button>
+          </Link>
         </article>
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
           <img src={EconomyImg} className="mb-2 w-auto h-32" draggable="false" />
           <div className="mb-4 font-black text-2xl text-primary-light">Economy News</div>
           <p className="mb-6 px-4 text-center">We aggregate a rich variety of financial news covering various topics including market trends, investment strategies, emerging technologies, and global economic dynamics. This includes charts and analysis of key indicators such as CPI, Fed rates, fear indices, and more.</p>
-          <Button onClick={() => navigate('/economy')} variant="contained" className="!mt-auto">Economy</Button>
+          <Link to="/economy" className="mt-auto">
+            <Button variant="contained">Economy</Button>
+          </Link>
         </article>
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
           <img src={ProtocolImg} className="mb-2 w-auto h-32" draggable="false" />
           <div className="mb-4 font-black text-2xl text-primary-light">DeFi Protocol</div>
           <p className="mb-6 px-4 text-center">We also offer DeFi (Decentralized Finance) projects for you to explore the emerging field of financial technology. Developed using long-term accumulated market experience, our trading strategies provide users with profit-sharing mechanisms, with planned annualized returns of up to 12%.</p>
-          <Button onClick={() => navigate('/protocol')} variant="contained" className="!mt-auto">DeFi Protocol</Button>
+          <Link to="/protocol" className="mt-auto">
+            <Button variant="contained">DeFi Protocol</Button>
+          </Link>
         </article>
       </section>
 

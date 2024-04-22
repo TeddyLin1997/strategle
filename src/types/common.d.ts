@@ -11,5 +11,5 @@ type New = {
   url: string
   overall_sentiment_label: string
   overall_sentiment_score: number
-  topics: Array<{ topic: string }>
+  topics: Array<string>
 }
