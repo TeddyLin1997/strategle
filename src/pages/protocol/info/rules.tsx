@@ -9,7 +9,7 @@ const Rules = () => {
 
         <div className="mb-2 font-bold text-lg">Description : </div>
         <p className="mb-8 ml-4">
-        We are an automated trading team for project pages with over a decade of experience. Utilizing our own developed trading model, which has been backtested, we achieve an annualized return rate of over 12%. With the STRAG Protocol, you can join this project by minting $STRAG tokens. The team will provide you with a 12% annualized return rate, with the option to withdraw your earnings at any time. The treasury is managed using smart contracts, with profits injected into it quarterly. You can monitor the treasury's operation on-chain.
+          We are a professional automated trading team with over a decade of experience. Leveraging our proprietary trading models and rigorous backtesting, we have achieved over a 12% annualized return. Through the STRAG protocol, you can participate in this project by minting $STRAG tokens. The team offers a 12% annualized return, and you have the option to withdraw your earnings at any time. The treasury is managed using smart contracts, with profits injected into it quarterly. You can monitor the treasury's operation on-chain.
         </p>
 
         <section className="mb-8 flex justify-evenly gap-10">

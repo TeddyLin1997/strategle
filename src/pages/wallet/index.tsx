@@ -43,38 +43,40 @@ const User = () => {
   }, [account, provider, isConnect])
 
   return (
-    <Container style={{ backgroundColor: 'white' }}>
-      <Title>
-        <Account>
-          <Avatar alt={ensName} src={AvatarIcon} className="!w-16 !h-16" />
-          <div className="avatar-text">
-            <div className="ensname">{ensName || '-'}</div>
-            <div className="account">{account || '-'}</div>
-            <div className="bio">This user has not added a bio yet</div>
-          </div>
-        </Account>
-
-        <Balance>
-          <div className="balance">
-            <img src={CHAIN_INFO[chainId]?.coin?.icon} />
-            <div>
-              <div className="coin-balance">{balance} {CHAIN_INFO[chainId]?.coin?.name}</div>
-              <div className="netvalue">≈$ {netValue}</div>
+    <div className="bg-white">
+      <Container>
+        <Title>
+          <Account>
+            <Avatar alt={ensName} src={AvatarIcon} className="!w-16 !h-16" />
+            <div className="avatar-text">
+              <div className="ensname">{ensName || '-'}</div>
+              <div className="account">{account || '-'}</div>
+              <div className="bio">This user has not added a bio yet</div>
             </div>
-          </div>
-        </Balance>
-      </Title>
+          </Account>
 
-      <div>
-        <Tabs value={tab} onChange={handleTab} textColor="secondary" indicatorColor="secondary">
-          <Tab label={TabEnum.Wallet} value={TabEnum.Wallet} />
-          <Tab label={TabEnum.Info} value={TabEnum.Info} />
-        </Tabs>
+          <Balance>
+            <div className="balance">
+              <img src={CHAIN_INFO[chainId]?.coin?.icon} />
+              <div>
+                <div className="coin-balance">{balance} {CHAIN_INFO[chainId]?.coin?.name}</div>
+                <div className="netvalue">≈$ {netValue}</div>
+              </div>
+            </div>
+          </Balance>
+        </Title>
 
-        { tab === TabEnum.Wallet && <Wallet /> }
-        { tab === TabEnum.Info && <Info /> }
-      </div>
-    </Container>
+        <div>
+          <Tabs value={tab} onChange={handleTab} textColor="secondary" indicatorColor="secondary">
+            <Tab label={TabEnum.Wallet} value={TabEnum.Wallet} />
+            <Tab label={TabEnum.Info} value={TabEnum.Info} />
+          </Tabs>
+
+          { tab === TabEnum.Wallet && <Wallet /> }
+          { tab === TabEnum.Info && <Info /> }
+        </div>
+      </Container>
+    </div>
   )
 }
 
