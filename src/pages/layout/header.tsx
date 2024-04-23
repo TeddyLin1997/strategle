@@ -62,8 +62,8 @@ const Header = () => {
         <LogoWrapper to="/">
           <img className="logo-img" src={LogoImg} />
           <div>
-            <div className="logo-title">Strategle</div>
-            <div className="logo-sub-title">Future Bank</div>
+            <div className="logo-title">STRATEGLE</div>
+            <div className="logo-sub-title">Decentralized App</div>
           </div>
         </LogoWrapper>
 

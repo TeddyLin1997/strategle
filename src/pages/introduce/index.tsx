@@ -14,7 +14,7 @@ const Introduce = () => {
         <div className="p-6 w-full lg:w-1/2">
           <div className="my-10 font-black">
             <span className="text-6xl text-primary">STRATEGLE </span>
-            <span className="text-5xl text-white">.COM</span>
+            <span className="text-5xl text-white">.TECH</span>
           </div>
           <p className="mb-10 text-2xl font-bold text-white">Market Quotes, Financial News, Earning Profits.</p>
           <p className="mb-8 text-white">We are committed to providing comprehensive financial market information services and insights into the world of cryptocurrencies, helping you to gain any possible advantage in the market. Whether you're interested in stocks, forex, cryptocurrencies, or global financial markets, we have everything you need.</p>
