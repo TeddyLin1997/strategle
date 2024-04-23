@@ -10,7 +10,7 @@ const initData = {
 }
 
 const FearAndGreedIndexChart = memo(() => {
-  const { data: indexData = initData } = useSWR('/economy/fear_and_greed_index', fetcher)
+  const { data: indexData = initData } = useSWR('/economy/summary/fear_and_greed_index', fetcher)
 
   const options = {
     series: [

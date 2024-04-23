@@ -39,7 +39,6 @@ const IndicateCharts = () => {
       {
         type: 'line',
         data: indicateData.value.slice(-24),
-        // areaStyle: { color: '#FDE281', opacity: 0. },
         lineStyle: { width: 3, color: '#FFC408' },
         symbolSize: 0,
         itemStyle: { color: '#FFC408' },

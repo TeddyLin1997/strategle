@@ -83,7 +83,7 @@ export const useIndicate = () => {
     { label: 'Inflation', value: Economy.inflation },
   ]
 
-  const { data: indicateResult = initData } = useSWR(`/economy/${activeIndicate}`, fetcher)
+  const { data: indicateResult = initData } = useSWR(`/economy/summary/${activeIndicate}`, fetcher)
 
   const indicateData = useMemo(() => {
     return {
