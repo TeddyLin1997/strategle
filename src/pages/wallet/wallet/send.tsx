@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { ChangeEvent, useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import SendIcon from '@/assets/images/send.png'
+import QuestionIcon from '@/assets/images/question.png'
 import { CHAIN_INFO } from '@/global/chain'
 import WalletContainer from '@/context/walletContext'
 // import { TOKEN_INFO } from '@/global/token'
@@ -100,7 +101,7 @@ const Send = () => {
   }
 
   // assets token contract
-  const [assets] = useState(chainInfo.coin.name)
+  const [assets] = useState(chainInfo?.coin?.name || '-')
   // const tokenContract = useMemo(() => {
   //   const tokenContract = new Contract(tokenContractAddress, tokenContractABI, signer)
   //   const tokenBalance = await tokenContract.balanceOf(account)
@@ -108,7 +109,7 @@ const Send = () => {
 
 
   const sendTransaction = async () => {
-    if (assets === chainInfo.coin.name) sendNativeToken()
+    if (assets === chainInfo?.coin?.name) sendNativeToken()
     else sendERC20Token()
   }
 
@@ -135,8 +136,8 @@ const Send = () => {
       <FormItem>
         <FormLabel>Chain Name :</FormLabel>
         <BlockchainLabel>
-          <img className="blockchain-icon" src={chainInfo.icon} />
-          <div className="blockchain-name">{chainInfo.name}</div>
+          <img className="blockchain-icon w-8 h-8" src={chainInfo?.icon || QuestionIcon} />
+          <div className="blockchain-name">{chainInfo?.name || 'No support chain'}</div>
         </BlockchainLabel>
       </FormItem>
 

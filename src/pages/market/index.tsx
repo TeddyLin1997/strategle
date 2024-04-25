@@ -5,8 +5,11 @@ import TopList from './top-list'
 import Commodity from './commodity'
 import Forex from './forex'
 import { fetcher } from '@/service/api-request'
+import useTitle from '@/hooks/useTitle'
 
 const Home = () => {
+  useTitle('Market')
+
   const { data: indexList } = useSWR('/home/index_list', fetcher)
   const { data: topList } = useSWR('/home/top_list', fetcher)
   const { data: commodityList } = useSWR('/home/commodity_list', fetcher)

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { TextField, Button } from '@mui/material'
 import DonateIcon from '@/assets/images/donate.png'
+import QuestionIcon from '@/assets/images/question.png'
 import { CHAIN_INFO } from '@/global/chain'
 import WalletContainer from '@/context/walletContext'
 
@@ -92,8 +93,8 @@ const Donate = () => {
       <FormItem>
         <FormLabel>Chain Name :</FormLabel>
         <BlockchainLabel>
-          <img className="blockchain-icon" src={chainInfo.icon} />
-          <div className="blockchain-name">{chainInfo.name}</div>
+          <img className="blockchain-icon w-8 h-8" src={chainInfo?.icon || QuestionIcon} />
+          <div className="blockchain-name">{chainInfo?.name || 'No support chain'}</div>
         </BlockchainLabel>
       </FormItem>
 

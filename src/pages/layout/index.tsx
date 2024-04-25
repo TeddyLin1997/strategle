@@ -13,6 +13,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
+
   return (
     <LayoutContainer>
       <ProgressLinear />

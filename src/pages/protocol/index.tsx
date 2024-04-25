@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import Portfolio from './portfolio'
 import Info from './info'
+import useTitle from '@/hooks/useTitle'
 
 enum Tabs {
   Info = 'Info',
@@ -9,6 +10,7 @@ enum Tabs {
 }
 
 const Protocol = () => {
+  useTitle('STRAG Protocol')
   const navigate = useNavigate()
 
   const location = useLocation()

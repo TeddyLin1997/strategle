@@ -8,6 +8,7 @@ import { Title, Account, Balance } from './style'
 import Container from '@/components/container'
 import MarketContainer from '@/context/marketContext'
 import WalletContainer from '@/context/walletContext'
+import useTitle from '@/hooks/useTitle'
 
 enum TabEnum {
   Wallet = 'Wallet',
@@ -15,6 +16,8 @@ enum TabEnum {
 }
 
 const User = () => {
+  useTitle('Wallet')
+
   const [tab, setTab]= useState(TabEnum.Wallet)
   const handleTab = (_, tab: TabEnum) => setTab(tab)
 
@@ -24,7 +27,7 @@ const User = () => {
 
   const { ticker } = MarketContainer.useContainer()
   const netValue = useMemo(() => {
-    const coinPrice = Number(ticker?.[`${chainInfo.coin.name}USDT`]?.price) || 0
+    const coinPrice = Number(ticker?.[`${chainInfo?.coin?.name || '-'}USDT`]?.price) || 0
     return (coinPrice * balance).toFixed(2)
   }, [chainId, ticker, balance])
 

@@ -1,6 +1,9 @@
 import Container from '@/components/container'
+import useTitle from '@/hooks/useTitle'
 
 const Analysis = () => {
+  useTitle('Analysis')
+
   return (
     <Container>
       <div>
