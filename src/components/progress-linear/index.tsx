@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
-import styled from 'styled-components'
-
-const Container = styled.div`
-  position: fixed;
-  top: 56px;
-  width: 100%;
-  z-index: 101;
-`
 
 export default function ProgressLinear() {
   const isLoading = false
@@ -31,8 +23,8 @@ export default function ProgressLinear() {
   }, [isLoading])
 
   return (
-    <Container>
+    <div className="fixed top-14 w-full z-[101]">
       { isLoading && <LinearProgress variant="determinate" value={progress} /> }
-    </Container>
+    </div>
   )
 }

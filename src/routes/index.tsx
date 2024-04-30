@@ -1,4 +1,5 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { createRoutesFromElements, createBrowserRouter, RouterProvider, Route } from 'react-router-dom'
 import Layout from '@/pages/layout'
 
@@ -10,13 +11,13 @@ const routes = [
   { key: 'community', path: '/community', index: false, component: lazy(() => import('@/pages/community')) },
   { key: 'protocol', path: '/protocol', index: false, component: lazy(() => import('@/pages/protocol')) },
   { key: 'wallet', path: '/wallet', index: false, component: lazy(() => import('@/pages/wallet')) },
+
+  { key: 'not-found', path: '*', index: false, component: Layout.NotFound },
 ]
 
 const root = (
-  <Route path="/"
-    element={<Layout />}
-    errorElement={<Layout.ErrorBoundary />}
-  >
+
+  <Route path="/" element={<Layout />} errorElement={<Layout.ErrorBoundary />}>
     <Route element={<Layout.SuspenseLayout />}>
       { routes.map(item =>
         (<Route
@@ -33,7 +34,12 @@ const root = (
 const router = createBrowserRouter(createRoutesFromElements(root))
 
 const Router = () => (
-  <RouterProvider router={router} />
+  <ErrorBoundary fallbackRender={Layout.ErrorBoundary}>
+    <Suspense>
+      <RouterProvider router={router} />
+    </Suspense>
+  </ErrorBoundary>
+
 )
 
 export default Router

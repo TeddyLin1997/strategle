@@ -1,11 +1,12 @@
 import { Suspense } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import Header from './header'
 import Footer from './footer'
-import { LayoutContainer, Main, SuspenseContainer } from './index.style'
 import ProgressLinear from '@/components/progress-linear'
 import ProgressCircular from '@/components/progress-circular'
+import NotFound from '@/assets/images/not-found.png'
+import Button from '@mui/material/Button'
 
 interface LayoutProps {
   isErrorPage?: boolean
@@ -15,17 +16,17 @@ interface LayoutProps {
 const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
 
   return (
-    <LayoutContainer>
+    <main className="flex flex-col pt-14 relative w-full min-h-screen">
       <ProgressLinear />
       <Header />
 
-      <Main>
+      <section className="flex-1 w-full">
         { isErrorPage ? children : <Outlet /> }
-      </Main>
+      </section>
 
       <Footer />
       <Toaster position="top-center" reverseOrder={true}/>
-    </LayoutContainer>
+    </main>
   )
 }
 
@@ -33,9 +34,9 @@ Layout.SuspenseLayout = () => {
   return (
     <Suspense
       fallback={
-        <SuspenseContainer>
+        <div className="w-full h-full min-h-screen flex justify-center items-center">
           <ProgressCircular />
-        </SuspenseContainer>
+        </div>
       }>
       <Outlet />
     </Suspense>
@@ -45,8 +46,38 @@ Layout.SuspenseLayout = () => {
 Layout.ErrorBoundary = () => {
   return (
     <Layout isErrorPage>
-      <div>Error</div>
+      <div className="flex h-[calc(100vh-56px)]">
+        <section className="m-auto p-8 w-full max-w-screen-sm rounded-2xl flex justify-center items-center gap-8 text-white bg-gray-bg shadow">
+          <img src={NotFound} className="w-1/2" />
+          <div className="w-1/2">
+            <h1 className="mb-2 text-5xl font-black">Oops!</h1>
+            <h2 className="mb-4 text-4xl font-black">Get Some Error</h2>
+            <p className="mb-6">we're sorry the page you requested could be error. Please go back to the homepage!</p>
+            <Link to="/">
+              <Button variant="contained" size="large" fullWidth>Back Homepage</Button>
+            </Link>
+          </div>
+        </section>
+      </div>
     </Layout>
+  )
+}
+
+Layout.NotFound = () => {
+  return (
+    <div className="flex h-[calc(100vh-56px)]">
+      <section className="m-auto p-8 w-full max-w-screen-sm rounded-2xl flex justify-center items-center gap-8 text-white bg-gray-bg shadow">
+        <img src={NotFound} className="w-1/2" />
+        <div className="w-1/2">
+          <h1 className="mb-2 text-5xl font-black">404</h1>
+          <h2 className="mb-4 text-4xl font-black">Page Not Found</h2>
+          <p className="mb-6">we're sorry the dpage you requested could not be found. Please go back to the homepage!</p>
+          <Link to="/">
+            <Button variant="contained" size="large" fullWidth>Back Homepage</Button>
+          </Link>
+        </div>
+      </section>
+    </div>
   )
 }
 
