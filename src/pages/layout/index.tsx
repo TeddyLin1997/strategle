@@ -16,7 +16,7 @@ interface LayoutProps {
 const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
 
   return (
-    <main className="flex flex-col pt-14 relative w-full min-h-screen">
+    <main className="flex flex-col pt-[56px] relative w-full min-h-screen">
       <ProgressLinear />
       <Header />
 

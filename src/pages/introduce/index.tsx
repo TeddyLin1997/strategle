@@ -49,7 +49,7 @@ const Introduce = () => {
           <div className="mb-4 font-black text-2xl text-primary-light">Market Overview</div>
           <p className="mb-6 px-4 text-center">You can easily view the latest integrated prices of cryptocurrencies, US stocks, financial markets, and forex on our website to stay informed about market dynamics at all times. We provide real-time price updates to assist you in making informed investment decisions.</p>
           <Link to="/market" className="mt-auto">
-            <Button variant="contained">Detail</Button>
+            <Button className="w-20 !capitalize" variant="contained">Detail</Button>
           </Link>
         </article>
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
@@ -57,7 +57,7 @@ const Introduce = () => {
           <div className="mb-4 font-black text-2xl text-primary-light">Economy News</div>
           <p className="mb-6 px-4 text-center">We aggregate a rich variety of financial news covering various topics including market trends, investment strategies, emerging technologies, and global economic dynamics. This includes charts and analysis of key indicators such as CPI, Fed rates, fear indices, and more.</p>
           <Link to="/economy" className="mt-auto">
-            <Button variant="contained">Detail</Button>
+            <Button className="w-20 !capitalize" variant="contained">Detail</Button>
           </Link>
         </article>
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
@@ -65,7 +65,7 @@ const Introduce = () => {
           <div className="mb-4 font-black text-2xl text-primary-light">DeFi Protocol</div>
           <p className="mb-6 px-4 text-center">We also offer DeFi (Decentralized Finance) projects for you to explore the emerging field of financial technology. Developed using long-term accumulated market experience, our trading strategies provide users with profit-sharing mechanisms, with planned annualized returns of up to 12%.</p>
           <Link to="/protocol" className="mt-auto">
-            <Button variant="contained">Detail</Button>
+            <Button className="w-20 !capitalize" variant="contained">Detail</Button>
           </Link>
         </article>
       </section>
