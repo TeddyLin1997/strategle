@@ -63,7 +63,7 @@ const Header = () => {
           <img className="logo-img" src={LogoImg} />
           <div>
             <div className="logo-title">STRATEGLE</div>
-            <div className="logo-sub-title">Decentralized App</div>
+            <div className="logo-sub-title">DeFinance Bank</div>
           </div>
         </LogoWrapper>
 

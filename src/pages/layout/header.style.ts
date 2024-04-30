@@ -27,6 +27,11 @@ export const LogoWrapper = styled(NavLink)`
   display: flex;
   align-items: center;
 
+  &:hover > .logo-img {
+    transform: rotate(360deg);
+    transition: all 3s ease-in-out;
+  }
+
   & > .logo-img {
     margin-right: 6px;
     width: 36px;
