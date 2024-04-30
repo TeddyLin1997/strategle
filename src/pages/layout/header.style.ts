@@ -57,13 +57,8 @@ export const LogoWrapper = styled(NavLink)`
   }
 `
 
-export const Navigation = styled.nav`
-  display: flex;
-  align-items: center;
-`
-
 export const NavItem = styled(NavLink)`
-  padding: 0 12px;
+  padding: 0 8px;
   font-size: 14px;
   font-weight: 700;
   color: #FFF;
@@ -71,10 +66,6 @@ export const NavItem = styled(NavLink)`
 
   &.active {
     color: #FFC408 !important;
-  }
-
-  &:hover {
-    color: #b28905;
   }
 `
 
@@ -120,23 +111,6 @@ export const WalletItem = styled.div`
   & > .wallet-name {
     font-size: 12px;
     font-weight: bold;
-  }
-`
-
-export const Title = styled.div`
-  font-size: 14px;
-`
-
-export const AccountContainer = styled.div`
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-
-  & .current-chain-icon {
-    margin-right: 6px;
-    width: 20px;
-    height: auto;
-    border-radius: 50%;
   }
 `
 
