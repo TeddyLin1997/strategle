@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { useState, useMemo, ChangeEvent } from 'react'
-import { fetcher } from '@/service/api-request'
+import { fetcherData } from '@/service/api-request'
 import CpiIcon from '@/assets/images/economy/index.png'
 // import CpiIcon from '@/assets/images/economy/cpi.png'
 import InflationIcon from '@/assets/images/economy/inflation.png'
@@ -18,7 +18,7 @@ const initData = {
 }
 
 export const useEconomyOverview = () => {
-  const { data: economy = {} } = useSWR('/economy/overview', fetcher)
+  const { data: economy = {} } = useSWR('/economy/overview', fetcherData)
 
   const indicies = useMemo(() => {
     return [
@@ -83,7 +83,7 @@ export const useIndicate = () => {
     { label: 'Inflation', value: Economy.inflation },
   ]
 
-  const { data: indicateResult = initData } = useSWR(`/economy/summary/${activeIndicate}`, fetcher)
+  const { data: indicateResult = initData } = useSWR(`/economy/summary/${activeIndicate}`, fetcherData)
 
   const indicateData = useMemo(() => {
     return {

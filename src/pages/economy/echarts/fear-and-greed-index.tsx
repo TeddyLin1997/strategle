@@ -1,6 +1,6 @@
 import ReactECharts from 'echarts-for-react'
 import useSWR from 'swr'
-import { fetcher } from '@/service/api-request'
+import { fetcherData } from '@/service/api-request'
 import { memo } from 'react'
 
 const initData = {
@@ -10,7 +10,7 @@ const initData = {
 }
 
 const FearAndGreedIndexChart = memo(() => {
-  const { data: indexData = initData } = useSWR('/economy/summary/fear_and_greed_index', fetcher)
+  const { data: indexData = initData } = useSWR('/economy/summary/fear_and_greed_index', fetcherData)
 
   const options = {
     series: [

@@ -1,7 +1,4 @@
-import CircularProgress, {
-  circularProgressClasses,
-} from '@mui/material/CircularProgress'
-
+import CircularProgress, { circularProgressClasses } from '@mui/material/CircularProgress'
 
 const ProgressCircular = () => {
   return (

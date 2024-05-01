@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
-import { fetcher } from '@/service/api-request'
+import { fetcherData } from '@/service/api-request'
 import { timeFormat } from '@/utils'
 import defaultLogo from '@/assets/images/strategle-background.png'
 import ScrollerList from './scroller-list'
@@ -9,19 +9,8 @@ import Categories from './categories'
 import Image from '@/components/image'
 import dayjs from 'dayjs'
 
-// blockchain
-// economy_fiscal
-// economy_macro
-// economy_monetary
-// energy_transportation
-// finance
-// financial_markets
-// ipo
-// real_estate
-// technology
-
 const News = () => {
-  const { data: news = {} } = useSWR('/news/categories/list', fetcher)
+  const { data: news = {} } = useSWR('/news/all', fetcherData)
 
   const deduplicationNews = useMemo(() => {
     const set = new Set()

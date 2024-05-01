@@ -4,16 +4,16 @@ import WorldStockIndex from './world/world'
 import TopList from './top-list'
 import Commodity from './commodity'
 import Forex from './forex'
-import { fetcher } from '@/service/api-request'
+import { fetcherData } from '@/service/api-request'
 import useTitle from '@/hooks/useTitle'
 
 const Home = () => {
   useTitle('Market')
 
-  const { data: indexList } = useSWR('/home/index_list', fetcher)
-  const { data: topList } = useSWR('/home/top_list', fetcher)
-  const { data: commodityList } = useSWR('/home/commodity_list', fetcher)
-  const { data: forexList } = useSWR('/home/forex_list', fetcher)
+  const { data: indexList } = useSWR('/home/index_list', fetcherData)
+  const { data: topList } = useSWR('/home/top_list', fetcherData)
+  const { data: commodityList } = useSWR('/home/commodity_list', fetcherData)
+  const { data: forexList } = useSWR('/home/forex_list', fetcherData)
 
   const homeLists = useMemo(() => ({
     index: indexList || [] as WorldIndex[],

@@ -5,9 +5,14 @@ import { forwardRef, Ref } from 'react'
 
 interface ItemNewsProps {
   news: New
+  isNewsList?: boolean
 }
 
-const ItemNews = forwardRef(({ news }: ItemNewsProps, ref: Ref<HTMLDivElement>) => {
+const ItemNews = forwardRef(({ news, isNewsList }: ItemNewsProps, ref: Ref<HTMLDivElement>) => {
+  const classStyle = isNewsList ?
+    'flex flex-col flex-none basis-[100%] sm:basis-[calc(25%-0.75rem)] lg:basis-[calc(20%-0.75rem)] rounded-lg overflow-hidden shadow hover:shadow-lg transition-all cursor-pointer border' :
+    'flex flex-col max-w-80 min-w-64 flex-none basis-[calc(50%-0.75rem)] sm:basis-[calc(25%-0.75rem)] rounded-lg overflow-hidden shadow hover:shadow-lg transition-all cursor-pointer border'
+
   const score = (Math.floor(news.overall_sentiment_score * 100) + 100) / 2
   const progressValue = Math.max(score, 10)
   const sentiment = news.overall_sentiment_label.replace('Somewhat-', '')
@@ -19,12 +24,8 @@ const ItemNews = forwardRef(({ news }: ItemNewsProps, ref: Ref<HTMLDivElement>) 
   }
 
   return (
-    <article
-      ref={ref}
-      className="flex flex-col max-w-80 min-w-64 flex-none basis-[calc(50%-0.75rem)] sm:basis-[calc(25%-0.75rem)] rounded-lg overflow-hidden shadow hover:shadow-lg transition-all cursor-pointer"
-      style={{ direction: 'ltr' }}
-      onClick={() => window.open(news.url)}
-    >
+    <article ref={ref} className={classStyle} style={{ direction: 'ltr' }} onClick={() => window.open(news.url)}>
+
       <div className="w-full h-40 bg-gray-border border-b border-gray-border">
         <Image src={news.banner_image?.includes('benzinga') ? defaultLogo : news.banner_image} defaultSrc={defaultLogo} className="w-full h-full object-cover" draggable="false" />
       </div>
