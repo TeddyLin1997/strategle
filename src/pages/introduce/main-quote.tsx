@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom'
 import MarketContainer from '@/context/marketContext'
 import LinkIcon from '@/assets/icons/external-link.svg?react'
 import LogoIcon from '@/assets/images/logo-icon.png'
-import { Button } from '@mui/material'
 import { formatAmount, formatNumber } from '@/utils'
 import Big from 'big.js'
 
@@ -25,7 +23,7 @@ const MainQuote = () => {
   ]
 
   return (
-    <div className="my-10 px-8 w-full flex flex-col">
+    <div className="px-8 w-full flex flex-col">
       <div className="mb-6 flex justify-center items-center gap-4 text-3xl font-bold">
         <img src={LogoIcon} className="w-8 h-8" />
         <span>Main Quotes</span>
@@ -58,12 +56,6 @@ const MainQuote = () => {
             </article>
           )
         })}
-      </div>
-
-      <div className="mx-auto">
-        <Link to="/market">
-          <Button variant="outlined">More Info</Button>
-        </Link>
       </div>
     </div>
   )

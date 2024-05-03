@@ -67,9 +67,9 @@ const Header = () => {
       <HeaderContainer>
         <LogoWrapper to="/" draggable="false">
           <img className="logo-img" src={LogoImg} />
-          <div>
-            <div className="logo-title">STRATEGLE</div>
-            <div className="logo-sub-title">DeFi Bank</div>
+          <div className="leading-none font-black">
+            <div className="mb-[2px] text-[16px] tracking-[0.4px]  text-primary ">STRATEGLE</div>
+            <div className="ml-[2px] text-[10px] text-primary-dark">Decentralized Bank</div>
           </div>
         </LogoWrapper>
 
@@ -80,7 +80,7 @@ const Header = () => {
             <div className="mb-6 flex flex-col items-center">
               <img className="mb-3 w-14 h-14" src={LogoImg} />
               <div className="text-3xl text-primary font-black">STRATEGLE</div>
-              <div className="text-xl text-primary-dark font-bold">DeFi Bank</div>
+              <div className="text-xl text-primary-dark font-bold">Decentralized Bank</div>
             </div>
 
             {navLinks.map(item => (

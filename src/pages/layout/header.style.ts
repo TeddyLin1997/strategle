@@ -37,24 +37,6 @@ export const LogoWrapper = styled(NavLink)`
     width: 36px;
     height: auto;
   }
-
-  & .logo-title {
-    font-size: 16px;
-    letter-spacing: .4px;
-    line-height: 1;
-    font-weight: 800;
-    color: #FFC408;
-    text-shadow: #b28905 .2px .2px 0px;
-  }
-
-  & .logo-sub-title {
-    margin-top: 2px;
-    margin-left: 2px;
-    font-size: 12px;
-    line-height: 1;
-    font-weight: 800;
-    color: #b28905;
-  }
 `
 
 export const NavItem = styled(NavLink)`

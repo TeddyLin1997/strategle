@@ -43,7 +43,7 @@ const Introduce = () => {
         </div>
       </section>
 
-      <section className="pb-4 px-6 flex flex-wrap sm:flex-nowrap gap-4">
+      <section className="mb-10 pb-4 px-6 flex flex-wrap sm:flex-nowrap gap-4">
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
           <img src={QuoteImg} className="mb-2 w-auto h-32" draggable="false" />
           <div className="mb-4 font-black text-2xl text-primary-light">Market Overview</div>
