@@ -4,8 +4,10 @@ import up from '@/assets/images/up.png'
 import down from '@/assets/images/down.png'
 import MarketContainer from '@/context/marketContext'
 import Skeleton from '@mui/material/Skeleton'
+import { useTranslation } from 'react-i18next'
 
 const Forex = ({ forexList }) => {
+  const { t } = useTranslation()
   const { ticker } = MarketContainer.useContainer()
 
   const forexListNode = useMemo(() => forexList.map(item => {
@@ -25,10 +27,10 @@ const Forex = ({ forexList }) => {
     <div className="m-auto py-6 w-full max-w-screen-lg">
       <Divider />
 
-      <header className="py-6 px-4 text-3xl font-black text-center">Forex Exchange</header>
+      <header className="py-6 px-4 text-3xl font-black text-center">{t('forex_exchange')}</header>
 
       { forexList.length === 0 &&
-        <section className="py-6 flex justify-between flex-wrap">
+        <section className="pb-6 flex justify-between flex-wrap">
           <div className="w-full sm:w-[30%]">
             <div className="px-12 sm:px-4">
               {Array.from(Array(3)).map((_, index) => (
@@ -71,7 +73,7 @@ const Forex = ({ forexList }) => {
       }
 
       { forexList.length > 0 &&
-        <section className="py-6 flex justify-between flex-wrap">
+        <section className="pb-6 flex justify-between flex-wrap">
           <div className="w-full sm:w-[30%]">
             <div className="px-12 sm:px-4">
               {forexListNode.slice(0, 3)}

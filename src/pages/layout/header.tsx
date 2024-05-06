@@ -9,21 +9,11 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import WalletContainer from '@/context/walletContext'
 import Drawer from '@mui/material/Drawer'
 import { NavLink } from 'react-router-dom'
+import CloseIcon from '@/assets/icons/close.svg?react'
+import { useTranslation } from 'react-i18next'
 
 const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
 const anchorStyle = { top: 8 }
-
-const navLinks = [
-  { key: 'market', path: '/market', text: 'Market' },
-  { key: 'economy', path: '/economy', text: 'Economy' },
-  // { key: 'analysis', path: '/analysis', text: 'Analysis' },
-  // { key: 'community', path: '/community', text: 'Community' },
-  { key: 'protocol', path: '/protocol', text: <Protocol>STRAG Protocol</Protocol> },
-]
-
-const userMenu = [
-  { key: 'wallet', path: '/wallet', text: 'Wallet', icon: <AccountBalanceWalletIcon /> },
-]
 
 const walletList = [
   {
@@ -61,6 +51,22 @@ const Header = () => {
   // mobile meun
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
 
+
+
+  const { t } = useTranslation()
+
+  const navLinks = [
+    { key: 'market', path: '/market', text: t('market') },
+    { key: 'economy', path: '/economy', text: t('economy') },
+    // { key: 'analysis', path: '/analysis', text: 'Analysis' },
+    // { key: 'community', path: '/community', text: 'Community' },
+    { key: 'protocol', path: '/protocol', text: <Protocol>{t('strag_protocol')}</Protocol> },
+  ]
+
+  const userMenu = [
+    { key: 'wallet', path: '/wallet', text: t('wallet'), icon: <AccountBalanceWalletIcon /> },
+  ]
+
   return (
     <HeaderWrapper>
 
@@ -76,7 +82,8 @@ const Header = () => {
         {/* Mobile Meun */}
         <img src={MenuImg} onClick={() => setOpenMobileMenu(true)} width="32px" height="32px" className="ml-auto sm:hidden cursor-pointer hover:opacity-80 transition-all"/>
         <Drawer anchor="right" open={openMobileMenu} onClose={() => setOpenMobileMenu(false)}>
-          <div className="p-5 w-screen h-screen flex flex-col items-center gap-8 bg-bg text-white">
+          <div className="relative p-5 w-screen h-screen flex flex-col items-center gap-8 bg-bg text-white">
+            <CloseIcon className="absolute top-4 left-4 p-2 fill-white w-10 h-10 cursor-pointer" onClick={() => setOpenMobileMenu(false)} />
             <div className="mb-6 flex flex-col items-center">
               <img className="mb-3 w-14 h-14" src={LogoImg} />
               <div className="text-3xl text-primary font-black">STRATEGLE</div>
@@ -84,6 +91,16 @@ const Header = () => {
             </div>
 
             {navLinks.map(item => (
+              <NavLink to={item.path} key={item.key} className="block font-bold hover:text-[#b28905]" onClick={() => setOpenMobileMenu(false)}>
+                <div className="w-fit text-2xl">
+                  {item.text}
+                </div>
+              </NavLink>
+            ))}
+
+            <div className="w-4/5 h-[1px] bg-gray-1" />
+
+            {userMenu.map(item => (
               <NavLink to={item.path} key={item.key} className="block font-bold hover:text-[#b28905]" onClick={() => setOpenMobileMenu(false)}>
                 <div className="w-fit text-2xl">
                   {item.text}
@@ -108,7 +125,7 @@ const Header = () => {
           {/* chain switch */}
           <Button onClick={openPopover} variant="outlined" size="small">
             { CHAIN_INFO[wallet.chainId] && <img className="mr-1 w-6 h-auto rounded-full" src={CHAIN_INFO[wallet.chainId]?.icon} /> }
-            { CHAIN_INFO[wallet.chainId]?.name || 'No support' }
+            { CHAIN_INFO[wallet.chainId]?.name || t('no_support') }
           </Button>
           <Popover
             open={chainMenuOpen}
@@ -149,10 +166,10 @@ const Header = () => {
         }
 
         {/* 連接錢包 */}
-        { !isConnect && <ConnectWallet className="!hidden sm:!block" variant="contained" size="small" onClick={handleOpen}>Connect wallet</ConnectWallet> }
+        { !isConnect && <ConnectWallet className="!hidden sm:!block" variant="contained" size="small" onClick={handleOpen}>{t('connect_wallet')}</ConnectWallet> }
         {/* 連接錢包 dialog */}
         <Dialog onClose={handleClose} open={isOpenDialog}>
-          <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>Please connect wallet</DialogTitle>
+          <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>{t('please_connect_wallet')}</DialogTitle>
           <DialogContent>
             <WalletContent>
               {walletList.map(item => {

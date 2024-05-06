@@ -6,6 +6,7 @@ import down from '@/assets/images/down.png'
 import MarketContainer from '@/context/marketContext'
 import Skeleton from '@mui/material/Skeleton'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 const Background = styled.div<{ $isup?: number }>`
   position: absolute;
@@ -31,6 +32,7 @@ interface TopListProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const TopSection = ({ title,  list = [] }: TopListProps) => {
+  const { t } = useTranslation()
   const { ticker } = MarketContainer.useContainer()
 
   return (
@@ -39,9 +41,9 @@ const TopSection = ({ title,  list = [] }: TopListProps) => {
 
       <section key="header" className="mb-3 px-4 relative w-full h-5 flex items-center gap-3 text-sm text-[#81858c] font-bold rounded">
         <div className="w-8 h-auto rounded-full z-0" />
-        <div className="flex-1">Name</div>
-        <div className="w-1/3">Latest Price</div>
-        <div className="ml-auto w-1/4 flex justify-end items-center">Change (%)</div>
+        <div className="flex-1">{t('name')}</div>
+        <div className="w-1/3">{t('latest_price')}</div>
+        <div className="ml-auto w-1/4 flex justify-end items-center">{t('change')} (%)</div>
       </section>
 
       { list.length == 0 && Array.from(Array(10)).map((_, index) => (
@@ -83,11 +85,12 @@ const TopSection = ({ title,  list = [] }: TopListProps) => {
 }
 
 const TopList = ({ cryptoList = [], usStockList = [] }) => {
+  const { t } = useTranslation()
   return (
     <div className="m-auto p-4 max-w-screen-lg">
       <section className="flex gap-6 flex-wrap sm:flex-nowrap">
-        <TopSection title="US stocks TOP 10" list={usStockList} style={{ marginRight: '6%' }} />
-        <TopSection title="Crypto TOP 10" list={cryptoList} />
+        <TopSection title={t('usStock') + ' TOP 10'} list={usStockList} style={{ marginRight: '6%' }} />
+        <TopSection title={t('cryptocurrency') + ' TOP 10'} list={cryptoList} />
       </section>
     </div>
   )

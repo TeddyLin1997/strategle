@@ -2,6 +2,7 @@ import ReactECharts from 'echarts-for-react'
 import useSWR from 'swr'
 import { fetcherData } from '@/service/api-request'
 import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const initData = {
   label: '',
@@ -10,6 +11,7 @@ const initData = {
 }
 
 const FearAndGreedIndexChart = memo(() => {
+  const { t } = useTranslation()
   const { data: indexData = initData } = useSWR('/economy/summary/fear_and_greed_index', fetcherData)
 
   const options = {
@@ -65,15 +67,15 @@ const FearAndGreedIndexChart = memo(() => {
           rotate: 'tangential',
           formatter: function (value) {
             if (value === 10) {
-              return 'Extreme Fear'
+              return t('extreme_fear')
             } else if (value === 30) {
-              return 'Fear'
+              return t('fear')
             } else if (value === 50) {
-              return 'Neutral'
+              return t('neutral')
             } else if (value === 70) {
-              return 'Greed'
+              return t('greed')
             } else if (value === 90) {
-              return 'Extreme Greed'
+              return t('extreme_greed')
             }
             return ''
           }
@@ -104,7 +106,7 @@ const FearAndGreedIndexChart = memo(() => {
 
   return (
     <div className="px-4 py-2 w-1/2 md:w-1/3 rounded-xl shadow bg-white">
-      <div className="text-lg text-secondary font-bold">Fear & Greed Index</div>
+      <div className="text-lg text-secondary font-bold">{t('fear_and_greed_index')}</div>
       <div className="relative h-full flex items-center justify-center">
         <ReactECharts className="m-auto absolute top-0 bottom-0 w-full !h-[18vw] min-h-[150px] max-h-[280px] pointer-events-none" option={options} />
       </div>

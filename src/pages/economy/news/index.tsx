@@ -8,6 +8,7 @@ import ScrollerList from './scroller-list'
 import Categories from './categories'
 import Image from '@/components/image'
 import dayjs from 'dayjs'
+import ArrowIcon from '@/assets/icons/arrow.svg?react'
 
 const News = () => {
   const { data: news = {} } = useSWR('/news/all', fetcherData)
@@ -57,7 +58,10 @@ const News = () => {
 
         <div className="mb-4 flex items-center gap-2 justify-between">
           <div className="text-3xl font-bold">Blockchain News</div>
-          <Link to="/economy/blockchain" className="font-bold text-text-blue hover:text-secondary transition-all">Read More</Link>
+          <Link to="/economy/blockchain" className="flex items-center font-bold gap-1 text-text-blue transition-all">
+            <span>Read More</span>
+            <ArrowIcon className="w-4 h-4 fill-text-blue" />
+          </Link>
         </div>
         <div className="mb-10 w-full flex flex-wrap md:flex-nowrap gap-4">
 
@@ -109,11 +113,11 @@ const News = () => {
       </section>
 
       <section>
-        <ScrollerList reverse title={'Macroeconomics'} list={deduplicationNews?.['economy_macro']?.reverse() || []} />
+        <ScrollerList category="economy_macro" title={'Macroeconomics'} list={deduplicationNews?.['economy_macro']?.reverse() || []} reverse />
 
-        <ScrollerList title={'Finance Markets'} list={deduplicationNews?.['finance'] || []} />
+        <ScrollerList category="finance" title={'Finance Markets'} list={deduplicationNews?.['finance'] || []} />
 
-        <ScrollerList reverse list={deduplicationNews?.['financial_markets'] || []} />
+        <ScrollerList category="financial_markets" list={deduplicationNews?.['financial_markets'] || []} reverse />
 
         <Categories industryList={industryList} />
 

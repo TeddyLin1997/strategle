@@ -3,8 +3,10 @@ import LinkIcon from '@/assets/icons/external-link.svg?react'
 import LogoIcon from '@/assets/images/logo-icon.png'
 import { formatAmount, formatNumber } from '@/utils'
 import Big from 'big.js'
+import { useTranslation } from 'react-i18next'
 
 const MainQuote = () => {
+  const { t } = useTranslation()
   const { ticker } = MarketContainer.useContainer()
 
   const mainQuoteList = [
@@ -26,7 +28,7 @@ const MainQuote = () => {
     <div className="px-8 w-full flex flex-col">
       <div className="mb-6 flex justify-center items-center gap-4 text-3xl font-bold">
         <img src={LogoIcon} className="w-8 h-8" />
-        <span>Main Quotes</span>
+        <span>{t('main_quotes')}</span>
       </div>
 
       <div className="mb-10 mx-auto w-full md:w-4/5 flex flex-col gap-6">

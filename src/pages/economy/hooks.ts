@@ -2,12 +2,12 @@ import useSWR from 'swr'
 import { useState, useMemo, ChangeEvent } from 'react'
 import { fetcherData } from '@/service/api-request'
 import CpiIcon from '@/assets/images/economy/index.png'
-// import CpiIcon from '@/assets/images/economy/cpi.png'
 import InflationIcon from '@/assets/images/economy/inflation.png'
 import FederalIcon from '@/assets/images/economy/federal.png'
 import TreasuryIcon from '@/assets/images/economy/treasury-yield.png'
 import { Economy } from './constant'
 import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
 
 const initData = {
   data: [],
@@ -19,12 +19,13 @@ const initData = {
 
 export const useEconomyOverview = () => {
   const { data: economy = {} } = useSWR('/economy/overview', fetcherData)
+  const { t, i18n } = useTranslation()
 
   const indicies = useMemo(() => {
     return [
       {
         key: 'fed_fund_rate',
-        name: 'Federal Funds Rate',
+        name: t('fed_fund_rate_fullname'),
         icon: FederalIcon,
         fullName: economy.fed_fund_rate?.name || '',
         value: economy.fed_fund_rate?.value || '',
@@ -35,7 +36,7 @@ export const useEconomyOverview = () => {
       },
       {
         key: 'cpi',
-        name: 'Consumer Price Index',
+        name: t('cpi_fullname'),
         icon: CpiIcon,
         fullName: economy.cpi?.name || '',
         value: economy.cpi?.value || '',
@@ -46,7 +47,7 @@ export const useEconomyOverview = () => {
       },
       {
         key: 'treasury_yield',
-        name: '10 Year Treasury Rate',
+        name: t('treasury_yield_fullname'),
         icon: TreasuryIcon,
         fullName: economy.treasury_yield?.name || '',
         value: economy.treasury_yield?.value || '',
@@ -57,7 +58,7 @@ export const useEconomyOverview = () => {
       },
       {
         key: 'inflation',
-        name: 'Inflation Rate (US)',
+        name: t('inflation_fullname'),
         icon: InflationIcon,
         fullName: economy.inflation?.name || '',
         value: economy.inflation?.value || '',
@@ -67,20 +68,21 @@ export const useEconomyOverview = () => {
         time: economy.inflation?.time || '',
       },
     ]
-  }, [economy])
+  }, [economy, i18n.language])
 
   return { indicies }
 }
 
 export const useIndicate = () => {
+  const { t } = useTranslation()
   const [activeIndicate, setActiveIndicate] = useState(Economy.inflation)
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => setActiveIndicate(event.target.value as Economy)
 
   const indicateOptions = [
-    { label: 'Federal Funds Rate', value: Economy.fed_fund_rate },
-    { label: 'Consumer Price Index', value: Economy.cpi },
-    { label: 'Treasury Rate', value: Economy.treasury_yield },
-    { label: 'Inflation', value: Economy.inflation },
+    { label: t('fed_fund_rate'), value: Economy.fed_fund_rate },
+    { label: t('cpi'), value: Economy.cpi },
+    { label: t('treasury_yield'), value: Economy.treasury_yield },
+    { label: t('inflation'), value: Economy.inflation },
   ]
 
   const { data: indicateResult = initData } = useSWR(`/economy/summary/${activeIndicate}`, fetcherData)

@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react'
 import Skeleton from '@mui/material/Skeleton'
 import ItemNews from '@/components/item-news'
+import { Link } from 'react-router-dom'
+import ArrowIcon from '@/assets/icons/arrow.svg?react'
 
 interface ScrollListProps {
   title?: string
+  category: string
   list: Array<New>
   reverse?: boolean
 }
@@ -11,7 +14,7 @@ interface ScrollListProps {
 const ltrStyle = { direction: 'ltr' } as const
 const rtlStyle = { direction: 'rtl' } as const
 
-const ScrollerList = ({ title, list, reverse }: ScrollListProps) => {
+const ScrollerList = ({ title, category, list, reverse }: ScrollListProps) => {
   const scrollEl = useRef<HTMLDivElement>(null)
   const itemEl = useRef<HTMLDivElement>(null)
 
@@ -31,7 +34,14 @@ const ScrollerList = ({ title, list, reverse }: ScrollListProps) => {
 
   return (
     <div className="">
-      { title && <div className="mt-4 font-bold text-3xl text-center">{title}</div> }
+      { title &&
+        <div className="mt-4 font-bold text-3xl text-center">
+          <Link to={`/economy/${category}`} className="mx-auto w-fit flex items-center font-bold gap-4 hover:text-text-blue hover:fill-text-blue transition-all">
+            <span>{title}</span>
+            <ArrowIcon className="w-5 h-5" />
+          </Link>
+        </div>
+      }
 
       <section
         ref={scrollEl}

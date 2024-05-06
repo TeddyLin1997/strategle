@@ -3,6 +3,8 @@ import defaultLogo from '@/assets/images/strategle-background.png'
 import Divider from '@mui/material/Divider'
 import LinearProgress from '@mui/material/LinearProgress'
 import Skeleton from '@mui/material/Skeleton'
+import { Link } from 'react-router-dom'
+import ArrowIcon from '@/assets/icons/arrow.svg?react'
 
 type Industry = { key: string, name: string, news: New[] }
 
@@ -10,10 +12,15 @@ interface CategoryProps {
   industry: Industry
 }
 
-const Category = ({ industry: { name, news } }: CategoryProps) => {
+const Category = ({ industry: { key, name, news } }: CategoryProps) => {
   return (
     <div className="mb-6 px-2 w-full md:w-1/2 2xl:w-1/4">
-      <div className="mb-2 text-center text-secondary-dark text-2xl font-bold">{name}</div>
+      <div className="mb-2 px-2 flex text-center text-secondary-dark text-2xl font-bold">
+        <Link to={`/economy/${key}`} className="flex items-center hover:text-text-blue hover:fill-text-blue text-base gap-2">
+          <span>{name}</span>
+          <ArrowIcon className="ml-auto w-3 h-3" />
+        </Link>
+      </div>
 
       <section className="flex flex-col gap-4">
         {news.length === 0 && Array.from(Array(4)).map((_, index) => (

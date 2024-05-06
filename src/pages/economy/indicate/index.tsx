@@ -3,15 +3,17 @@ import UpIcon from '@/assets/images/up.png'
 import { getChangeColor } from '@/utils'
 import Big from 'big.js'
 import { useEconomyOverview } from '../hooks'
+import { useTranslation } from 'react-i18next'
 
 export default function Indicate () {
+  const { t } = useTranslation()
   const { indicies } = useEconomyOverview()
 
   return (
     <div className="-mb-48 pb-64 bg-secondary">
       <div className="mx-auto py-10 max-w-screen-xl">
-        <header className="mb-4 px-2 text-5xl font-black text-white">Economic Overview</header>
-        <p className="mb-14 px-2 text-2xl font-semibold text-white">Keep abreast of economic trends and market news information.</p>
+        <header className="mb-4 px-2 text-5xl font-black text-white">{t('economy_overview')}</header>
+        <p className="mb-14 px-2 text-2xl font-semibold text-white">{t('economy_title_1')}</p>
 
 
         <div className="relative w-full h-44 md:h-8">

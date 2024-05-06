@@ -6,8 +6,11 @@ import EconomyImg from '@/assets/images/intro-economy.png'
 import QuoteImg from '@/assets/images/intro-quote.png'
 import MainQuote from './main-quote'
 import useTitle from '@/hooks/useTitle'
+import { useTranslation } from 'react-i18next'
 
 const Introduce = () => {
+  const { t } = useTranslation()
+
   useTitle('')
 
   return (
@@ -15,21 +18,21 @@ const Introduce = () => {
       <section className="mb-14 flex flex-wrap lg:flex-nowrap justify-between items-center gap-10 min-h-[360px]">
         <div className="p-6 w-full lg:w-1/2">
           <div className="my-10 font-black">
-            <span className="text-6xl text-primary">STRATEGLE </span>
+            <span className="text-6xl text-primary">STRATEGLE</span>
             <span className="text-5xl text-white">.TECH</span>
           </div>
-          <p className="mb-10 text-2xl font-bold text-white">Market Quotes, Financial News, Earning Profits.</p>
-          <p className="mb-8 text-white">We are committed to providing comprehensive financial market information services and insights into the world of cryptocurrencies, helping you to gain any possible advantage in the market. Whether you're interested in stocks, forex, cryptocurrencies, or global financial markets, we have everything you need.</p>
+          <p className="mb-10 text-2xl font-bold text-white">{t('introduce_main_title_1')}</p>
+          <p className="mb-8 text-white">{t('introduce_main_title_2')}</p>
 
           <div className="flex items-center flex-wrap gap-6">
             <Link to="/market">
-              <Button variant="outlined" size="large">Market Overview</Button>
+              <Button variant="outlined" size="large">{t('market_overview')}</Button>
             </Link>
             <Link to="/economy">
-              <Button variant="outlined" size="large">Economy News</Button>
+              <Button variant="outlined" size="large">{t('economy_news')}</Button>
             </Link>
             <Link to="/protocol">
-              <Button variant="contained" size="large">Earning Profits</Button>
+              <Button variant="contained" size="large">{t('earning_profits')}</Button>
             </Link>
           </div>
         </div>
@@ -46,26 +49,26 @@ const Introduce = () => {
       <section className="mb-10 pb-4 px-6 flex flex-wrap sm:flex-nowrap gap-4">
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
           <img src={QuoteImg} className="mb-2 w-auto h-32" draggable="false" />
-          <div className="mb-4 font-black text-2xl text-primary-light">Market Overview</div>
-          <p className="mb-6 px-4 text-center">You can easily view the latest integrated prices of cryptocurrencies, US stocks, financial markets, and forex on our website to stay informed about market dynamics at all times. We provide real-time price updates to assist you in making informed investment decisions.</p>
+          <div className="mb-4 font-black text-2xl text-primary-light">{t('market_overview')}</div>
+          <p className="mb-6 px-4 text-center">{t('market_overview_tip')}</p>
           <Link to="/market" className="mt-auto">
-            <Button className="w-20 !capitalize" variant="contained">Detail</Button>
+            <Button className="w-20 !capitalize" variant="contained">{t('detail')}</Button>
           </Link>
         </article>
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
           <img src={EconomyImg} className="mb-2 w-auto h-32" draggable="false" />
-          <div className="mb-4 font-black text-2xl text-primary-light">Economy News</div>
-          <p className="mb-6 px-4 text-center">We aggregate a rich variety of financial news covering various topics including market trends, investment strategies, emerging technologies, and global economic dynamics. This includes charts and analysis of key indicators such as CPI, Fed rates, fear indices, and more.</p>
+          <div className="mb-4 font-black text-2xl text-primary-light">{t('economy_news')}</div>
+          <p className="mb-6 px-4 text-center">{t('economy_news_tip')}</p>
           <Link to="/economy" className="mt-auto">
-            <Button className="w-20 !capitalize" variant="contained">Detail</Button>
+            <Button className="w-20 !capitalize" variant="contained">{t('detail')}</Button>
           </Link>
         </article>
         <article className="mb-6 w-full sm:w-1/3 flex flex-col items-center">
           <img src={ProtocolImg} className="mb-2 w-auto h-32" draggable="false" />
-          <div className="mb-4 font-black text-2xl text-primary-light">DeFi Protocol</div>
-          <p className="mb-6 px-4 text-center">We also offer DeFi (Decentralized Finance) projects for you to explore the emerging field of financial technology. Developed using long-term accumulated market experience, our trading strategies provide users with profit-sharing mechanisms, with planned annualized returns of up to 12%.</p>
+          <div className="mb-4 font-black text-2xl text-primary-light">{t('earning_profits')}</div>
+          <p className="mb-6 px-4 text-center">{t('earning_profits_tip')}</p>
           <Link to="/protocol" className="mt-auto">
-            <Button className="w-20 !capitalize" variant="contained">Detail</Button>
+            <Button className="w-20 !capitalize" variant="contained">{t('detail')}</Button>
           </Link>
         </article>
       </section>
