@@ -7,7 +7,7 @@ export const getChangeColor = (changeValue: number) => {
 }
 
 export const formatNumber = (input: string | number, fixed?: number) => {
-  const num = Big(input === '-' ? 0 : input).toFixed(fixed)
+  const num = Big(input === '-' || !input ? 0 : input).toFixed(fixed)
   return formatAmount(num, fixed || 4)
 
   // 判斷是否為整數

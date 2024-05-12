@@ -10,10 +10,10 @@ import useTitle from '@/hooks/useTitle'
 const Home = () => {
   useTitle('Market')
 
-  const { data: indexList } = useSWR('/home/index_list', fetcherData)
-  const { data: topList } = useSWR('/home/top_list', fetcherData)
-  const { data: commodityList } = useSWR('/home/commodity_list', fetcherData)
-  const { data: forexList } = useSWR('/home/forex_list', fetcherData)
+  const { data: indexList } = useSWR('/api/home/index_list', fetcherData)
+  const { data: topList } = useSWR('/api/home/top_list', fetcherData)
+  const { data: commodityList } = useSWR('/api/home/commodity_list', fetcherData)
+  const { data: forexList } = useSWR('/api/home/forex_list', fetcherData)
 
   const homeLists = useMemo(() => ({
     index: indexList || [] as WorldIndex[],

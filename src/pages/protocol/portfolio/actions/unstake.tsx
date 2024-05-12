@@ -26,8 +26,9 @@ const Unstake = ({ isActive }: { isActive: boolean }) => {
     try {
       load()
 
-      const tx = await STRAGContractBindWallet.unstake(ethers.parseEther(amount))
-      await tx.wait()
+      await STRAGContractBindWallet.unstake(ethers.parseEther(amount))
+      // const tx = await STRAGContractBindWallet.unstake(ethers.parseEther(amount))
+      // await tx.wait()
 
       toast.success(`Unstake Success: ${amount} $STRAG`)
       unload()

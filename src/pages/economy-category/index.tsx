@@ -36,7 +36,7 @@ const EconomyCategory = () => {
 
   const [newsList, setNewsList] = useState({ list: [] as New[], total: 0 })
 
-  const { data, isLoading } = useSWR(`/news/${searchParams.category}?page=${searchParams.page}&pageSize=${searchParams.pageSize}`, fetcher)
+  const { data, isLoading } = useSWR(`/api/news/${searchParams.category}?page=${searchParams.page}&pageSize=${searchParams.pageSize}`, fetcher)
 
   useEffect(() => {
     if (data) {

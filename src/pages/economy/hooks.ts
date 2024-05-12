@@ -18,7 +18,7 @@ const initData = {
 }
 
 export const useEconomyOverview = () => {
-  const { data: economy = {} } = useSWR('/economy/overview', fetcherData)
+  const { data: economy = {} } = useSWR('/api/economy/overview', fetcherData)
   const { t, i18n } = useTranslation()
 
   const indicies = useMemo(() => {
@@ -85,7 +85,7 @@ export const useIndicate = () => {
     { label: t('inflation'), value: Economy.inflation },
   ]
 
-  const { data: indicateResult = initData } = useSWR(`/economy/summary/${activeIndicate}`, fetcherData)
+  const { data: indicateResult = initData } = useSWR(`/api/economy/summary/${activeIndicate}`, fetcherData)
 
   const indicateData = useMemo(() => {
     return {

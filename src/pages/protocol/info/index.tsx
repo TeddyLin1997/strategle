@@ -1,27 +1,25 @@
-import { ethers } from 'ethers'
+import { useEffect, useRef } from 'react'
+import useSWR from 'swr'
 import lottie from 'lottie-web'
-import { useEffect, useRef, useState } from 'react'
+import { fetcherData } from '@/service/api-request'
 import { formatNumber } from '@/utils'
 import { Button } from '@mui/material'
 import Treasury from './treasury'
 import Rules from './rules'
-import ContractContainer from '@/context/contractContext'
+import { ethers } from 'ethers'
 
 interface InfoProps {
   handleTab: () => void
 }
 
+const initProtocolInfo = {
+  totalStake: '0',
+  totalMint: '0',
+  treasuryAmount: '0',
+}
+
 const Info = ({ handleTab }: InfoProps) => {
-
-  const { STRAG_ADDRESS, STRAGContract } = ContractContainer.useContainer()
-
-  // token info
-  const [tokenInfo, setTokenInfo] = useState({ totalSupply: '-', totalStake: '-' })
-  useEffect(() => {
-    STRAGContract.totalSupply().then(res => setTokenInfo(prev => ({ ...prev, totalSupply: ethers.formatEther(res) })) )
-    STRAGContract.balanceOf(STRAG_ADDRESS).then(res => setTokenInfo(prev => ({ ...prev, totalStake: ethers.formatEther(res) })) )
-  }, [])
-
+  const { data: protocolInfo = initProtocolInfo } = useSWR('/api/protocol/info', fetcherData)
 
   // banner animation
   const bannerAnimation = useRef(null)
@@ -46,11 +44,11 @@ const Info = ({ handleTab }: InfoProps) => {
           <div className="mb-4 flex items-center font-bold">
             <div className="w-1/2">
               <div className="mb-2">TVL：</div>
-              <div className="ml-4 text-2xl text-primary-light">{ formatNumber(tokenInfo.totalStake) } $USD</div>
+              <div className="ml-4 text-2xl text-primary-light">{ formatNumber(ethers.formatEther(protocolInfo.totalStake)) } $USD</div>
             </div>
             <div className="w-1/2">
               <div className="mb-2">Total mint：</div>
-              <div className="ml-4 text-2xl text-primary-light">{ formatNumber(tokenInfo.totalSupply) } STRAG</div>
+              <div className="ml-4 text-2xl text-primary-light">{ formatNumber(ethers.formatEther(protocolInfo.totalMint)) } STRAG</div>
             </div>
           </div>
 
@@ -75,7 +73,7 @@ const Info = ({ handleTab }: InfoProps) => {
       <hr className="mb-8 md:mb-10 border-gray-1" />
 
       {/* treasury */}
-      <Treasury />
+      <Treasury treasuryBalance={formatNumber(ethers.formatUnits(protocolInfo.treasuryAmount, 6))} />
     </div>
   )
 }

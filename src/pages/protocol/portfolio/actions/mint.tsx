@@ -4,7 +4,6 @@ import WalletContainer from '@/context/walletContext'
 import useLoading from '@/hooks/useLoading'
 import { formatNumber } from '@/utils'
 import { Button, TextField } from '@mui/material'
-
 import { ethers } from 'ethers'
 import { ChangeEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -32,8 +31,9 @@ const Mint = ({ isActive }: { isActive: boolean }) => {
       await approveTx.wait()
 
       // 2. mint STRAG
-      const mintTx = await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
-      await mintTx.wait()
+      await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
+      // const mintTx = await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
+      // await mintTx.wait()
 
       toast.success(`Mint Success: ${amount} $STRAG`)
       unload()

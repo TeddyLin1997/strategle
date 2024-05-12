@@ -11,7 +11,7 @@ import dayjs from 'dayjs'
 import ArrowIcon from '@/assets/icons/arrow.svg?react'
 
 const News = () => {
-  const { data: news = {} } = useSWR('/news/all', fetcherData)
+  const { data: news = {} } = useSWR('/api/news/all', fetcherData)
 
   const deduplicationNews = useMemo(() => {
     const set = new Set()

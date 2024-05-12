@@ -14,3 +14,16 @@ type New = {
   overall_sentiment_score: number
   topics: Array<string>
 }
+
+type Transaction = {
+  id: string
+  type: 'STRAG_Token' | 'Tether_Token'
+  event: string
+  transactionHash: string
+  blockHash: string
+  blockNumber: number
+  from: string
+  to: string
+  value: string
+  timestamp: Date
+}

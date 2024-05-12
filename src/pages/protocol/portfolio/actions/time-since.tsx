@@ -31,8 +31,9 @@ const Unstake = ({ isActive }: { isActive: boolean }) => {
     try {
       load()
 
-      const tx = await STRAGContractBindWallet.unstake()
-      await tx.wait()
+      await STRAGContractBindWallet.unstake()
+      // const tx = await STRAGContractBindWallet.unstake()
+      // await tx.wait()
 
       toast.success('Withdraw Success.')
       unload()

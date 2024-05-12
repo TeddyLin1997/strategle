@@ -30,8 +30,9 @@ const Stake = ({ isActive }: { isActive: boolean }) => {
       await approveTx.wait()
 
       // 2. stake STRAG
-      const mintTx = await STRAGContractBindWallet.stake(ethers.parseEther(amount))
-      await mintTx.wait()
+      await STRAGContractBindWallet.stake(ethers.parseEther(amount))
+      // const mintTx = await STRAGContractBindWallet.stake(ethers.parseEther(amount))
+      // await mintTx.wait()
 
       toast.success(`Stake Success: ${amount} $STRAG`)
       unload()

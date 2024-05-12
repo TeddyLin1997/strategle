@@ -82,8 +82,9 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     try {
       load()
 
-      const tx = await STRAGContractBindWallet.claimRewards()
-      await tx.wait()
+      await STRAGContractBindWallet.claimRewards()
+      // const tx = await STRAGContractBindWallet.claimRewards()
+      // await tx.wait()
 
       toast.success('Claim Reward Success.')
       unload()
