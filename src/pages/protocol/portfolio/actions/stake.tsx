@@ -8,7 +8,7 @@ import ContractContainer from '@/context/contractContext'
 import WalletContainer from '@/context/walletContext'
 import { formatNumber } from '@/utils'
 
-const Stake = ({ isActive }: { isActive: boolean }) => {
+const Stake = ({ isActive, update }: { isActive: boolean, update: () => void }) => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
@@ -30,12 +30,12 @@ const Stake = ({ isActive }: { isActive: boolean }) => {
       await approveTx.wait()
 
       // 2. stake STRAG
-      await STRAGContractBindWallet.stake(ethers.parseEther(amount))
-      // const mintTx = await STRAGContractBindWallet.stake(ethers.parseEther(amount))
-      // await mintTx.wait()
-
+      const mintTx = await STRAGContractBindWallet.stake(ethers.parseEther(amount))
       toast.success(`Stake Success: ${amount} $STRAG`)
       unload()
+
+      await mintTx.wait()
+      setTimeout(() => update(), 5000)
     } catch (err: any) {
       toast.error(err.reason)
       unload()

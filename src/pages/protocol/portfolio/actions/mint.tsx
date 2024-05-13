@@ -8,7 +8,7 @@ import { ethers } from 'ethers'
 import { ChangeEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-const Mint = ({ isActive }: { isActive: boolean }) => {
+const Mint = ({ isActive, update }: { isActive: boolean, update: () => void }) => {
   const { isLoading, load, unload } = useLoading()
   const { account, isSigner } = WalletContainer.useContainer()
 
@@ -16,7 +16,6 @@ const Mint = ({ isActive }: { isActive: boolean }) => {
 
   const [amount, setAmount] = useState('')
   const onChangeAmount = (event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)
-
 
   const mint = async () => {
     if (!isSupportChain) return toast.error('Currency network is not supported.')
@@ -31,12 +30,12 @@ const Mint = ({ isActive }: { isActive: boolean }) => {
       await approveTx.wait()
 
       // 2. mint STRAG
-      await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
-      // const mintTx = await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
-      // await mintTx.wait()
-
+      const mintTx = await STRAGContractBindWallet.mint(ethers.parseUnits(amount, 6))
       toast.success(`Mint Success: ${amount} $STRAG`)
       unload()
+
+      await mintTx.wait()
+      setTimeout(() => update(), 5000)
     } catch (err: any) {
       toast.error(err.reason)
       unload()

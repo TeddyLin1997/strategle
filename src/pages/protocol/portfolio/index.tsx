@@ -13,6 +13,8 @@ import { formatNumber, truncateSlice } from '@/utils'
 import Actions from './actions'
 import TxHistory from './tx-history'
 import EarnMachine from './earn-machine'
+import useSWR from 'swr'
+import { fetcherData } from '@/service/api-request'
 
 const perSecondReward = Big(0.12).div(365).div(24).div(60).div(60)
 
@@ -70,7 +72,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
   const rewards = useMemo(() => {
     const elapsedTime = (Date.now() / 1000) - staker.rewardUpdateTime
     const stakingBalance = ethers.formatEther(staker.stakingBalance)
-    const calcedReward = ethers.formatEther(staker.reward)
+    const calcedReward = ethers.formatUnits(staker.reward, 6)
     const newRewards = Big(stakingBalance).mul(elapsedTime).mul(perSecondReward).add(calcedReward).toFixed(4)
     return newRewards
   }, [staker])
@@ -82,17 +84,19 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     try {
       load()
 
-      await STRAGContractBindWallet.claimRewards()
-      // const tx = await STRAGContractBindWallet.claimRewards()
-      // await tx.wait()
-
+      const tx = await STRAGContractBindWallet.claimRewards()
       toast.success('Claim Reward Success.')
       unload()
+
+      await tx.wait()
+      setTimeout(() => updateTxns(), 5000)
     } catch (err: any) {
       toast.error(err.reason)
       unload()
     }
   }
+  // transactions event
+  const { data: transactionEvents = [], mutate: updateTxns } = useSWR(`/api/protocol/transaction/${account}`, fetcherData)
 
   return (
     <div>
@@ -154,9 +158,9 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
       <hr className="mb-8 md:mb-10 border-gray-1" />
 
       <section className="mb-10 flex flex-wrap md:flex-nowrap gap-6">
-        <Actions ref={actionEl} />
+        <Actions ref={actionEl} update={() => updateTxns()} />
 
-        <TxHistory />
+        <TxHistory transactionList={transactionEvents} />
       </section>
 
       <LoadingFullscreen open={isLoading} />

@@ -11,7 +11,11 @@ enum TabsEvent {
   Unstake = 'Unstake',
 }
 
-const Actions = forwardRef<HTMLDivElement>((_, ref) => {
+interface ActionProps {
+  update: () => void
+}
+
+const Actions = forwardRef<HTMLDivElement, ActionProps>(({ update }, ref) => {
   const navigate = useNavigate()
 
   const location = useLocation()
@@ -39,9 +43,9 @@ const Actions = forwardRef<HTMLDivElement>((_, ref) => {
         <div className={`py-2 flex-1 rounded text-center font-bold text-text transition-all ${tab === TabsEvent.Unstake ? 'bg-primary' : 'bg-gray-1 !text-white'}`} onClick={() => onActionTab(TabsEvent.Unstake)}>{TabsEvent.Unstake}</div>
       </div>
 
-      <Mint isActive={tab=== TabsEvent.Mint} />
-      <Stake isActive={tab=== TabsEvent.Stake} />
-      <Unstake isActive={tab=== TabsEvent.Unstake} />
+      <Mint isActive={tab=== TabsEvent.Mint} update={update} />
+      <Stake isActive={tab=== TabsEvent.Stake} update={update} />
+      <Unstake isActive={tab=== TabsEvent.Unstake} update={update} />
 
       <article className="mt-10">
         <div className="mb-2 flex items-center gap-2 text-lg font-bold">
