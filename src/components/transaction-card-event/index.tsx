@@ -19,7 +19,7 @@ enum Event {
 const eventMap = {
   [Event.Mint]: {
     value: (event: Transaction) => formatNumber(ethers.formatEther(event.value)),
-    icon: <div className="mr-2 w-8 h-8 flex bg-[#F9BCC0] rounded-full"><MintIcon className="m-auto w-6 h-6 fill-[#DF1522]" /></div>,
+    icon: <div className="mr-2 w-8 h-8 flex bg-primary-extend rounded-full"><MintIcon className="m-auto w-6 h-6 fill-primary" /></div>,
     unit: 'STRAG',
   },
   [Event.Stake]: {
@@ -29,7 +29,7 @@ const eventMap = {
   },
   [Event.Unstake]: {
     value: (event: Transaction) => formatNumber(ethers.formatEther(event.value)),
-    icon: <div className="mr-2 w-8 h-8 flex bg-down-extend rounded-full"><UnstakeIcon className="m-auto w-5 h-5 fill-down" /></div>,
+    icon: <div className="mr-2 w-8 h-8 flex bg-down-extend rounded-full"><UnstakeIcon className="m-auto w-5 h-5 fill-[#DF1522]" /></div>,
     unit: 'STRAG',
   },
   [Event.ClaimRewards]: {

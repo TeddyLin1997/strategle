@@ -1,25 +1,23 @@
 import { useEffect, useRef } from 'react'
-import useSWR from 'swr'
+import { ethers } from 'ethers'
 import lottie from 'lottie-web'
-import { fetcherData } from '@/service/api-request'
 import { formatNumber } from '@/utils'
 import { Button } from '@mui/material'
 import Treasury from './treasury'
 import Rules from './rules'
-import { ethers } from 'ethers'
+import Fundraising from './fundraising'
 
 interface InfoProps {
   handleTab: () => void
+  protocolInfo: {
+    totalStake: string
+    totalMint: string
+    treasuryAmount: string
+    startTime: number
+  }
 }
 
-const initProtocolInfo = {
-  totalStake: '0',
-  totalMint: '0',
-  treasuryAmount: '0',
-}
-
-const Info = ({ handleTab }: InfoProps) => {
-  const { data: protocolInfo = initProtocolInfo } = useSWR('/api/protocol/info', fetcherData)
+const Info = ({ protocolInfo, handleTab }: InfoProps) => {
 
   // banner animation
   const bannerAnimation = useRef(null)
@@ -33,6 +31,8 @@ const Info = ({ handleTab }: InfoProps) => {
       path: '/animation/banner.json' // the path to the animation json
     })
   }, [])
+
+  const isStarted = protocolInfo.startTime !== 0
 
   return (
     <div>
@@ -66,6 +66,8 @@ const Info = ({ handleTab }: InfoProps) => {
       </div>
 
       <hr className="mb-8 md:mb-10 border-gray-1" />
+
+      { !isStarted && <Fundraising treasuryAmount={protocolInfo.treasuryAmount} /> }
 
       {/* Rules */}
       <Rules />

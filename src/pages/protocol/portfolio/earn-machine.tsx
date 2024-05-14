@@ -29,7 +29,7 @@ const EarnMachine = ({ stakingBalance }: EarnMachineProps) => {
   // rewards animation
   const [rewardList, setRewardList] = useState<number[]>([])
   useEffect(() => {
-    if (Number(stakingBalance) === 0) return
+    if (!stakingBalance || Number(stakingBalance) === 0) return
 
     const timerId = setInterval(() => {
       setRewardList(prev => [...prev, dayjs().valueOf() as number])

@@ -20,15 +20,21 @@ const perSecondReward = Big(0.12).div(365).div(24).div(60).div(60)
 
 interface PortfolioProps {
   handleTab: () => void
+  protocolInfo: {
+    totalStake: string
+    totalMint: string
+    treasuryAmount: string
+    startTime: number
+  }
 }
 
 const initStaker = {
-  stakingBalance: '0',
+  stakingBalance: '',
   rewardUpdateTime: 0,
-  reward: '0',
+  reward: '',
 }
 
-const Portfolio = ({ handleTab }: PortfolioProps) => {
+const Portfolio = ({ protocolInfo, handleTab }: PortfolioProps) => {
   const { isLoading, load, unload } = useLoading()
 
   const actionEl = useRef<HTMLDivElement>(null)
@@ -46,17 +52,19 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     else actionEl.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [action])
 
+  const isStarted = protocolInfo.startTime !== 0
+
   // STRAG token info
   const { isSigner, account, provider, chainId } = WalletContainer.useContainer()
   const { isSupportChain, STRAGContract, STRAGContractBindWallet } = ContractContainer.useContainer()
 
-  const [stragBalance, setStragBalance] = useState('-')
+  const [stragBalance, setStragBalance] = useState('')
   const [staker, setStaker] = useState(initStaker)
 
   useEffect(() => {
     if (!account) return
 
-    setStragBalance('-')
+    setStragBalance('')
     setStaker({ ...initStaker })
 
     STRAGContract.balanceOf(account).then(res => setStragBalance(res))
@@ -70,12 +78,14 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
   }, [account, provider, chainId])
 
   const rewards = useMemo(() => {
+    if (!isStarted) return 0
+
     const elapsedTime = (Date.now() / 1000) - staker.rewardUpdateTime
-    const stakingBalance = ethers.formatEther(staker.stakingBalance)
-    const calcedReward = ethers.formatUnits(staker.reward, 6)
+    const stakingBalance = staker.stakingBalance ? ethers.formatEther(staker.stakingBalance) : 0
+    const calcedReward = ethers.formatUnits(staker.reward || 0, 6)
     const newRewards = Big(stakingBalance).mul(elapsedTime).mul(perSecondReward).add(calcedReward).toFixed(4)
     return newRewards
-  }, [staker])
+  }, [staker, isStarted])
 
   const claimRewards = async () => {
     if (!isSupportChain) return toast.error('Currency network is not supported.')
@@ -96,7 +106,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
     }
   }
   // transactions event
-  const { data: transactionEvents = [], mutate: updateTxns } = useSWR(`/api/protocol/transaction/${account}`, fetcherData)
+  const { data: transactionEvents = [], mutate: updateTxns } = useSWR(`/api/protocol/transaction/${account || ethers.ZeroAddress}`, fetcherData)
 
   return (
     <div>
@@ -107,7 +117,7 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
       <section className="mb-8 flex gap-4">
         {/* earn machine animation */}
-        <EarnMachine stakingBalance={staker.stakingBalance} />
+        <EarnMachine stakingBalance={isStarted ? staker.stakingBalance || '0' : '0'} />
 
 
         <div className="w-full md:w-2/5">
@@ -127,17 +137,17 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
 
             <article className="mb-2">
               <div className="mb-1">- STRAG Balance : </div>
-              <div className="ml-8 font-bold text-lg text-primary-light">$ {formatNumber(ethers.formatEther(stragBalance))} STRAG</div>
+              <div className="ml-8 font-bold text-lg text-primary-light">$ {stragBalance ? formatNumber(ethers.formatEther(stragBalance)) : '-'} STRAG</div>
             </article>
 
             <article className="mb-2">
               <div className="mb-1">- Staking STRAG Amount : </div>
-              <div className="ml-8 font-bold text-lg text-primary-light">$ {formatNumber(ethers.formatEther(staker.stakingBalance))} STRAG</div>
+              <div className="ml-8 font-bold text-lg text-primary-light">$ {staker.stakingBalance ? formatNumber(ethers.formatEther(staker.stakingBalance)) : '-'} STRAG</div>
             </article>
 
             <article className="mb-2">
               <div className="mb-1">- Expected Rewards / Year : </div>
-              <div className="ml-8 font-bold text-lg text-up"> $ {formatNumber(String(Number(ethers.formatEther(staker.stakingBalance)) * 0.12))} USDT</div>
+              <div className="ml-8 font-bold text-lg text-up"> $ {staker.stakingBalance ? formatNumber(String(Number(ethers.formatEther(staker.stakingBalance)) * 0.12)) : '-'} USDT</div>
             </article>
           </section>
         </div>
@@ -145,13 +155,22 @@ const Portfolio = ({ handleTab }: PortfolioProps) => {
       </section>
 
       <section className="mb-14 flex flex-col justify-center">
-        <div className="mb-6 text-center font-bold text-3xl">
-          <span>Rewards : </span>
-          <span className="text-up">{rewards} USDT</span>
-        </div>
+        { isStarted &&
+          <div className="mb-6 text-center font-bold text-3xl">
+            <span>Rewards : </span>
+            <span className="text-up">{staker.stakingBalance ? rewards : '-'} USDT</span>
+          </div>
+        }
+
+        { !isStarted &&
+          <div className="my-6 text-center font-bold text-3xl text-down">
+            <div>At the fundraising stage ,</div>
+            <div>Profit-Sharing plan has not yet commenced.</div>
+          </div>
+        }
 
         <div ref={claimEl} className="w-full flex justify-center">
-          <Button variant="contained" onClick={claimRewards}>Claim Rewards</Button>
+          <Button variant="contained" disabled={!isStarted} className={ !isStarted ? '!bg-gray-1' : '' } onClick={claimRewards}>Claim Rewards</Button>
         </div>
       </section>
 
