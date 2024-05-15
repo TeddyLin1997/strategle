@@ -25,7 +25,7 @@ const Fundraising = ({ treasuryAmount }: FundraisingProps) => {
           </article>
 
           <article className="text-right">
-            <div className="mb-1">GOAT</div>
+            <div className="mb-1">GOAL</div>
             <div className="text-primary-light font-black">
               <span className="text-2xl">$ 30,000</span>&nbsp;
               <span>USDT</span>

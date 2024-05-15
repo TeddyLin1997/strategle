@@ -4,7 +4,7 @@ import LogoIcon from '@/assets/images/logo-icon.png'
 const Rules = () => {
   return (
     <div className="Protocol-Rules">
-      <pre className="mb-6 font-bold text-4xl text-center">Protocol Rules</pre>
+      {/* <pre className="mb-6 font-bold text-4xl text-center">Protocol Rules</pre> */}
       <div className="mb-10 px-6 py-4 bg-gray-bg border border-gray-1 rounded-2xl">
 
         <div className="mb-2 font-bold text-lg">Description : </div>

@@ -37,7 +37,7 @@ const Treasury = ({ treasuryBalance }: { treasuryBalance: string }) => {
 
         </header>
 
-        <div className="flex gap-8 flex-wrap md:flex-nowrap">
+        <div className="flex gap-4 flex-wrap md:flex-nowrap">
           {/* Treasury USDT Transaction */}
           <article className="w-full md:w-1/2">
             <div className="mb-2 font-bold text-lg">Treasury USDT Transactions : </div>
@@ -46,9 +46,9 @@ const Treasury = ({ treasuryBalance }: { treasuryBalance: string }) => {
             </div>
           </article>
 
-          {/* Recent Transactions */}
+          {/* Protocol Events */}
           <article className="w-full md:w-1/2">
-            <div className="mb-2 font-bold text-lg">Recent Transactions : </div>
+            <div className="mb-2 font-bold text-lg">Protocol Events : </div>
             <div className="py-2 rounded-lg overflow-auto">
               {(transactions?.protocolTxns || []).map((item: Transaction) => <CardEvent key={item.id} event={item} />)}
             </div>

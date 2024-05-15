@@ -6,8 +6,8 @@ import StakeIcon from '@/assets/icons/event-stake.svg?react'
 import UnstakeIcon from '@/assets/icons/event-withdraw.svg?react'
 import ClaimIcon from '@/assets/icons/event-claim.svg?react'
 import TimeIcon from '@/assets/icons/time.svg?react'
-import Copy from '@/components/copy'
 import dayjs from 'dayjs'
+import toast from 'react-hot-toast'
 
 enum Event {
   Mint = 'Mint',
@@ -19,7 +19,7 @@ enum Event {
 const eventMap = {
   [Event.Mint]: {
     value: (event: Transaction) => formatNumber(ethers.formatEther(event.value)),
-    icon: <div className="mr-2 w-8 h-8 flex bg-primary-extend rounded-full"><MintIcon className="m-auto w-6 h-6 fill-primary" /></div>,
+    icon: <div className="mr-2 w-8 h-8 flex bg-gray-1 rounded-full"><MintIcon className="m-auto w-6 h-6 fill-primary" /></div>,
     unit: 'STRAG',
   },
   [Event.Stake]: {
@@ -44,6 +44,9 @@ interface EventTransactionCardProps {
 }
 
 const EventTransactionCard = ({ event }: EventTransactionCardProps) => {
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => toast.success(`Copied : ${text}`, { style: { wordBreak: 'break-all' }}))
+  }
 
   return (
     <div className="mb-2 px-3 py-2 rounded border border-gray-1 text-sm shadow-lg">
@@ -53,27 +56,25 @@ const EventTransactionCard = ({ event }: EventTransactionCardProps) => {
         <div className="ml-auto flex items-center gap-2 text-sm">
           <TimeIcon className="w-4 h-4 fill-primary-light" />
           <span className="font-bold">{dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss') || '-'}</span>
+          <a href={`https://arbiscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
+            <LinkIcon className="mb-1 w-4 h-4 fill-primary-light" />
+          </a>
         </div>
       </div>
 
       <div className="h-[48px] flex items-end">
         <div>
-          <div className="mb-2 font-bold flex gap-2">
-            <span>{`Address : ${truncateSlice(event.from)}` }</span>
-            <Copy text={event.from} />
+          <div className="mb-2 font-bold flex flex-wrap gap-2 cursor-pointer hover:text-primary" onClick={() => copyToClipboard(event.transactionHash)}>
+            <span>TxHash : {truncateSlice(event.transactionHash)}</span>
           </div>
-          <div className="font-bold flex gap-2">
-            <span>Tx Hash : {truncateSlice(event.transactionHash)}</span>
-            <Copy text={event.transactionHash} />
+
+          <div className="font-bold flex flex-wrap gap-2 cursor-pointer hover:text-primary" onClick={() => copyToClipboard(event.from)}>
+            <span>{`Address : ${truncateSlice(event.from)}` }</span>
           </div>
         </div>
 
         <div className="ml-auto text-right">
-          <div className="mb-2 font-bold text-tertiary">{`${eventMap[event.event]?.value(event)} ${eventMap[event.event]?.unit}`}</div>
-          <a href={`https://arbiscan.io/tx/${event.transactionHash}`} target="__blank" className="flex justify-end items-center gap-1 hover:opacity-60 transition-all">
-            <span  className="text-xs" >View on Scan</span>
-            <LinkIcon className="mb-1 w-4 h-4 fill-primary-light" />
-          </a>
+          <div className="font-bold text-lg text-tertiary">{`${eventMap[event.event]?.value(event)} ${eventMap[event.event]?.unit}`}</div>
         </div>
       </div>
     </div>
