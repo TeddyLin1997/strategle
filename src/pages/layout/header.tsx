@@ -1,31 +1,27 @@
 import { MouseEvent, useState } from 'react'
-import { HeaderWrapper, HeaderContainer, LogoWrapper, NavItem, ConnectWallet, WalletContent, WalletItem, ChainItem, UserItem, Protocol } from './header.style'
-import { Dialog, DialogContent, DialogTitle, Button, Popover, Typography, Chip } from '@mui/material'
+import { HeaderWrapper, HeaderContainer, LogoWrapper, NavItem, ConnectWallet, ChainItem, UserItem, Protocol } from './header.style'
+import { Button, Popover, Typography } from '@mui/material'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/logo-icon.png'
 import MenuImg from '@/assets/images/menu.png'
-import MetaMaskImg from '@/assets/images/metamask.png'
 import WalletContainer from '@/context/walletContext'
 import Drawer from '@mui/material/Drawer'
 import { NavLink } from 'react-router-dom'
 import CloseIcon from '@/assets/icons/close.svg?react'
 import WalletIcon from '@/assets/icons/wallet.svg?react'
+import ConntectWalletDialog from './connect-wallet-dialog'
 import { useTranslation } from 'react-i18next'
 
 const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
 const anchorStyle = { top: 8 }
 
-const walletList = [
-  {
-    name: 'MetaMask',
-    icon: MetaMaskImg,
-    checkIsInstall: () => Boolean(window.ethereum && window.ethereum.isMetaMask),
-    installUrl: 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-  }
-]
-
 const Header = () => {
   const wallet = WalletContainer.useContainer()
+
+  const handleDisconnect = () => {
+    wallet.disconnect()
+    handleUserMenuClose()
+  }
 
   const isConnect = Boolean(wallet.account)
   const ellipsisAddress = isConnect ? `${wallet.account.slice(0, 6)} ... ${wallet.account.slice(-6)}` : ''
@@ -50,8 +46,6 @@ const Header = () => {
 
   // mobile meun
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
-
-
 
   const { t } = useTranslation()
 
@@ -160,6 +154,13 @@ const Header = () => {
                   <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
                 </UserItem>
               ))}
+
+              <div
+                onClick={handleDisconnect}
+                className="m-4 mb-2 py-1 text-center text-gray-1 border border-gray-1 opacity-40 hover:opacity-100 hover:border-secondary hover:text-secondary cursor-pointer rounded"
+              >
+                Disconnect
+              </div>
             </div>
           </Popover>
         </section>
@@ -167,31 +168,7 @@ const Header = () => {
 
         {/* 連接錢包 */}
         { !isConnect && <ConnectWallet className="!hidden sm:!block" variant="contained" size="small" onClick={handleOpen}>{t('connect_wallet')}</ConnectWallet> }
-        {/* 連接錢包 dialog */}
-        <Dialog onClose={handleClose} open={isOpenDialog}>
-          <DialogTitle sx={{ fontSize: '18px', textAlign: 'center' }}>{t('please_connect_wallet')}</DialogTitle>
-          <DialogContent>
-            <WalletContent>
-              {walletList.map(item => {
-                const isInstall = item.checkIsInstall()
-                const handleInstall = () => window.open(item.installUrl)
-                const handleConnect = () => {
-                  wallet.connect()
-                  handleClose()
-                }
-
-                return (
-                  <WalletItem key={item.name} onClick={isInstall ? handleConnect : handleInstall}>
-                    { !isInstall && <Chip label="Not installed" color="error" size="small" /> }
-                    <img className="wallet-icon" src={item.icon} />
-                    <div className="wallet-name">{item.name}</div>
-                  </WalletItem>
-                )
-              }
-              )}
-            </WalletContent>
-          </DialogContent>
-        </Dialog>
+        <ConntectWalletDialog  isOpen={isOpenDialog} onClose={handleClose} />
 
       </HeaderContainer>
     </HeaderWrapper>

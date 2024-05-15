@@ -34,6 +34,11 @@ const useWallet = () => {
     }
   }
 
+  useEffect(() => {
+    if (!window.ethereum) return
+    connect()
+  }, [])
+
   // switch chain
   const [chainId, setChainId] = useState(initWalletContext.chainId)
   const switchChain = async (newChainId: number) => {
@@ -66,10 +71,6 @@ const useWallet = () => {
             }],
           })
 
-          // await window.ethereum.request({
-          //   method: 'wallet_switchEthereumChain',
-          //   params: [{ chainId: `0x${newChainId.toString(16)}` }],
-          // })
           setChainId(newChainId)
         }
       }
@@ -80,10 +81,17 @@ const useWallet = () => {
 
   useEffect(() => {
     if (!window.ethereum) return
-    connect()
-    window.ethereum.on('chainChanged', (chainId: string) => setChainId(parseInt(chainId)))
-    window.ethereum.on('accountsChanged', (accounts: string[]) => setAccount(toChecksumAddress(accounts[0] || '')))
-  }, [])
+
+    function handleChainChanged (chainId: string) {setChainId(parseInt(chainId)) }
+    function handleAccountChanged (accounts: string[]) { setAccount(toChecksumAddress(accounts[0] || '')) }
+
+    window.ethereum.on('chainChanged', handleChainChanged)
+    window.ethereum.on('accountsChanged', handleAccountChanged)
+    return () => {
+      window.ethereum.removeListener('chainChanged', handleChainChanged)
+      window.ethereum.removeListener('accountsChanged', handleAccountChanged)
+    }
+  }, [window.ethereum])
 
   // provider
   const [isConnect, setIsConnect] = useState(false)
@@ -99,11 +107,11 @@ const useWallet = () => {
         console.log('connect blockchain success:', network.name)
       })
       .catch((error) => {
-        console.error('connect blockchain erro:', error)
+        console.error('connect blockchain error:', error)
       })
 
     setProvider(rpcProvider)
-  }, [chainId])
+  }, [chainId, window.ethereum])
 
   // balance
   const [balance, setBalance] = useState(initWalletContext.balance)
@@ -114,7 +122,7 @@ const useWallet = () => {
       const balanceInEth = Number(formatEther(balanceInWei))
       setBalance(Math.round(balanceInEth * 10000) / 10000) // 只留四位小數)
     }
-  }, [account, provider, isConnect])
+  }, [account, provider, isConnect, window.ethereum])
 
   // signer
   const [isSigner, setisSigner] = useState(initWalletContext.isSigner)
@@ -128,12 +136,19 @@ const useWallet = () => {
       setisSigner(true)
       setSigner(res)
     })
-  }, [provider, account, chainId])
+  }, [provider, account, chainId, window.ethereum])
 
+  // disconnect
+  const disconnect = () => {
+    setAccount(initWalletContext.account)
+    setChainId(initWalletContext.chainId)
+    setBalance(initWalletContext.balance)
+    setProvider(new BrowserProvider(window.ethereum))
+    setIsConnect(false)
+  }
 
-  return { isSigner, signer, account, chainId, provider, balance, isConnect, connect, switchChain }
+  return { isSigner, signer, account, chainId, provider, balance, isConnect, connect, switchChain, disconnect }
 }
-
 
 const WalletContainer = createContainer(useWallet)
 

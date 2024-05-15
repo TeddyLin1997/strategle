@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const StockIndex = styled.div`
   width: 100%;
   user-select: none;
-  background-color: #1d1e25;
+  background-color: #2a2932;
   display: flex;
 `
 
