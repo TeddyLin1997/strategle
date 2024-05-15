@@ -5,11 +5,11 @@ import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/logo-icon.png'
 import MenuImg from '@/assets/images/menu.png'
 import MetaMaskImg from '@/assets/images/metamask.png'
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import WalletContainer from '@/context/walletContext'
 import Drawer from '@mui/material/Drawer'
 import { NavLink } from 'react-router-dom'
 import CloseIcon from '@/assets/icons/close.svg?react'
+import WalletIcon from '@/assets/icons/wallet.svg?react'
 import { useTranslation } from 'react-i18next'
 
 const anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const
@@ -64,7 +64,7 @@ const Header = () => {
   ]
 
   const userMenu = [
-    { key: 'wallet', path: '/wallet', text: t('wallet'), icon: <AccountBalanceWalletIcon /> },
+    { key: 'wallet', path: '/wallet', text: t('wallet'), icon: <WalletIcon /> },
   ]
 
   return (

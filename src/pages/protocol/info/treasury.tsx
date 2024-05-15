@@ -14,7 +14,7 @@ const Treasury = ({ treasuryBalance }: { treasuryBalance: string }) => {
       {/* Treasury Info */}
       <pre className="mb-6 w-full text-center font-bold text-4xl tracking-wider">TREASURY</pre>
 
-      <section className="mb-10">
+      <section>
         <header className="mb-8 mx-auto p-6 gap-4 flex w-full md:w-2/3 max-w-[680px] items-stretch font-bold bg-gray-bg rounded-3xl">
 
           <div className="hidden lg:flex w-[224px]">

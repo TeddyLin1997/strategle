@@ -3,12 +3,12 @@ import { useLocation } from 'react-router'
 import toast from 'react-hot-toast'
 import { ethers } from 'ethers'
 import Big from 'big.js'
-import { ArrowBack } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import LoadingFullscreen from '@/components/loading-fullscreen'
 import ContractContainer from '@/context/contractContext'
 import WalletContainer from '@/context/walletContext'
 import useLoading from '@/hooks/useLoading'
+import ArrowBack from '@/assets/icons/arrow-back.svg?react'
 import { formatNumber, truncateSlice } from '@/utils'
 import Actions from './actions'
 import TxHistory from './tx-history'
@@ -111,7 +111,7 @@ const Portfolio = ({ protocolInfo, handleTab }: PortfolioProps) => {
   return (
     <div>
       <div className="mb-8 flex items-center gap-4 font-bold text-3xl">
-        <ArrowBack onClick={handleTab} className="cursor-pointer" />
+        <ArrowBack onClick={handleTab} className="w-8 h-8 cursor-pointer fill-white" />
         <span>Portfolio</span>
       </div>
 
@@ -176,7 +176,7 @@ const Portfolio = ({ protocolInfo, handleTab }: PortfolioProps) => {
 
       <hr className="mb-8 md:mb-10 border-gray-1" />
 
-      <section className="mb-10 flex flex-wrap md:flex-nowrap gap-6">
+      <section className="flex flex-wrap md:flex-nowrap gap-6">
         <Actions ref={actionEl} update={() => updateTxns()} />
 
         <TxHistory transactionList={transactionEvents} />
