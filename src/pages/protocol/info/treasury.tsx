@@ -43,6 +43,7 @@ const Treasury = ({ treasuryBalance }: { treasuryBalance: string }) => {
             <div className="mb-2 font-bold text-lg">Treasury USDT Transactions : </div>
             <div className="py-2 rounded-lg overflow-auto">
               {(transactions?.treausryTxns || []).map((item: Transaction) => <CardTreasury key={item.id} event={item}  />)}
+              { (transactions?.treausryTxns || []).length === 0 && <div className="my-20 font-bold text-xl text-center">No data yet...</div> }
             </div>
           </article>
 
@@ -51,6 +52,7 @@ const Treasury = ({ treasuryBalance }: { treasuryBalance: string }) => {
             <div className="mb-2 font-bold text-lg">Protocol Events : </div>
             <div className="py-2 rounded-lg overflow-auto">
               {(transactions?.protocolTxns || []).map((item: Transaction) => <CardEvent key={item.id} event={item} />)}
+              {(transactions?.protocolTxns || []).length === 0 && <div className="my-20 font-bold text-xl text-center">No data yet...</div> }
             </div>
           </article>
 
