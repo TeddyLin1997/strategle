@@ -24,9 +24,11 @@ const ScrollerList = ({ title, category, list, reverse }: ScrollListProps) => {
     if (!scrollEl.current || !itemEl.current) return
 
     const timerId = setInterval(async () => {
-      if (Math.floor(reverse ? -scrollEl.current!.scrollLeft : scrollEl.current!.scrollLeft) === scrollEl.current!.scrollWidth - scrollEl.current!.offsetWidth) distance.current = reverse ? 1.5 : -1.5
-      if (Math.floor(reverse ? -scrollEl.current!.scrollLeft : scrollEl.current!.scrollLeft) === 0) distance.current = reverse ? -1.5 : 1.5
-      scrollEl.current!.scrollLeft += distance.current
+      if (Math.floor(reverse ? -(scrollEl.current?.scrollLeft || 0) : (scrollEl.current?.scrollLeft || 0)) === (scrollEl.current?.scrollWidth || 0) - (scrollEl.current?.offsetWidth || 0)) distance.current = reverse ? 1.5 : -1.5
+      if (Math.floor(reverse ? -(scrollEl.current?.scrollLeft || 0) : (scrollEl.current?.scrollLeft || 0)) === 0) distance.current = reverse ? -1.5 : 1.5
+      if (scrollEl.current) {
+        scrollEl.current.scrollLeft += distance.current
+      }
     }, 40)
 
     return () => clearInterval(timerId)

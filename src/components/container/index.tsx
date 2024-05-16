@@ -1,17 +1,8 @@
-import styled from 'styled-components'
-
-const ContainerWrapper = styled.div`
-  margin: 0 auto;
-  padding: 20px;
-  max-width: 1200px;
-  min-height: calc(100vh - 100px);
-`
-
 const Container = ({ children, ...props }) => {
   return (
-    <ContainerWrapper {...props}>
+    <section className="my-0 mx-auto p-5 max-w-screen-xl min-h-[100vh-100px]" {...props}>
       {children}
-    </ContainerWrapper>
+    </section>
   )
 }
 

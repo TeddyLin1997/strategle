@@ -4,11 +4,11 @@ import { useEffect, useMemo, useState } from 'react'
 import Wallet from './wallet'
 import Info from './info'
 import { CHAIN_INFO } from '@/global/chain'
-import { Title, Account, Balance } from './style'
 import Container from '@/components/container'
 import MarketContainer from '@/context/marketContext'
 import WalletContainer from '@/context/walletContext'
 import useTitle from '@/hooks/useTitle'
+import { formatAmount } from '@/utils'
 
 enum TabEnum {
   Wallet = 'Wallet',
@@ -48,26 +48,28 @@ const User = () => {
   return (
     <div className="bg-white">
       <Container>
-        <Title>
-          <Account>
-            <Avatar alt={ensName} src={AvatarIcon} className="!w-16 !h-16" />
-            <div className="avatar-text">
-              <div className="ensname">{ensName || '-'}</div>
-              <div className="account">{account || '-'}</div>
-              <div className="bio">This user has not added a bio yet</div>
-            </div>
-          </Account>
+        <section className="mb-6 flex flex-wrap sm:flex-nowrap gap-4">
+          <article className="w-full sm:w-[65%] flex gap-4">
+            <Avatar alt={ensName} src={AvatarIcon} className="mt-2 !w-16 !h-16" />
 
-          <Balance>
-            <div className="balance">
-              <img src={CHAIN_INFO[chainId]?.coin?.icon} />
-              <div>
-                <div className="coin-balance">{balance} {CHAIN_INFO[chainId]?.coin?.name}</div>
-                <div className="netvalue">≈$ {netValue}</div>
+            <div className="w-[calc(100%-100px)] break-all">
+              <div className="text-base font-bold">{ensName || '-'}</div>
+              <div className="mb-1">{account || '-'}</div>
+              <div className="text-gray-secondary">This user has not added a bio yet</div>
+            </div>
+          </article>
+
+          <article className="mt-2 py-2 px-4 w-full sm:w-[35%] h-fit flex flex-col justify-center text-right rounded-md bg-gradient-to-r from-[#14bdbd] to-secondary ">
+            <div className="flex items-center">
+              <img src={CHAIN_INFO[chainId]?.coin?.icon} className="w-10 h-10" />
+
+              <div className="ml-auto text-white">
+                <div className="font-bold text-xl">{formatAmount(balance)} {CHAIN_INFO[chainId]?.coin?.name}</div>
+                <div className="text-sm">$ {formatAmount(netValue)}</div>
               </div>
             </div>
-          </Balance>
-        </Title>
+          </article>
+        </section>
 
         <div>
           <Tabs value={tab} onChange={handleTab} textColor="secondary" indicatorColor="secondary">

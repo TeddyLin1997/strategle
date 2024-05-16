@@ -23,8 +23,8 @@ const Footer = () => {
 
         <div>
           <div className="mb-4 flex items-center gap-4">
-            <XIcon width="24px" height="24px" className="cursor-pointer" />
-            <TelegramIcon width="24px" height="24px" className="cursor-pointer" />
+            <XIcon width="24px" height="24px" className="cursor-pointer" onClick={() => window.open('https://twitter.com/Strategle_Tech')}/>
+            <TelegramIcon width="24px" height="24px" className="cursor-pointer" onClick={() => window.open('https://t.me/STRAG_Protocol')} />
             <div className="flex w-[24px] h-[24px] cursor-pointer rounded-full border-solid border border-gray-1" onClick={() => window.open('https://www.strategle.tech/protocol')}>
               <img src={LogoIcon} width="20px" height="20px" className="m-auto" />
             </div>
