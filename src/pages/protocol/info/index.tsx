@@ -53,7 +53,7 @@ const Info = ({ protocolInfo, handleTab }: InfoProps) => {
           </div>
 
           <div className="mb-6 font-semibold">
-              Stragle Protocol empowers users to stake <span className="text-primary text-xl" >STRAG tokens</span>  for AI-driven investment profits. By exchanging <span className="text-up text-xl">USDT</span> , investors can access potential gains of up to <span className="text-primary text-xl">12%</span> annually. With flexible profit withdrawals and a focus on security and transparency, it offers a seamless crypto investment experience.
+            STRAG protocol allows users to mint <span className="text-primary text-xl" > STRAG tokens </span> using <span className="text-up text-xl">USDT</span> and stake the tokens to earn an AI-driven investment profits with <span className="text-primary text-xl">12%</span> APY. With flexible profit withdrawals and a focus on security and transparency, it offers a seamless crypto investment experience.
           </div>
 
           <Button variant="contained" className="!font-bold" onClick={handleTab}>
