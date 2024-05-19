@@ -35,8 +35,8 @@ const Rules = () => {
             </div>
 
             <ul className="ml-8 list-disc leading-[2]">
-              <li>Apply to unstake STRAG tokens.</li>
-              <li>Withdraw STRAG tokens.</li>
+              <li>Unstake STRAG tokens.</li>
+              <li>If you wish to exit the protocol, we will establish a STRAG/USDT trading pool on Uniswap two quarters after the plan starts</li>
             </ul>
           </article>
 
@@ -52,9 +52,9 @@ const Rules = () => {
 
             <ul className="ml-8 list-disc leading-relaxed">
               <li>We offer a high APY of 12%.</li>
-              <li>Earnings can be claimed and withdrawn at any time.</li>
+              <li>Earnings can be claimed at any time.</li>
               <li>The treasury's fund flow is publicly accessible.</li>
-              <li>STRAG tokens can be exchanged 1:1 with USDT, eliminating concerns about price fluctuations.</li>
+              <li>STRAG tokens eliminating concerns about price fluctuations.</li>
             </ul>
           </article>
 
