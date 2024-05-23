@@ -1,6 +1,6 @@
 import { MouseEvent, useState } from 'react'
-import { HeaderWrapper, HeaderContainer, LogoWrapper, NavItem, ConnectWallet, ChainItem, Protocol } from './header.style'
-// import { HeaderWrapper, HeaderContainer, LogoWrapper, NavItem, ConnectWallet, ChainItem, UserItem, Protocol } from './header.style'
+// import { HeaderWrapper, HeaderContainer, LogoWrapper, NavItem, ConnectWallet, ChainItem, Protocol } from './header.style'
+import { HeaderWrapper, HeaderContainer, LogoWrapper, NavItem, ConnectWallet, ChainItem, UserItem, Protocol } from './header.style'
 import { Button, Popover, Typography } from '@mui/material'
 import { CHAIN_INFO, CHAIN_INFO_LIST } from '@/global/chain'
 import LogoImg from '@/assets/images/logo-icon.png'
@@ -9,7 +9,7 @@ import WalletContainer from '@/context/walletContext'
 import Drawer from '@mui/material/Drawer'
 import { NavLink } from 'react-router-dom'
 import CloseIcon from '@/assets/icons/close.svg?react'
-// import WalletIcon from '@/assets/icons/wallet.svg?react'
+import WalletIcon from '@/assets/icons/wallet.svg?react'
 import ConntectWalletDialog from './connect-wallet-dialog'
 import { useTranslation } from 'react-i18next'
 
@@ -58,9 +58,9 @@ const Header = () => {
     { key: 'protocol', path: '/protocol', text: <Protocol>{t('strag_protocol')}</Protocol> },
   ]
 
-  // const userMenu = [
-  //   { key: 'wallet', path: '/wallet', text: t('wallet'), icon: <WalletIcon /> },
-  // ]
+  const userMenu = [
+    { key: 'wallet', path: '/wallet', text: t('wallet'), icon: <WalletIcon /> },
+  ]
 
   return (
     <HeaderWrapper>
@@ -95,13 +95,13 @@ const Header = () => {
 
             <div className="w-4/5 h-[1px] bg-gray-1" />
 
-            {/* {userMenu.map(item => (
+            {userMenu.map(item => (
               <NavLink to={item.path} key={item.key} className="block font-bold hover:text-[#b28905]" onClick={() => setOpenMobileMenu(false)}>
                 <div className="w-fit text-2xl">
                   {item.text}
                 </div>
               </NavLink>
-            ))} */}
+            ))}
           </div>
         </Drawer>
 
@@ -149,12 +149,12 @@ const Header = () => {
             sx={anchorStyle}
           >
             <div style={{ padding: '6px', width: '164px' }}>
-              {/* {userMenu.map((item) => (
+              {userMenu.map((item) => (
                 <UserItem key={item.key} to={item.path} onClick={handleUserMenuClose}>
                   {item.icon}
                   <Typography className="chain-text" sx={{ py: 1, px: 2, fontSize: 14, }}>{item.text}</Typography>
                 </UserItem>
-              ))} */}
+              ))}
 
               <div
                 onClick={handleDisconnect}

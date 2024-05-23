@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { ChangeEvent, useState } from 'react'
 import { TextField, Button } from '@mui/material'
-import SendIcon from '@/assets/images/send.png'
 import QuestionIcon from '@/assets/images/question.png'
 import { CHAIN_INFO } from '@/global/chain'
 import WalletContainer from '@/context/walletContext'
@@ -20,7 +19,6 @@ const Container = styled.div`
 
 const FormItem = styled.div`
   margin-bottom: 1.2rem;
-  max-width: 60%;
 
   @media screen and (max-width: 768px) {
     max-width: 100%;
@@ -40,25 +38,6 @@ const AddressLabel = styled.div`
   word-break: break-all;
 `
 
-const BlockchainLabel = styled.div`
-  margin-top: .6rem;
-  display: flex;
-  align-items: center;
-
-  .blockchain-icon {
-    margin-right: .6rem;
-    width: 32px;
-    border-radius: 50%;
-    border: 2px solid #306F7D;
-  }
-
-  .blockchain-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #306F7D;
-  }
-`
-
 const SendButton = styled(Button)`
   margin-top: 1rem !important;
   max-width: 100%;
@@ -70,17 +49,6 @@ const SendButton = styled(Button)`
 
   @media screen and (max-width: 768px){
     width: 100%;
-  }
-`
-
-const Image = styled.img`
-  width: 30%;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-
-  @media screen and (max-width: 768px) {
-    display: none;
   }
 `
 
@@ -133,12 +101,14 @@ const Send = () => {
 
   return (
     <Container>
+      <div className="mb-4 pb-2 text-center font-black text-2xl border-b">SEND</div>
+
       <FormItem>
         <FormLabel>Chain Name :</FormLabel>
-        <BlockchainLabel>
-          <img className="blockchain-icon w-8 h-8" src={chainInfo?.icon || QuestionIcon} />
-          <div className="blockchain-name">{chainInfo?.name || 'No support chain'}</div>
-        </BlockchainLabel>
+        <div className="mt-2 flex items-center gap-2">
+          <img className="w-8 h-8 rounded-full border border-solid border-secondary" src={chainInfo?.icon || QuestionIcon} />
+          <div className="text-xl font-bold text-secondary">{chainInfo?.name || 'No support chain'}</div>
+        </div>
       </FormItem>
 
       <FormItem>
@@ -174,7 +144,6 @@ const Send = () => {
         </SendButton>
       </FormItem>
 
-      <Image src={SendIcon} />
     </Container>
   )
 }
