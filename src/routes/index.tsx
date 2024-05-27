@@ -11,7 +11,13 @@ const routes = [
   { key: 'analysis', path: '/analysis', index: false, component: lazy(() => import('@/pages/analysis')) },
   { key: 'community', path: '/community', index: false, component: lazy(() => import('@/pages/community')) },
   { key: 'protocol', path: '/protocol', index: false, component: lazy(() => import('@/pages/protocol')) },
-  { key: 'wallet', path: '/wallet', index: false, component: lazy(() => import('@/pages/wallet')) },
+  { key: 'wallet', path: '/wallet', index: false, component: lazy(() => import('@/pages/wallet')),
+    children: [
+      { key: 'profile', path: 'profile', index: true, component: lazy(() => import('@/pages/wallet/profile')) },
+      { key: 'transactions', path: 'transactions', index: false, component: lazy(() => import('@/pages/wallet/transactions')) },
+      { key: 'setting', path: 'setting', index: false, component: lazy(() => import('@/pages/wallet/setting')) },
+    ]
+  },
 
   { key: 'not-found', path: '*', index: false, component: Layout.NotFound },
 ]
@@ -19,14 +25,11 @@ const routes = [
 const root = (
   <Route path="/" element={<Layout />} errorElement={<Layout.ErrorBoundary />}>
     <Route element={<Layout.SuspenseLayout />}>
-      { routes.map(item =>
-        (<Route
-          key={item.key}
-          index={item.index}
-          path={item.path}
-          element={<item.component/>}
-        />))
-      }
+      { routes.map(item => (
+        <Route key={item.key} index={false} path={item.path} element={<item.component/>}>
+          { item.index === false && item.children ? item.children.map(node => <Route key={node.key} index={item.index} path={node.path} element={<node.component/>} />) : null }
+        </Route>
+      ))}
     </Route>
   </Route>
 )

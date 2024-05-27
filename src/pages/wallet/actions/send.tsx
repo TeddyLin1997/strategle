@@ -1,11 +1,14 @@
 import styled from 'styled-components'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import QuestionIcon from '@/assets/images/question.png'
 import { CHAIN_INFO } from '@/global/chain'
 import WalletContainer from '@/context/walletContext'
+import { checksumAddress } from '@/utils'
 // import { TOKEN_INFO } from '@/global/token'
 // import { Contract, parseUnits, parseEther } from 'ethers'
+import { parseEther } from 'ethers'
+import toast from 'react-hot-toast'
 
 const Container = styled.div`
   position: relative;
@@ -64,6 +67,7 @@ const Send = () => {
 
   // to address
   const [toAddress, setToAddress] = useState('')
+  const checksumToAddress = useMemo(() => checksumAddress(toAddress), [toAddress])
   const onChangeToAddress = (event: ChangeEvent<HTMLInputElement>) => {
     setToAddress(event.target.value)
   }
@@ -75,6 +79,12 @@ const Send = () => {
   //   const tokenBalance = await tokenContract.balanceOf(account)
   // }, [assets])
 
+  // amount
+  const [amount, setAmount] = useState('')
+  const onChangeAmount = (event: ChangeEvent<HTMLInputElement>) => {
+    setAmount(event.target.value)
+  }
+
 
   const sendTransaction = async () => {
     if (assets === chainInfo?.coin?.name) sendNativeToken()
@@ -83,13 +93,15 @@ const Send = () => {
 
   // send native token
   async function sendNativeToken () {
-    // const toAddress = '目標地址'
-    // const valueInWei = parseEther('1.0') // 1 ETH
-    // const transaction = {
-    //   to: toAddress,
-    //   value: valueInWei,
-    // }
-    // const tx = await signer.sendTransaction(transaction)
+    if (!wallet.signer) return toast.error('wallet is empty.')
+    const valueInWei = parseEther(amount)
+    const transaction = {
+      to: checksumToAddress,
+      value: valueInWei,
+    }
+
+    await wallet.signer.sendTransaction(transaction)
+    toast.success('success')
   }
 
 
@@ -135,7 +147,7 @@ const Send = () => {
 
       <FormItem>
         <FormLabel>Amount :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
+        <TextField value={amount} onChange={onChangeAmount} variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
       </FormItem>
 
       <FormItem>

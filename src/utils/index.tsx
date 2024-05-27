@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import { ethers } from 'ethers'
 import Big from 'big.js'
+import toast from 'react-hot-toast'
 
 export const getChangeColor = (changeValue: number) => {
   return changeValue >= 0 ? '#0ecb81' : '#FF6E6E'
@@ -43,7 +44,7 @@ export function isValidEVMAddress (address: string) {
   return ethers.isAddress(address)
 }
 
-export function toChecksumAddress (address: string) {
+export function checksumAddress (address: string) {
   return isValidEVMAddress(address) ? ethers.getAddress(address) : address
 }
 
@@ -77,3 +78,8 @@ export const timeCountdown = (timestamp: number) => {
 }
 
 export const getRandomInteger = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min
+
+export const copy = (text: string) => {
+  navigator.clipboard.writeText(text)
+    .then(() => toast.success(`Copied: ${text}`))
+}

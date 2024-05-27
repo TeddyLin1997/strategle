@@ -2,13 +2,20 @@ import { Avatar } from '@mui/material'
 import AvatarIcon from '@/assets/images/avatar/avatar1.png'
 import { useEffect, useMemo, useState } from 'react'
 import Actions from './actions'
-import Info from './info'
 import { CHAIN_INFO } from '@/global/chain'
 import Container from '@/components/container'
 import MarketContainer from '@/context/marketContext'
 import WalletContainer from '@/context/walletContext'
 import useTitle from '@/hooks/useTitle'
 import { formatAmount } from '@/utils'
+import { Outlet } from 'react-router'
+import { NavLink } from 'react-router-dom'
+
+const tabs = [
+  { label: 'Profile', url: '/wallet/profile' },
+  { label: 'Transactions', url: '/wallet/transactions' },
+  { label: 'Setting', url: '/wallet/setting' },
+]
 
 const User = () => {
   useTitle('Wallet')
@@ -68,9 +75,20 @@ const User = () => {
           </article>
         </section>
 
-        <div>
-          <Info />
-        </div>
+        <section>
+          <div className="flex items-center gap-3 border-b">
+            { tabs.map(item =>
+              <NavLink
+                key={item.label}
+                to={item.url}
+                className={({ isActive }) => `px-5 h-10 text-lg font-bold ${isActive ? 'text-secondary border-b-4 border-secondary' : ''}`}
+              >
+                {item.label}
+              </NavLink>) }
+          </div>
+
+          { account && <Outlet /> }
+        </section>
       </Container>
     </div>
   )

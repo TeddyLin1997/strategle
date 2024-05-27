@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ethers, BrowserProvider, formatEther, Signer } from 'ethers'
 import { CHAIN_INFO } from '@/global/chain'
-import { toChecksumAddress } from '@/utils'
+import { checksumAddress } from '@/utils'
 import { createContainer } from 'unstated-next'
 
 const initWalletContext = {
@@ -25,7 +25,7 @@ const useWallet = () => {
 
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      setAccount(toChecksumAddress(accounts[0]))
+      setAccount(checksumAddress(accounts[0]))
 
       const chainId = await window.ethereum.request({ method: 'eth_chainId' })
       setChainId(parseInt(chainId))
@@ -36,6 +36,7 @@ const useWallet = () => {
 
   useEffect(() => {
     if (!window.ethereum) return
+    console.log('connect')
     connect()
   }, [])
 
@@ -83,7 +84,7 @@ const useWallet = () => {
     if (!window.ethereum) return
 
     function handleChainChanged (chainId: string) {setChainId(parseInt(chainId)) }
-    function handleAccountChanged (accounts: string[]) { setAccount(toChecksumAddress(accounts[0] || '')) }
+    function handleAccountChanged (accounts: string[]) { setAccount(checksumAddress(accounts[0] || '')) }
 
     window.ethereum.on('chainChanged', handleChainChanged)
     window.ethereum.on('accountsChanged', handleAccountChanged)

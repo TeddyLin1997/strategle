@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Send from './send'
 import Swap from './swap'
+import Receive from './recevie'
 import Donate from './donate'
 import { Dialog, DialogContent } from '@mui/material'
 import ArrowIcon from '@/assets/icons/arrow-top.svg?react'
@@ -51,7 +52,7 @@ const Wallet = () => {
       <Dialog open={isOpen} onClose={() => setIsOpne(false)}>
         <DialogContent>
           {tab === ETab.SEND && <Send />}
-          {/* {tab === ETab.RECEIVE && <Send />} */}
+          {tab === ETab.RECEIVE && <Receive />}
           {/* {tab === ETab.BRIDGE && <Send />} */}
           {tab === ETab.SWAP && <Swap />}
           {tab === ETab.DONATE && <Donate />}

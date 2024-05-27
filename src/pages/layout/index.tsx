@@ -15,6 +15,8 @@ interface LayoutProps {
 
 const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
 
+  const toastOption = {  style: { wordBreak: 'break-all' } } as any
+
   return (
     <main className="flex flex-col pt-[56px] relative w-full min-h-screen">
       <ProgressLinear />
@@ -25,7 +27,7 @@ const Layout = ({ isErrorPage = false, children }: LayoutProps) => {
       </section>
 
       <Footer />
-      <Toaster position="top-center" reverseOrder={true}/>
+      <Toaster position="top-center" reverseOrder={true} toastOptions={toastOption}/>
     </main>
   )
 }

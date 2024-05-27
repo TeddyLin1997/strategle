@@ -52,7 +52,7 @@ const Donate = () => {
   const chainInfo = CHAIN_INFO[wallet.chainId]
 
   // address
-  const toAddress = '0x9b7d9b7442db594a91ca5a9ee4b117c65e26721e'
+  const toAddress = '0xC1fF2a5C49e9866Ccb77Ab836506106eCFC4627F'
   const fromAddress = wallet.account
 
 
@@ -75,14 +75,16 @@ const Donate = () => {
 
       <FormItem>
         <FormLabel>Send To :</FormLabel>
-        <TextField
+        <AddressLabel>STRATEGLE.TECH</AddressLabel>
+        <AddressLabel>{`(${toAddress})`}</AddressLabel>
+        {/* <TextField
           value={toAddress}
           variant="outlined"
           color="secondary"
           size="small"
           sx={inputStyle}
           disabled
-        />
+        /> */}
       </FormItem>
 
       <FormItem>

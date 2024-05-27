@@ -59,7 +59,7 @@ const Header = () => {
   ]
 
   const userMenu = [
-    { key: 'wallet', path: '/wallet', text: t('wallet'), icon: <WalletIcon /> },
+    { key: 'wallet', path: '/wallet/profile', text: t('wallet'), icon: <WalletIcon /> },
   ]
 
   return (
