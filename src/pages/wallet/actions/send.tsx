@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, MenuItem } from '@mui/material'
 import QuestionIcon from '@/assets/images/question.png'
 import { CHAIN_INFO } from '@/global/chain'
 import WalletContainer from '@/context/walletContext'
@@ -11,13 +11,13 @@ import { parseEther } from 'ethers'
 import toast from 'react-hot-toast'
 
 const Container = styled.div`
-  position: relative;
+  /* position: relative;
 
   @media screen and (max-width: 768px) {
     & .MuiTextField-root {
       width: 100%;
     }
-  }
+  } */
 `
 
 const FormItem = styled.div`
@@ -60,7 +60,7 @@ const inputStyle = { width: '100%', marginTop: '.4rem' }
 const Send = () => {
   // chain
   const wallet = WalletContainer.useContainer()
-  const chainInfo = CHAIN_INFO[wallet.chainId]
+  const nativeToken = CHAIN_INFO[wallet.chainId]
 
   // from address
   const fromAddress = wallet.account
@@ -73,7 +73,11 @@ const Send = () => {
   }
 
   // assets token contract
-  const [assets] = useState(chainInfo?.coin?.name || '-')
+  const [assets, setAssets] = useState('native')
+
+  const onChangeAssets = (event: ChangeEvent<HTMLInputElement>) => {
+    setAssets(event.target.value)
+  }
   // const tokenContract = useMemo(() => {
   //   const tokenContract = new Contract(tokenContractAddress, tokenContractABI, signer)
   //   const tokenBalance = await tokenContract.balanceOf(account)
@@ -87,7 +91,7 @@ const Send = () => {
 
 
   const sendTransaction = async () => {
-    if (assets === chainInfo?.coin?.name) sendNativeToken()
+    if (assets === 'native') sendNativeToken()
     else sendERC20Token()
   }
 
@@ -111,6 +115,17 @@ const Send = () => {
     // const tokenTransaction = await tokenContract.transfer(toAddress, tokenAmount)
   }
 
+  const tokenList = useMemo(() => {
+    return [
+      {
+        label: nativeToken.coin.name,
+        value: 'native',
+        icon: nativeToken.coin.icon,
+        isNative: '',
+      }
+    ]
+  }, [wallet.chainId])
+
   return (
     <Container>
       <div className="mb-4 pb-2 text-center font-black text-2xl border-b">SEND</div>
@@ -118,8 +133,8 @@ const Send = () => {
       <FormItem>
         <FormLabel>Chain Name :</FormLabel>
         <div className="mt-2 flex items-center gap-2">
-          <img className="w-8 h-8 rounded-full border border-solid border-secondary" src={chainInfo?.icon || QuestionIcon} />
-          <div className="text-xl font-bold text-secondary">{chainInfo?.name || 'No support chain'}</div>
+          <img className="w-8 h-8 rounded-full border border-solid border-secondary" src={nativeToken?.icon || QuestionIcon} />
+          <div className="text-xl font-bold text-secondary">{nativeToken?.name || 'No support chain'}</div>
         </div>
       </FormItem>
 
@@ -142,7 +157,16 @@ const Send = () => {
 
       <FormItem>
         <FormLabel>Assets :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select asset" />
+        <TextField value={assets} onChange={onChangeAssets} variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select token" select >
+          {tokenList.map(item => (
+            <MenuItem key={item.value} value={item.value}>
+              <div className="flex items-center gap-2">
+                <img src={item.icon} alt="" className="w-6 h-6" />
+                <span>{item.label}</span>
+              </div>
+            </MenuItem>
+          ))}
+        </TextField>
       </FormItem>
 
       <FormItem>
@@ -151,7 +175,7 @@ const Send = () => {
       </FormItem>
 
       <FormItem>
-        <SendButton variant="contained" color="secondary" size="large" onClick={sendTransaction}>
+        <SendButton variant="contained" color="secondary" size="large" onClick={sendTransaction} fullWidth>
           Send
         </SendButton>
       </FormItem>
