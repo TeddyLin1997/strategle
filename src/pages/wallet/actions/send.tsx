@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { TextField, Button, MenuItem } from '@mui/material'
 import QuestionIcon from '@/assets/images/question.png'
@@ -9,51 +8,6 @@ import { checksumAddress } from '@/utils'
 // import { Contract, parseUnits, parseEther } from 'ethers'
 import { parseEther } from 'ethers'
 import toast from 'react-hot-toast'
-
-const Container = styled.div`
-  /* position: relative;
-
-  @media screen and (max-width: 768px) {
-    & .MuiTextField-root {
-      width: 100%;
-    }
-  } */
-`
-
-const FormItem = styled.div`
-  margin-bottom: 1.2rem;
-
-  @media screen and (max-width: 768px) {
-    max-width: 100%;
-  }
-`
-
-const FormLabel = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
-`
-
-const AddressLabel = styled.div`
-  width: 100%;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #306F7D;
-  word-break: break-all;
-`
-
-const SendButton = styled(Button)`
-  margin-top: 1rem !important;
-  max-width: 100%;
-  width: 210px;
-
-  @media screen and (max-width: 1200px){
-    width: 188px;
-  }
-
-  @media screen and (max-width: 768px){
-    width: 100%;
-  }
-`
 
 const inputStyle = { width: '100%', marginTop: '.4rem' }
 
@@ -127,24 +81,24 @@ const Send = () => {
   }, [wallet.chainId])
 
   return (
-    <Container>
+    <section>
       <div className="mb-4 pb-2 text-center font-black text-2xl border-b">SEND</div>
 
-      <FormItem>
-        <FormLabel>Chain Name :</FormLabel>
+      <article className="mb-5">
+        <div className="font-bold">Chain Name :</div>
         <div className="mt-2 flex items-center gap-2">
           <img className="w-8 h-8 rounded-full border border-solid border-secondary" src={nativeToken?.icon || QuestionIcon} />
           <div className="text-xl font-bold text-secondary">{nativeToken?.name || 'No support chain'}</div>
         </div>
-      </FormItem>
+      </article>
 
-      <FormItem>
-        <FormLabel>Send From :</FormLabel>
-        <AddressLabel>{fromAddress}</AddressLabel>
-      </FormItem>
+      <article className="mb-5">
+        <div className="font-bold">Send From :</div>
+        <div className="w-full font-bold text-xl text-secondary break-all">{fromAddress}</div>
+      </article>
 
-      <FormItem>
-        <FormLabel>Send To :</FormLabel>
+      <article className="mb-5">
+        <div className="font-bold">Send To :</div>
         <TextField
           value={toAddress}
           onChange={onChangeToAddress}
@@ -153,10 +107,10 @@ const Send = () => {
           size="small"
           sx={inputStyle}
           placeholder="Enter public address(0x)" />
-      </FormItem>
+      </article>
 
-      <FormItem>
-        <FormLabel>Assets :</FormLabel>
+      <article className="mb-5">
+        <div className="font-bold">Assets :</div>
         <TextField value={assets} onChange={onChangeAssets} variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select token" select >
           {tokenList.map(item => (
             <MenuItem key={item.value} value={item.value}>
@@ -167,20 +121,20 @@ const Send = () => {
             </MenuItem>
           ))}
         </TextField>
-      </FormItem>
+      </article>
 
-      <FormItem>
-        <FormLabel>Amount :</FormLabel>
+      <article className="mb-5">
+        <div className="font-bold">Amount :</div>
         <TextField value={amount} onChange={onChangeAmount} variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
-      </FormItem>
+      </article>
 
-      <FormItem>
-        <SendButton variant="contained" color="secondary" size="large" onClick={sendTransaction} fullWidth>
+      <article className="mb-5">
+        <Button variant="contained" color="secondary" size="large" onClick={sendTransaction} fullWidth>
           Send
-        </SendButton>
-      </FormItem>
+        </Button>
+      </article>
 
-    </Container>
+    </section>
   )
 }
 

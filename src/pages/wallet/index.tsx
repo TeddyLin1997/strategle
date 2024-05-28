@@ -7,7 +7,7 @@ import Container from '@/components/container'
 import MarketContainer from '@/context/marketContext'
 import WalletContainer from '@/context/walletContext'
 import useTitle from '@/hooks/useTitle'
-import { formatAmount } from '@/utils'
+import { copy, formatAmount } from '@/utils'
 import { Outlet } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
@@ -53,14 +53,14 @@ const User = () => {
 
             <div className="w-[calc(100%-100px)] break-all">
               <div className="text-lg font-bold">{ensName || '-'}</div>
-              <div className="mb-1">{account || '-'}</div>
+              <div className="mb-1 cursor-pointer" onClick={() => copy(account)}>{account || '-'}</div>
               <div className="text-gray-secondary">This user has not added a bio yet</div>
             </div>
           </article>
 
 
           <article className="mt-2 w-full sm:w-[35%]">
-            <div className="mb-1 py-2 px-4 h-fit flex flex-col justify-center text-right rounded-md bg-gradient-to-r from-[#14bdbd] to-secondary ">
+            <div className="mb-1 py-2 px-4 h-fit flex flex-col justify-center text-right rounded-md bg-gradient-to-r from-tertiary to-secondary">
               <div className="flex items-center">
                 <img src={CHAIN_INFO[chainId]?.coin?.icon} className="w-10 h-10" />
 

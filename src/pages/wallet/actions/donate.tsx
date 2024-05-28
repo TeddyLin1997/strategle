@@ -1,106 +1,120 @@
-import styled from 'styled-components'
-import { TextField, Button } from '@mui/material'
+import { ChangeEvent, useMemo, useState } from 'react'
+import { TextField, Button, MenuItem } from '@mui/material'
 import QuestionIcon from '@/assets/images/question.png'
 import { CHAIN_INFO } from '@/global/chain'
 import WalletContainer from '@/context/walletContext'
-
-const Container = styled.div`
-  position: relative;
-`
-
-const FormItem = styled.div`
-  margin-bottom: 1.2rem;
-
-  @media screen and (max-width: 768px) {
-    max-width: 100%;
-  }
-`
-
-const FormLabel = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
-`
-
-const AddressLabel = styled.div`
-  width: 100%;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #306F7D;
-  word-break: break-all;
-`
-
-const SendButton = styled(Button)`
-  margin-top: 1rem !important;
-  max-width: 100%;
-  width: 210px;
-
-
-  @media screen and (max-width: 1200px){
-    width: 188px;
-  }
-
-  @media screen and (max-width: 768px){
-    width: 100%;
-  }
-`
+import { checksumAddress } from '@/utils'
+import { parseEther } from 'ethers'
+import toast from 'react-hot-toast'
 
 const inputStyle = { width: '100%', marginTop: '.4rem' }
 
 const Donate = () => {
   // chain
   const wallet = WalletContainer.useContainer()
-  const chainInfo = CHAIN_INFO[wallet.chainId]
+  const nativeToken = CHAIN_INFO[wallet.chainId]
 
   // address
-  const toAddress = '0xC1fF2a5C49e9866Ccb77Ab836506106eCFC4627F'
-  const fromAddress = wallet.account
+  const toAddress = checksumAddress('0xC1fF2a5C49e9866Ccb77Ab836506106eCFC4627F')
+  const fromAddress = checksumAddress(wallet.account)
 
+  // amount
+  const [amount, setAmount] = useState('')
+  const onChangeAmount = (event: ChangeEvent<HTMLInputElement>) => {
+    setAmount(event.target.value)
+  }
+
+
+  // assets token contract
+  const [assets, setAssets] = useState('native')
+  const onChangeAssets = (event: ChangeEvent<HTMLInputElement>) => {
+    setAssets(event.target.value)
+  }
+
+  const sendTransaction = async () => {
+    if (assets === 'native') sendNativeToken()
+    else sendERC20Token()
+  }
+
+  // send native token
+  async function sendNativeToken () {
+    if (!wallet.signer) return toast.error('wallet is empty.')
+    const valueInWei = parseEther(amount)
+    const transaction = {
+      to: toAddress,
+      value: valueInWei,
+    }
+
+    await wallet.signer.sendTransaction(transaction)
+    toast.success('success')
+  }
+
+
+  // send ERC-20 token
+  async function sendERC20Token () {
+    // const tokenAmount = parseUnits('100', 18)
+    // const tokenTransaction = await tokenContract.transfer(toAddress, tokenAmount)
+  }
+
+  const tokenList = useMemo(() => {
+    return [
+      {
+        label: nativeToken.coin.name,
+        value: 'native',
+        icon: nativeToken.coin.icon,
+        isNative: '',
+      }
+    ]
+  }, [wallet.chainId])
 
   return (
-    <Container>
+    <section>
       <div className="mb-4 pb-2 text-center font-black text-2xl border-b">DONATE</div>
 
-      <FormItem>
-        <FormLabel>Chain Name :</FormLabel>
+      <article className="mb-5">
+        <div className="font-bold">Chain Name :</div>
         <div className="mt-2 flex items-center gap-2">
-          <img className="w-8 h-8 rounded-full border border-solid border-secondary" src={chainInfo?.icon || QuestionIcon} />
-          <div className="text-xl font-bold text-secondary">{chainInfo?.name || 'No support chain'}</div>
+          <img className="w-8 h-8 rounded-full border border-solid border-secondary" src={nativeToken?.icon || QuestionIcon} />
+          <div className="text-xl font-bold text-secondary">{nativeToken?.name || 'No support chain'}</div>
         </div>
-      </FormItem>
+      </article>
 
-      <FormItem>
-        <FormLabel>Send From :</FormLabel>
-        <AddressLabel>{fromAddress}</AddressLabel>
-      </FormItem>
+      <article className="mb-5">
+        <div className="font-bold">Send From :</div>
+        <div className="w-full font-bold text-lg text-secondary break-all">{fromAddress}</div>
+      </article>
 
-      <FormItem>
-        <FormLabel>Send To :</FormLabel>
-        <AddressLabel>STRATEGLE.TECH</AddressLabel>
-        <AddressLabel>{`(${toAddress})`}</AddressLabel>
-        {/* <TextField
-          value={toAddress}
-          variant="outlined"
-          color="secondary"
-          size="small"
-          sx={inputStyle}
-          disabled
-        /> */}
-      </FormItem>
+      <article className="mb-5">
+        <div className="font-bold">Send To :</div>
+        <div className="w-full font-bold text-lg text-secondary break-all">{toAddress}</div>
+        <div className="px-2 w-fit font-bold bg-secondary text-white break-all rounded">STRATEGLE.Admin</div>
+      </article>
 
-      <FormItem>
-        <FormLabel>Assets :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select asset" />
-      </FormItem>
+      <article className="mb-5">
+        <div className="font-bold">Assets :</div>
+        <TextField value={assets} onChange={onChangeAssets} variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="Select token" select >
+          {tokenList.map(item => (
+            <MenuItem key={item.value} value={item.value}>
+              <div className="flex items-center gap-2">
+                <img src={item.icon} alt="" className="w-6 h-6" />
+                <span>{item.label}</span>
+              </div>
+            </MenuItem>
+          ))}
+        </TextField>
+      </article>
 
-      <FormItem>
-        <FormLabel>Amount :</FormLabel>
-        <TextField variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
-      </FormItem>
+      <article className="mb-5">
+        <div className="font-bold">Amount :</div>
+        <TextField value={amount} onChange={onChangeAmount} variant="outlined" color="secondary" size="small" sx={inputStyle} placeholder="0.00" />
+      </article>
 
-      <FormItem>
-        <SendButton variant="contained" color="secondary" size='large'>Send</SendButton>
-      </FormItem>
-    </Container>
+      <article className="mb-5">
+        <Button variant="contained" color="secondary" size="large" onClick={sendTransaction} fullWidth>
+          Send
+        </Button>
+      </article>
+    </section>
   )
 }
 
